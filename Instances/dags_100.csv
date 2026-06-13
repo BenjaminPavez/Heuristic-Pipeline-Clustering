@@ -1,0 +1,15 @@
+DAG;NumTablasAlimenta;TablasAlimenta;NumTablasAlimentan;TablasAlimentan
+DAG_1;2;TablaA,TablaB;1;TablaC
+DAG_2;3;TablaD,TablaE,TablaF;2;TablaG,TablaH
+DAG_3;1;TablaI;3;TablaJ,TablaK,TablaL
+DAG_4;4;TablaM,TablaN,TablaO,TablaP;1;TablaQ
+DAG_5;2;TablaR,TablaS;2;TablaT,TablaU
+DAG_6;3;TablaV,TablaW,TablaX;1;TablaY
+DAG_7;1;TablaZ;4;TablaAA,TablaBB,TablaCC,TablaDD
+DAG_8;2;TablaEE,TablaFF;3;TablaGG,TablaHH,TablaII
+DAG_9;3;TablaJJ,TablaKK,TablaLL;2;TablaMM,TablaNN
+DAG_10;4;TablaOO,TablaPP,TablaQQ,TablaRR;1;TablaSS
+DAG_11;2;TablaTT,TablaUU;2;TablaVV,TablaWW
+DAG_12;3;TablaXX,TablaYY,TablaZZ;1;TablaAAA
+DAG_13;1;TablaBBB;3;TablaCCC,TablaDDD,TablaEEE
+DAG_14;4;TablaFFF,TablaGGG,TablaHHH,TablaIII;2;Tabla
