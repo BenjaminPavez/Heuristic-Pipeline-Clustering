@@ -1,52 +1,110 @@
 #include "types.h"
 #include <unordered_set>
+#include <unordered_map>
 #include <string>
 
-// Calcula cuántas tablas únicas comparten dos DAGs
+// ---------------------------------------------------------------------------
+// calculate_affinity: Calcula la afinidad entre dos DAGs distinguiendo tres casos:
+//
+//  +WEIGHT_LINEAGE_RELATION  por cada relación productor→consumidor
+//    (dag1 escribe una tabla que dag2 lee, o viceversa)
+//
+//  +WEIGHT_SHARED_TABLE      por cada tabla compartida genérica
+//    (ambos la leen, o comparten sin relación directa de linaje)
+//
+//  +WEIGHT_WRITE_CONFLICT    (negativo) por cada tabla que AMBOS escriben
+//    (conflicto de escritura simultánea en el mismo dominio)
+// ---------------------------------------------------------------------------
 int calculate_affinity(const DAG& dag1, const DAG& dag2) {
-    int shared_tables = 0;
-    
-    // 1. Consolidar todas las tablas (origen y destino) del dag1 en un set hash
-    std::unordered_set<std::string> dag1_tables;
-    for (const auto& table : dag1.source_tables) {
-        dag1_tables.insert(table);
-    }
-    for (const auto& table : dag1.target_tables) {
-        dag1_tables.insert(table);
-    }
+    int score = 0;
 
-    // 2. Consolidar las tablas del dag2 en otro set temporal para evitar duplicados 
-    // (en caso de que un DAG lea y escriba en la misma tabla)
-    std::unordered_set<std::string> dag2_tables;
-    for (const auto& table : dag2.source_tables) {
-        dag2_tables.insert(table);
-    }
-    for (const auto& table : dag2.target_tables) {
-        dag2_tables.insert(table);
-    }
+    // Sets de targets para detectar conflictos y linaje
+    std::unordered_set<std::string> targets1(dag1.target_tables.begin(), dag1.target_tables.end());
+    std::unordered_set<std::string> targets2(dag2.target_tables.begin(), dag2.target_tables.end());
+    std::unordered_set<std::string> sources1(dag1.source_tables.begin(), dag1.source_tables.end());
+    std::unordered_set<std::string> sources2(dag2.source_tables.begin(), dag2.source_tables.end());
 
-    // 3. Contar la intersección: cuántas tablas del dag2 existen en el dag1
-    for (const auto& table : dag2_tables) {
-        // find() en un unordered_set es O(1)
-        if (dag1_tables.find(table) != dag1_tables.end()) {
-            shared_tables++;
+    // Tablas ya contabilizadas para evitar doble conteo
+    std::unordered_set<std::string> counted;
+
+    // 1. Conflictos de escritura: ambos escriben la misma tabla (peor caso)
+    for (const auto& t : targets1) {
+        if (targets2.count(t)) {
+            score += WEIGHT_WRITE_CONFLICT;
+            counted.insert(t);
         }
     }
 
-    return shared_tables;
+    // 2. Relación de linaje: dag1 escribe lo que dag2 lee
+    for (const auto& t : targets1) {
+        if (!counted.count(t) && sources2.count(t)) {
+            score += WEIGHT_LINEAGE_RELATION;
+            counted.insert(t);
+        }
+    }
+
+    // 3. Relación de linaje inversa: dag2 escribe lo que dag1 lee
+    for (const auto& t : targets2) {
+        if (!counted.count(t) && sources1.count(t)) {
+            score += WEIGHT_LINEAGE_RELATION;
+            counted.insert(t);
+        }
+    }
+
+    // 4. Tablas genéricas compartidas: ambos leen la misma tabla fuente
+    for (const auto& t : sources1) {
+        if (!counted.count(t) && sources2.count(t)) {
+            score += WEIGHT_SHARED_TABLE;
+            counted.insert(t);
+        }
+    }
+
+    return score;
 }
 
-// Calcula el fitness total de una solución completa
-int evaluate_solution(const Solution& sol, const std::vector<DAG>& all_dags) {
+// ---------------------------------------------------------------------------
+// evaluate_solution: Suma la afinidad cruzada de todos los pares dentro
+// de cada clúster. También actualiza write_conflicts por clúster.
+// ---------------------------------------------------------------------------
+int evaluate_solution(Solution& sol, const std::vector<DAG>& all_dags) {
     int total_fitness = 0;
-    
-    // Por cada clúster (Dominio de Datos), sumar la afinidad cruzada de todos los DAGs que contiene
-    for (const auto& cluster : sol.clusters) {
-        // Comparamos todos los pares de DAGs posibles dentro del clúster
+
+    for (auto& cluster : sol.clusters) {
+        cluster.write_conflicts = 0;
+
+        // Detectar conflictos de escritura dentro del clúster
+        // Mapa: tabla_target -> lista de DAGs que escriben en ella
+        std::unordered_map<std::string, int> target_writers;
+        for (int idx : cluster.dags_indices) {
+            for (const auto& t : all_dags[idx].target_tables) {
+                target_writers[t]++;
+            }
+        }
+        for (const auto& [table, count] : target_writers) {
+            if (count > 1) cluster.write_conflicts += (count - 1);
+        }
+
+        // Sumar afinidad de todos los pares
         for (size_t i = 0; i < cluster.dags_indices.size(); ++i) {
             for (size_t j = i + 1; j < cluster.dags_indices.size(); ++j) {
                 total_fitness += calculate_affinity(
-                    all_dags[cluster.dags_indices[i]], 
+                    all_dags[cluster.dags_indices[i]],
+                    all_dags[cluster.dags_indices[j]]
+                );
+            }
+        }
+    }
+    return total_fitness;
+}
+
+// Sobrecarga const para uso interno del Tabu Search (sin actualizar write_conflicts)
+int evaluate_solution(const Solution& sol, const std::vector<DAG>& all_dags) {
+    int total_fitness = 0;
+    for (const auto& cluster : sol.clusters) {
+        for (size_t i = 0; i < cluster.dags_indices.size(); ++i) {
+            for (size_t j = i + 1; j < cluster.dags_indices.size(); ++j) {
+                total_fitness += calculate_affinity(
+                    all_dags[cluster.dags_indices[i]],
                     all_dags[cluster.dags_indices[j]]
                 );
             }

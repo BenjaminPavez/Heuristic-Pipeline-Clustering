@@ -1,11 +1,9 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17 -O3
 
-# Archivos fuente y objetos
-SRCS = main.cpp utils.cpp evaluation.cpp constraints.cpp greedy.cpp tabu_search.cpp
+SRCS = main.cpp utils.cpp evaluation.cpp constraints.cpp greedy.cpp tabu_search.cpp reporting.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-# Nombre del ejecutable
 TARGET = dag_clusterer
 
 all: $(TARGET)
