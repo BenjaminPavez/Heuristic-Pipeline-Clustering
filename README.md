@@ -94,7 +94,7 @@ The generated solutions are stored in the `Solved/` directory, including:
 
 This implementation accompanies the undergraduate thesis:
 
-**"A Heuristic Approach for the Logical Clustering of Data Pipelines"**
+**"Acercamiento heurístico para el agrupamiento lógico de pipelines de datos"**
 
 The proposed methodology adapts the **Topic-Based Conference Scheduling Problem (TBCSP)** to address the logical clustering of data pipelines through heuristic optimization.
 
