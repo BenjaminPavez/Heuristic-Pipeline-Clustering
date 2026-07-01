@@ -4,7 +4,9 @@
 #include <climits>
 #include <iostream>
 
-extern int evaluate_solution(const Solution& sol, const std::vector<DAG>& all_dags);
+using namespace std;
+
+extern int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags);
 extern bool check_capacity_constraint(const Cluster& cluster, const DAG& new_dag, int max_capacity);
 
 int get_dag_weight(const DAG& dag) {
@@ -16,7 +18,7 @@ int get_dag_weight(const DAG& dag) {
 // cohesión (menos afinidad por par) y redistribuye sus DAGs hacia el clúster
 // que mejor los acepte. Esto escapa óptimos locales sin reiniciar desde cero.
 // ---------------------------------------------------------------------------
-static Solution perturb_solution(const Solution& sol, const std::vector<DAG>& dags, int max_capacity) {
+static Solution perturb_solution(const Solution& sol, const vector<DAG>& dags, int max_capacity) {
     Solution perturbed = sol;
 
     // Encontrar el clúster con menor afinidad promedio por par
@@ -41,7 +43,7 @@ static Solution perturb_solution(const Solution& sol, const std::vector<DAG>& da
     }
 
     // Tomar todos los DAGs del clúster peor y reasignarlos al mejor clúster disponible
-    std::vector<int> dags_to_redistribute = perturbed.clusters[worst_cluster_idx].dags_indices;
+    vector<int> dags_to_redistribute = perturbed.clusters[worst_cluster_idx].dags_indices;
     perturbed.clusters[worst_cluster_idx].dags_indices.clear();
     perturbed.clusters[worst_cluster_idx].current_capacity = 0;
 
@@ -67,13 +69,13 @@ static Solution perturb_solution(const Solution& sol, const std::vector<DAG>& da
     return perturbed;
 }
 
-Solution run_tabu_search(const Solution& initial_sol, const std::vector<DAG>& dags, int max_capacity, int max_iterations, int tabu_tenure) {
+Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, int max_capacity, int max_iterations, int tabu_tenure) {
     Solution current_sol = initial_sol;
     current_sol.fitness_score = evaluate_solution(current_sol, dags);
 
     Solution best_global_sol = current_sol;
 
-    std::vector<std::vector<int>> tabu_matrix(dags.size(), std::vector<int>(current_sol.clusters.size(), 0));
+    vector<vector<int>> tabu_matrix(dags.size(), vector<int>(current_sol.clusters.size(), 0));
 
     // Parámetros de diversificación
     const int STAGNATION_LIMIT = max_iterations / 5; // Perturbar si no mejora en 20% de las iteraciones
@@ -141,13 +143,13 @@ Solution run_tabu_search(const Solution& initial_sol, const std::vector<DAG>& da
 
         // Diversificación: si llevamos STAGNATION_LIMIT iteraciones sin mejorar, perturbar
         if (stagnation_counter >= STAGNATION_LIMIT) {
-            std::cout << "  [Tabu] Perturbando en iteracion " << iter << " (estancamiento)\n";
+            cout << "  [Tabu] Perturbando en iteracion " << iter << " (estancamiento)\n";
             current_sol = perturb_solution(current_sol, dags, max_capacity);
             current_sol.fitness_score = evaluate_solution(current_sol, dags);
             stagnation_counter = 0;
             // Reiniciar la matriz tabú tras perturbación
             for (auto& row : tabu_matrix)
-                std::fill(row.begin(), row.end(), 0);
+                fill(row.begin(), row.end(), 0);
         }
     }
 

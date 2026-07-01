@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <iostream>
 
+using namespace std;
+
 // 1. Restricción de Capacidad del Clúster (Límite de I/O)
 bool check_capacity_constraint(const Cluster& cluster, const DAG& new_dag, int max_tables_per_cluster) {
     int new_dag_weight = new_dag.num_source_tables + new_dag.num_target_tables;
@@ -26,9 +28,9 @@ bool check_uniqueness_constraint(const Solution& sol, int dag_index) {
 // 3. Contar conflictos de escritura al agregar un DAG a un clúster
 // Retorna cuántas tablas target del candidato ya son escritas por otro DAG en el clúster
 // No bloquea el movimiento; el valor se usa como penalización en el fitness
-int count_target_conflicts(const Cluster& cluster, const DAG& candidate, const std::vector<DAG>& all_dags) {
+int count_target_conflicts(const Cluster& cluster, const DAG& candidate, const vector<DAG>& all_dags) {
     // Construir set de tablas target ya presentes en el clúster
-    std::unordered_map<std::string, int> existing_targets;
+    unordered_map<string, int> existing_targets;
     for (int idx : cluster.dags_indices) {
         for (const auto& t : all_dags[idx].target_tables) {
             existing_targets[t]++;

@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 // Pesos para la función de fitness
 // Ajustar estos valores para cambiar el comportamiento del algoritmo
 static const int WEIGHT_SHARED_TABLE      =  1; // Tabla genérica compartida entre dos DAGs
@@ -12,18 +14,18 @@ static const int WEIGHT_WRITE_CONFLICT    = -4; // Penalización: dos DAGs escri
 
 // Representa un flujo de orquestación
 struct DAG {
-    std::string name;
+    string name;
     int num_source_tables;
-    std::vector<std::string> source_tables;
+    vector<string> source_tables;
     int num_target_tables;
-    std::vector<std::string> target_tables;
+    vector<string> target_tables;
 };
 
 // Representa el Dominio de Datos (Caja lógica)
 struct Cluster {
     int id;
     int current_capacity;
-    std::vector<int> dags_indices;  // Índices de los DAGs asignados a esta caja
+    vector<int> dags_indices;  // Índices de los DAGs asignados a esta caja
     int write_conflicts = 0;        // Cantidad de conflictos de escritura detectados en este clúster
 };
 
@@ -36,13 +38,13 @@ struct ClusterReport {
     int write_conflicts;      // Conflictos de escritura detectados
     int lineage_pairs;        // Pares con relación productor→consumidor
     double cohesion_score;    // Score normalizado 0-100
-    std::string semaphore;    // "GREEN", "YELLOW", "RED"
-    std::vector<std::string> unique_tables; // Todas las tablas únicas cubiertas
+    string semaphore;    // "GREEN", "YELLOW", "RED"
+    vector<string> unique_tables; // Todas las tablas únicas cubiertas
 };
 
 // Tabla crítica con su frecuencia de aparición
 struct CriticalTable {
-    std::string name;
+    string name;
     int frequency;            // En cuántos DAGs aparece
     int as_source;            // Cuántas veces como tabla de lectura
     int as_target;            // Cuántas veces como tabla de escritura
@@ -51,7 +53,7 @@ struct CriticalTable {
 
 // Estructura de la solución completa
 struct Solution {
-    std::vector<Cluster> clusters;
+    vector<Cluster> clusters;
     int fitness_score; // Calculado por la afinidad de tablas con penalizaciones
 };
 

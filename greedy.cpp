@@ -4,11 +4,13 @@
 #include <climits>
 #include <iostream>
 
+using namespace std;
+
 extern bool check_capacity_constraint(const Cluster& cluster, const DAG& new_dag, int max_capacity);
 extern int calculate_affinity(const DAG& dag1, const DAG& dag2);
 
 // Calcula la afinidad acumulada de un DAG candidato con todos los DAGs ya en el clúster
-int calculate_cluster_affinity(const Cluster& cluster, const DAG& candidate_dag, const std::vector<DAG>& all_dags) {
+int calculate_cluster_affinity(const Cluster& cluster, const DAG& candidate_dag, const vector<DAG>& all_dags) {
     int total_affinity = 0;
     for (int dag_idx : cluster.dags_indices) {
         total_affinity += calculate_affinity(all_dags[dag_idx], candidate_dag);
@@ -16,9 +18,9 @@ int calculate_cluster_affinity(const Cluster& cluster, const DAG& candidate_dag,
     return total_affinity;
 }
 
-Solution run_greedy(const std::vector<DAG>& dags, int max_capacity) {
+Solution run_greedy(const vector<DAG>& dags, int max_capacity) {
     Solution sol;
-    std::vector<bool> assigned(dags.size(), false);
+    vector<bool> assigned(dags.size(), false);
     int unassigned_count = dags.size();
     int cluster_id_counter = 0;
 

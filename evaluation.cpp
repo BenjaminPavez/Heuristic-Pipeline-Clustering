@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <string>
 
+using namespace std;
+
 // ---------------------------------------------------------------------------
 // calculate_affinity: Calcula la afinidad entre dos DAGs distinguiendo tres casos:
 //
@@ -19,13 +21,13 @@ int calculate_affinity(const DAG& dag1, const DAG& dag2) {
     int score = 0;
 
     // Sets de targets para detectar conflictos y linaje
-    std::unordered_set<std::string> targets1(dag1.target_tables.begin(), dag1.target_tables.end());
-    std::unordered_set<std::string> targets2(dag2.target_tables.begin(), dag2.target_tables.end());
-    std::unordered_set<std::string> sources1(dag1.source_tables.begin(), dag1.source_tables.end());
-    std::unordered_set<std::string> sources2(dag2.source_tables.begin(), dag2.source_tables.end());
+    unordered_set<string> targets1(dag1.target_tables.begin(), dag1.target_tables.end());
+    unordered_set<string> targets2(dag2.target_tables.begin(), dag2.target_tables.end());
+    unordered_set<string> sources1(dag1.source_tables.begin(), dag1.source_tables.end());
+    unordered_set<string> sources2(dag2.source_tables.begin(), dag2.source_tables.end());
 
     // Tablas ya contabilizadas para evitar doble conteo
-    std::unordered_set<std::string> counted;
+    unordered_set<string> counted;
 
     // 1. Conflictos de escritura: ambos escriben la misma tabla (peor caso)
     for (const auto& t : targets1) {
@@ -66,7 +68,7 @@ int calculate_affinity(const DAG& dag1, const DAG& dag2) {
 // evaluate_solution: Suma la afinidad cruzada de todos los pares dentro
 // de cada clúster. También actualiza write_conflicts por clúster.
 // ---------------------------------------------------------------------------
-int evaluate_solution(Solution& sol, const std::vector<DAG>& all_dags) {
+int evaluate_solution(Solution& sol, const vector<DAG>& all_dags) {
     int total_fitness = 0;
 
     for (auto& cluster : sol.clusters) {
@@ -74,7 +76,7 @@ int evaluate_solution(Solution& sol, const std::vector<DAG>& all_dags) {
 
         // Detectar conflictos de escritura dentro del clúster
         // Mapa: tabla_target -> lista de DAGs que escriben en ella
-        std::unordered_map<std::string, int> target_writers;
+        unordered_map<string, int> target_writers;
         for (int idx : cluster.dags_indices) {
             for (const auto& t : all_dags[idx].target_tables) {
                 target_writers[t]++;
@@ -98,7 +100,7 @@ int evaluate_solution(Solution& sol, const std::vector<DAG>& all_dags) {
 }
 
 // Sobrecarga const para uso interno del Tabu Search (sin actualizar write_conflicts)
-int evaluate_solution(const Solution& sol, const std::vector<DAG>& all_dags) {
+int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags) {
     int total_fitness = 0;
     for (const auto& cluster : sol.clusters) {
         for (size_t i = 0; i < cluster.dags_indices.size(); ++i) {
