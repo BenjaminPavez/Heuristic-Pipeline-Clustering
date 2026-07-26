@@ -166,8 +166,8 @@ void print_summary(const Solution& sol,
     // Resumen por clúster
     cout << "\n  [ DOMINIOS DE DATOS ]\n\n";
     for (const auto& r : reports) {
-        string icon = (r.semaphore == "GREEN") ? "[🟢]" :
-                           (r.semaphore == "YELLOW") ? "[🟡]" : "[🔴]";
+        string icon = (r.semaphore == "GREEN") ? "[GREEN]" :
+                           (r.semaphore == "YELLOW") ? "[YELLOW]" : "[RED]";
         cout << "  Dominio " << setw(3) << r.cluster_id
                   << " " << icon
                   << "  DAGs: " << setw(3) << r.num_dags
