@@ -53,7 +53,7 @@ static Solution perturb_solution(const Solution& sol, const vector<DAG>& dags, i
 
         for (size_t c = 0; c < perturbed.clusters.size(); ++c) {
             if ((int)c == worst_cluster_idx) continue;
-            if (!check_capacity_constraint(perturbed.clusters[c], dags[dag_id], max_capacity)) continue;
+            if (!is_feasible_move(perturbed.clusters[c], dags[dag_id], dags, max_capacity)) continue;
 
             // Calcular afinidad con el clúster destino
             int aff = 0;
@@ -99,7 +99,7 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, i
                     if (from_idx == to_idx) continue;
 
                     // Restricción dura: capacidad
-                    if (!check_capacity_constraint(current_sol.clusters[to_idx], dags[dag_id], max_capacity)) continue;
+                    if (!is_feasible_move(current_sol.clusters[to_idx], dags[dag_id], dags, max_capacity)) continue;
 
                     // Construir solución vecina
                     Solution neighbor_sol = current_sol;

@@ -17,7 +17,7 @@ int main(){
     // -----------------------------------------------------------------------
     // 1. Cargar datos
     // -----------------------------------------------------------------------
-    vector<DAG> dags = load_dags("Instances/dags_100.csv");
+    vector<DAG> dags = load_dags("Instances/dags_300.csv");
     cout << "DAGs cargados: " << dags.size() << "\n";
 
     // -----------------------------------------------------------------------
@@ -55,12 +55,12 @@ int main(){
     // -----------------------------------------------------------------------
     // 5. Exportar resultados
     // -----------------------------------------------------------------------
-    save_solution_to_csv(best_sol, dags,         "Solved/dags_100_solved.csv");
+    save_solution_to_csv(best_sol, dags,         "Solved/dags_300_solved.csv");
     save_critical_tables_csv(critical_tables,     "Solved/critical_tables.csv");
     save_cluster_report_csv(cluster_reports,      "Solved/cluster_report.csv");
 
     cout << "Archivos exportados en Solved/\n";
-    cout << "  - dags_100_solved.csv    -> asignacion DAG -> dominio\n";
+    cout << "  - dags_300_solved.csv    -> asignacion DAG -> dominio\n";
     cout << "  - critical_tables.csv    -> ranking de tablas criticas\n";
     cout << "  - cluster_report.csv     -> score y semaforo por dominio\n";
 
