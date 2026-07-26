@@ -7,7 +7,7 @@
 using namespace std;
 
 extern int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags);
-extern bool check_capacity_constraint(const Cluster& cluster, const DAG& new_dag, int max_capacity);
+extern bool is_feasible_move(const Cluster& target_cluster, const DAG& dag_to_move, const vector<DAG>& all_dags, int max_capacity);
 
 int get_dag_weight(const DAG& dag) {
     return dag.num_source_tables + dag.num_target_tables;

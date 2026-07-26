@@ -6,7 +6,7 @@
 
 using namespace std;
 
-extern bool check_capacity_constraint(const Cluster& cluster, const DAG& new_dag, int max_capacity);
+extern bool is_feasible_move(const Cluster& target_cluster, const DAG& dag_to_move, const vector<DAG>& all_dags, int max_capacity);
 extern int calculate_affinity(const DAG& dag1, const DAG& dag2);
 
 // Calcula la afinidad acumulada de un DAG candidato con todos los DAGs ya en el clúster
@@ -48,7 +48,7 @@ Solution run_greedy(const vector<DAG>& dags, int max_capacity) {
                     : calculate_cluster_affinity(current_cluster, dags[i], dags);
 
                 if (current_affinity > best_affinity) {
-                    if (check_capacity_constraint(current_cluster, dags[i], max_capacity)) {
+                    if (is_feasible_move(current_cluster, dags[i], dags, max_capacity)) {
                         best_affinity = current_affinity;
                         best_dag_idx = i;
                     }
