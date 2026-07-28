@@ -87,7 +87,6 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, i
 
         int best_move_dag_id   = -1;
         int best_move_from_idx = -1;
-        int best_move_to_idx   = -1;
 
         for (size_t from_idx = 0; from_idx < current_sol.clusters.size(); ++from_idx) {
             for (size_t d_idx = 0; d_idx < current_sol.clusters[from_idx].dags_indices.size(); ++d_idx) {
@@ -120,7 +119,6 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, i
                             best_neighbor_sol     = neighbor_sol;
                             best_move_dag_id      = dag_id;
                             best_move_from_idx    = from_idx;
-                            best_move_to_idx      = to_idx;
                         }
                     }
                 }

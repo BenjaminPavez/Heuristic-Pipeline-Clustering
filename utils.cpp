@@ -5,10 +5,13 @@
 
 using namespace std;
 
+extern bool check_dag_integrity(const DAG& dag);
+
 vector<DAG> load_dags(const string& filename) {
     vector<DAG> dags;
     ifstream file(filename);
     string line, token, list_token;
+    int skipped = 0;
 
     // Saltar la primera línea (cabecera del CSV)
     getline(file, line);
@@ -43,9 +46,21 @@ vector<DAG> load_dags(const string& filename) {
         while (getline(ss_sources, list_token, ',')) {
             current_dag.source_tables.push_back(list_token);
         }
-        
+
+        // Validación de integridad: descartar DAGs sin tablas source o target
+        if (!check_dag_integrity(current_dag)) {
+            cerr << "WARNING: DAG \"" << current_dag.name
+                 << "\" ignorado: debe tener al menos una tabla source y una target.\n";
+            skipped++;
+            continue;
+        }
+
         dags.push_back(current_dag);
     }
+
+    if (skipped > 0)
+        cerr << "Total DAGs ignorados por integridad: " << skipped << "\n";
+
     return dags;
 }
 
