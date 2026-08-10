@@ -6,19 +6,42 @@
 
 using namespace std;
 
-// Pesos para la función de fitness
-// Ajustar estos valores para cambiar el comportamiento del algoritmo
-static const int WEIGHT_SHARED_TABLE      =  1; // Tabla genérica compartida entre dos DAGs
-static const int WEIGHT_LINEAGE_RELATION  =  3; // Relación productor→consumidor (linaje directo)
-static const int WEIGHT_WRITE_CONFLICT    = -4; // Penalización: dos DAGs escriben la misma tabla target
 
-// Representa un flujo de orquestación
+static const int WEIGHT_SHARED_TABLE      =  1;
+static const int WEIGHT_LINEAGE_RELATION  =  3;
+static const int WEIGHT_WRITE_CONFLICT    = -4;
+
+
+/*
+La funcion lee y vuelca en las estructuras definidas en types.h los DAGs y sus tablas desde un archivo CSV de entrada.
+
+Parametros :
+   const string& filename : Ubicacion del archivo .csv con los DAGs y sus tablas.
+
+Retorno :
+   vector<DAG> dags : Vector de tipo DAG con los DAGs y sus tablas cargadas desde el archivo CSV.
+
+*/
 struct DAG {
     string name;
     int num_source_tables;
     vector<string> source_tables;
     int num_target_tables;
     vector<string> target_tables;
+};
+
+// Parametro opcional a aquellas tablas que por experiencia o uso se consideran mas importantes, por lo que el peso modifica la afinidad de los DAGs que las contienen
+struct TableImportance {
+    string name;
+    int extraWeight;
+};
+
+struct FindByName {
+    const string name;
+    FindByName(const string& name) : name(name) {}
+    bool operator()(const TableImportance& t) const { 
+        return t.name == name; 
+    }
 };
 
 // Representa el Dominio de Datos (Caja lógica)
@@ -42,7 +65,7 @@ struct ClusterReport {
     vector<string> unique_tables; // Todas las tablas únicas cubiertas
 };
 
-// Tabla crítica con su frecuencia de aparición
+// Tabla critica con su frecuencia de aparición
 struct CriticalTable {
     string name;
     int frequency;            // En cuántos DAGs aparece

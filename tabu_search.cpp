@@ -6,7 +6,7 @@
 
 using namespace std;
 
-extern int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags);
+extern int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags, const vector<TableImportance>& optional_weights);
 extern bool is_feasible_move(const Cluster& target_cluster, const DAG& dag_to_move, const vector<DAG>& all_dags, int max_capacity);
 
 int get_dag_weight(const DAG& dag) {
@@ -69,9 +69,9 @@ static Solution perturb_solution(const Solution& sol, const vector<DAG>& dags, i
     return perturbed;
 }
 
-Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, int max_capacity, int max_iterations, int tabu_tenure) {
+Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, const vector<TableImportance>& optional_weights, int max_capacity, int max_iterations, int tabu_tenure) {
     Solution current_sol = initial_sol;
-    current_sol.fitness_score = evaluate_solution(current_sol, dags);
+    current_sol.fitness_score = evaluate_solution(current_sol, dags, optional_weights);
 
     Solution best_global_sol = current_sol;
 
@@ -108,7 +108,7 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, i
                     neighbor_sol.clusters[to_idx].dags_indices.push_back(dag_id);
                     neighbor_sol.clusters[to_idx].current_capacity += dag_weight;
 
-                    int neighbor_fitness = evaluate_solution(neighbor_sol, dags);
+                    int neighbor_fitness = evaluate_solution(neighbor_sol, dags, optional_weights);
 
                     bool is_tabu    = tabu_matrix[dag_id][to_idx] >= iter;
                     bool aspiration = neighbor_fitness > best_global_sol.fitness_score;
@@ -143,7 +143,7 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, i
         if (stagnation_counter >= STAGNATION_LIMIT) {
             cout << "  [Tabu] Perturbando en iteracion " << iter << " (estancamiento)\n";
             current_sol = perturb_solution(current_sol, dags, max_capacity);
-            current_sol.fitness_score = evaluate_solution(current_sol, dags);
+            current_sol.fitness_score = evaluate_solution(current_sol, dags, optional_weights);
             stagnation_counter = 0;
             // Reiniciar la matriz tabú tras perturbación
             for (auto& row : tabu_matrix)
