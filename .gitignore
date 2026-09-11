@@ -1,3 +1,7 @@
 *.o
 .vscode/
+/venv/
+__pycache__/
+*.pyc
 dag_clusterer
+heuristica

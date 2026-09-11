@@ -1,0 +1,9 @@
+[dags_010_s1] DAGs: 10 | Dominios K: 3 | pares con afinidad != 0: 22 de 45
+Restricted license - for non-production use only - expires 2027-11-29
+Set parameter TimeLimit to value 3600
+Set parameter LogFile to value "resultados/dags_010_s1/gurobi.log"
+Set parameter LogToConsole to value 0
+
+[dags_010_s1] Estado: OPTIMO | Tiempo solver: 0.0 s
+  Mejor solución: 185 | Cota: 185 | Gap: 0.00 % | Dominios con DAGs: 3
+  Heurística (161) a lo más 12.97 % bajo el óptimo

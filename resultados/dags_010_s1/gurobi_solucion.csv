@@ -1,0 +1,11 @@
+cluster_id,dag_name
+0,dlk_sap_homologo_planta_mini_bb
+0,dlk_sap_homologo_experiencia_previa
+0,dlk_sap_homologo_capacidades_diferentes
+1,proc_linkedin_learning_report
+1,gob_qualtrics_formacion
+1,dash_formacion
+2,proc_ejemplos_operadores_databricks
+2,gob_4talent_proceso_seleccion_sap
+2,dlk_edx
+2,gob_egresos

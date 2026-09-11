@@ -1,0 +1,5 @@
+instancia,n_dags,dominios_K,pares_afinidad,heur_score,heur_tiempo_s,heur_dominios_con_dags,heur_factible,grb_estado,grb_obj,grb_cota,grb_gap_pct,grb_tiempo_construccion_s,grb_tiempo_solver_s,grb_dominios_con_dags,heur_brecha_vs_cota_pct,verif_afinidad,mip_start
+dags_010_s1,10,3,22,161,0.01,3,si,OPTIMO,185,185,0.00,0.01,0.02,3,12.97,ok,no
+dags_010_s2,10,3,23,146,0.01,3,si,OPTIMO,159,159,0.00,0.00,0.01,3,8.18,ok,no
+dags_208_corp,208,63,,1878,44.77,63,si,ERROR: Model too large for size-limited license; visit https://gurobi.com/unrestricted for more information,,,,,,,,,no
+dags_208_s2,208,62,,2033,19.94,62,si,ERROR: Model too large for size-limited license; visit https://gurobi.com/unrestricted for more information,,,,,,,,,no
