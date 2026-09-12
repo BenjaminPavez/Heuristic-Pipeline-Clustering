@@ -1,0 +1,54 @@
+./dag_clusterer Instances/dags_p0030_s4.csv
+DAGs cargados: 30
+Peso extra cargado para: 26 tablas
+Greedy: 9 dominios generados
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 30
+  Total Dominios  : 9
+  Fitness Global  : 60
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   3  I/O:  48  Afinidad:     6  Linaje:   1  Conflictos:  0  Score: 20.0
+  Dominio   1 [RED]  DAGs:   3  I/O:  49  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio   2 [RED]  DAGs:   3  I/O:  48  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio   3 [RED]  DAGs:   3  I/O:  45  Afinidad:     4  Linaje:   0  Conflictos:  0  Score: 13.3
+  Dominio   4 [RED]  DAGs:   2  I/O:  32  Afinidad:     3  Linaje:   1  Conflictos:  0  Score: 30.0
+  Dominio   5 [YELLOW]  DAGs:   3  I/O:  45  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 36.7
+  Dominio   6 [RED]  DAGs:   4  I/O:  48  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 8.3
+  Dominio   7 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio   8 [RED]  DAGs:   5  I/O:  50  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 5.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  dlk_tbl_00297                           4       3         1         
+  dlk_tbl_00056                           4       3         1         
+  dlk_ext_00118                           4       4         0         
+  dlk_ext_00163                           4       4         0         
+  m4sco_tbl_00473                         4       3         1         
+  dlk_ext_00047                           4       4         0         
+  proc_ext_00137                          3       3         0         
+  dash_ext_00028                          3       3         0         
+  proc_tbl_00057                          3       2         1         
+  gob_tbl_00239                           3       3         0         
+  proc_ext_00054                          3       3         0         
+  gob_ext_00130                           3       3         0         
+  dlk_ext_00088                           3       3         0         
+  gob_tbl_00265                           3       2         1         
+  dlk_ext_00148                           3       3         0         
+
+========================================================
+
+Tiempo de ejecucion: 0.1 segundos
+
+Archivos exportados en Solved/
+  - dags_p0030_s4_solved.csv -> asignacion DAG -> dominio
+  - dags_p0030_s4_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0030_s4_cluster_report.csv -> score y semaforo por dominio

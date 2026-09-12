@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <filesystem>
 #include "types.h"
 #include "utils.h"
 #include "greedy.h"
@@ -15,11 +16,18 @@ extern bool is_feasible_solution(const Solution& sol, const vector<DAG>& dags, i
 
 
 
-int main(){
+int main(int argc, char* argv[]){
     auto start = chrono::high_resolution_clock::now();
 
+    if (argc < 2) {
+        cerr << "Uso: " << argv[0] << " <archivo.csv>" << endl;
+        return 1;
+    }
+
+    string filename = argv[1];
+
     // Cargar datos
-    vector<DAG> dags = load_dags("Instances/dags_300.csv");
+    vector<DAG> dags = load_dags(filename);
     cout << "DAGs cargados: " << dags.size() << "\n";
 
     vector<TableImportance> optional_weights = load_optional_weights("Instances/important_tables.csv");
@@ -60,15 +68,23 @@ int main(){
 
     cout << "Tiempo de ejecucion: " << duration.count() << " segundos\n\n";
 
+    string instance_name = filesystem::path(filename).stem().string();
+    string solved_file = "Solved/" + instance_name + "_solved.csv";
 
-    save_solution_to_csv(best_sol, dags,     "Solved/dags_300_solved.csv");
-    save_critical_tables_csv(critical_tables, "Solved/critical_tables.csv");
-    save_cluster_report_csv(cluster_reports,  "Solved/cluster_report.csv");
+    save_solution_to_csv(best_sol, dags, solved_file);
+    save_critical_tables_csv(
+        critical_tables,
+        "Solved/" + instance_name + "_critical_tables.csv"
+    );
+    save_cluster_report_csv(
+        cluster_reports,
+        "Solved/" + instance_name + "_cluster_report.csv"
+    );
 
     cout << "Archivos exportados en Solved/\n";
-    cout << "  - dags_300_solved.csv  -> asignacion DAG -> dominio\n";
-    cout << "  - critical_tables.csv  -> ranking de tablas criticas\n";
-    cout << "  - cluster_report.csv   -> score y semaforo por dominio\n";
+    cout << "  - " << instance_name << "_solved.csv -> asignacion DAG -> dominio\n";
+    cout << "  - " << instance_name << "_critical_tables.csv -> ranking de tablas criticas\n";
+    cout << "  - " << instance_name << "_cluster_report.csv -> score y semaforo por dominio\n";
 
     return 0;
 }

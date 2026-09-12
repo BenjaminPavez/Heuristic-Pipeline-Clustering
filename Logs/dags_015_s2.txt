@@ -1,0 +1,49 @@
+./dag_clusterer Instances/dags_015_s2.csv
+DAGs cargados: 15
+Peso extra cargado para: 26 tablas
+Greedy: 4 dominios generados
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 15
+  Total Dominios  : 4
+  Fitness Global  : 201
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   3  I/O:  43  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   1 [RED]  DAGs:   4  I/O:  45  Afinidad:     9  Linaje:   0  Conflictos:  0  Score: 15.0
+  Dominio   2 [GREEN]  DAGs:   4  I/O:  46  Afinidad:    39  Linaje:   2  Conflictos:  0  Score: 65.0
+  Dominio   3 [RED]  DAGs:   4  I/O:  42  Afinidad:    20  Linaje:   0  Conflictos:  1  Score: 23.3
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  dlk_planta_antiguedad_v1                9       7         2          ⚠ DISPUTADA
+  dlk_planta_hora_extra_v1                8       7         1         
+  dlk_planta_incidencia_v1                6       5         1         
+  m4sco_x_area_job_sap                    6       6         0         
+  dlk_planta_vacante_v2                   6       5         1         
+  std_lu_edu_dip_lev_sap                  5       5         0         
+  dlk_talento_antiguedad                  4       3         1         
+  dlk_talento_competencia                 4       3         1         
+  dlk_talento_convenio                    4       3         1         
+  dlk_talento_egreso_v2                   4       3         1         
+  personales_sap                          4       4         0         
+  gob_planta_curso                        3       1         2          ⚠ DISPUTADA
+  cat_desempeno_2023_sap                  3       3         0         
+  ppn_duty_sap                            3       3         0         
+  template_centro_costo_sap               3       3         0         
+
+========================================================
+
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/
+  - dags_015_s2_solved.csv -> asignacion DAG -> dominio
+  - dags_015_s2_critical_tables.csv -> ranking de tablas criticas
+  - dags_015_s2_cluster_report.csv -> score y semaforo por dominio

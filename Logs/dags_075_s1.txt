@@ -1,0 +1,71 @@
+./dag_clusterer Instances/dags_075_s1.csv
+DAGs cargados: 75
+Peso extra cargado para: 26 tablas
+Greedy: 24 dominios generados
+  [Tabu] Perturbando en iteracion 615 (estancamiento)
+  [Tabu] Perturbando en iteracion 815 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 75
+  Total Dominios  : 24
+  Fitness Global  : 1250
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   3  I/O:  43  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 40.0
+  Dominio   1 [YELLOW]  DAGs:   3  I/O:  44  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   2 [RED]  DAGs:   4  I/O:  48  Afinidad:    14  Linaje:   0  Conflictos:  0  Score: 23.3
+  Dominio   3 [RED]  DAGs:   3  I/O:  47  Afinidad:     9  Linaje:   0  Conflictos:  0  Score: 30.0
+  Dominio   4 [YELLOW]  DAGs:   3  I/O:  44  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   5 [YELLOW]  DAGs:   3  I/O:  47  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   6 [RED]  DAGs:   4  I/O:  50  Afinidad:     9  Linaje:   0  Conflictos:  0  Score: 15.0
+  Dominio   7 [GREEN]  DAGs:   3  I/O:  43  Afinidad:    22  Linaje:   1  Conflictos:  0  Score: 73.3
+  Dominio   8 [RED]  DAGs:   4  I/O:  49  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 20.0
+  Dominio   9 [GREEN]  DAGs:   4  I/O:  48  Afinidad:    57  Linaje:   3  Conflictos:  0  Score: 95.0
+  Dominio  10 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 40.0
+  Dominio  11 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 40.0
+  Dominio  12 [GREEN]  DAGs:   2  I/O:  34  Afinidad:     8  Linaje:   0  Conflictos:  0  Score: 80.0
+  Dominio  13 [GREEN]  DAGs:   3  I/O:  46  Afinidad:    49  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio  14 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    28  Linaje:   0  Conflictos:  0  Score: 93.3
+  Dominio  15 [YELLOW]  DAGs:   3  I/O:  47  Afinidad:    18  Linaje:   1  Conflictos:  0  Score: 60.0
+  Dominio  16 [GREEN]  DAGs:   2  I/O:  48  Afinidad:    16  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio  17 [YELLOW]  DAGs:   3  I/O:  37  Afinidad:    15  Linaje:   0  Conflictos:  0  Score: 50.0
+  Dominio  18 [GREEN]  DAGs:   3  I/O:  41  Afinidad:    33  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio  19 [GREEN]  DAGs:   3  I/O:  45  Afinidad:    44  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio  20 [YELLOW]  DAGs:   3  I/O:  41  Afinidad:    19  Linaje:   0  Conflictos:  0  Score: 63.3
+  Dominio  21 [YELLOW]  DAGs:   3  I/O:  48  Afinidad:    12  Linaje:   1  Conflictos:  0  Score: 40.0
+  Dominio  22 [GREEN]  DAGs:   3  I/O:  41  Afinidad:    28  Linaje:   1  Conflictos:  0  Score: 93.3
+  Dominio  23 [GREEN]  DAGs:   4  I/O:  48  Afinidad:    72  Linaje:   3  Conflictos:  0  Score: 100.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  m4bci_colaborador_sap                   25      25        0         
+  laborales_sap                           23      23        0         
+  std_lu_job_sector_sap                   17      17        0         
+  std_lu_colaborador_sap                  16      16        0         
+  cci_altas_futuras_sap                   14      14        0         
+  colaborador_antiguedad_sap              13      13        0         
+  m4sco_jefatura_sap                      12      12        0         
+  m4vw_cargo_sap                          12      12        0         
+  m4vw_laborales_externos_sap             11      11        0         
+  m4cci_x_tipo_baja_sap                   11      11        0         
+  personales_sap                          10      10        0         
+  std_hr_posicion_sap                     10      10        0         
+  cci_familia_puesto_sap                  10      10        0         
+  gob_desempeno_beca                      10      9         1         
+  dlk_planta_incidencia                   9       8         1         
+
+========================================================
+
+Tiempo de ejecucion: 10.9 segundos
+
+Archivos exportados en Solved/
+  - dags_075_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_075_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_075_s1_cluster_report.csv -> score y semaforo por dominio
