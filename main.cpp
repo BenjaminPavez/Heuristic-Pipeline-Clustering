@@ -69,19 +69,19 @@ int main(int argc, char* argv[]){
     cout << "Tiempo de ejecucion: " << duration.count() << " segundos\n\n";
 
     string instance_name = filesystem::path(filename).stem().string();
-    string solved_file = "Solved/" + instance_name + "_solved.csv";
+    string solved_file = "Solved/Algorithm/" + instance_name + "_solved.csv";
 
     save_solution_to_csv(best_sol, dags, solved_file);
     save_critical_tables_csv(
         critical_tables,
-        "Solved/" + instance_name + "_critical_tables.csv"
+        "Solved/Algorithm/" + instance_name + "_critical_tables.csv"
     );
     save_cluster_report_csv(
         cluster_reports,
-        "Solved/" + instance_name + "_cluster_report.csv"
+        "Solved/Algorithm/" + instance_name + "_cluster_report.csv"
     );
 
-    cout << "Archivos exportados en Solved/\n";
+    cout << "Archivos exportados en Solved/Algorithm/\n";
     cout << "  - " << instance_name << "_solved.csv -> asignacion DAG -> dominio\n";
     cout << "  - " << instance_name << "_critical_tables.csv -> ranking de tablas criticas\n";
     cout << "  - " << instance_name << "_cluster_report.csv -> score y semaforo por dominio\n";

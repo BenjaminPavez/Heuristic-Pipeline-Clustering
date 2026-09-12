@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 dag_clusterer
 heuristica
+gurobi.lic
