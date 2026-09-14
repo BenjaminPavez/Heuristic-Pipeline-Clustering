@@ -1,0 +1,53 @@
+
+Gurobi 13.0.3 (linux64) logging started Sat Sep 12 20:33:41 2026
+
+Set parameter LogFile to value "Logs/Gurobi/dags_p0010_s5.txt"
+Gurobi Optimizer version 13.0.3 build v13.0.3rc0 (linux64 - "Ubuntu 24.04.4 LTS")
+
+CPU model: AMD Ryzen 7 7700 8-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 8 physical cores, 16 logical processors, using up to 16 threads
+
+Non-default parameters:
+TimeLimit  3600
+LogToConsole  0
+
+Academic license 2863599 - for non-commercial use only - registered to be___@usm.cl
+Optimize a model with 116 rows, 87 columns and 306 nonzeros (Max)
+Model fingerprint: 0x348376c3
+Model has 49 linear objective coefficients
+Variable types: 49 continuous, 38 integer (38 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 5e+01]
+  Objective range  [1e+00, 6e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+
+User MIP start produced solution with objective 20 (0.00s)
+Loaded user MIP start with objective 20
+
+Presolve removed 9 rows and 7 columns
+Presolve time: 0.00s
+Presolved: 107 rows, 80 columns, 282 nonzeros
+Variable types: 0 continuous, 80 integer (80 binary)
+
+Root relaxation: objective 3.103383e+01, 110 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   31.03383    0   61   20.00000   31.03383  55.2%     -    0s
+     0     0   23.05521    0   46   20.00000   23.05521  15.3%     -    0s
+
+Cutting planes:
+  Gomory: 3
+  MIR: 1
+  Zero half: 2
+  RLT: 14
+
+Explored 1 nodes (198 simplex iterations) in 0.01 seconds (0.01 work units)
+Thread count was 16 (of 16 available processors)
+
+Solution count 1: 20 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.000000000000e+01, best bound 2.000000000000e+01, gap 0.0000%

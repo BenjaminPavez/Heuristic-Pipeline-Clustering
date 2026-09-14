@@ -1,140 +1,270 @@
-import os
-import glob
+"""
+Modelo exacto (MIP) del agrupamiento de DAGs, resuelto con Gurobi.
+
+Procesa por lotes todas las instancias de Instances/ y escribe:
+  Solved/Gurobi/<instancia>_solved.csv   asignación DAG -> dominio
+  Logs/Gurobi/<instancia>.txt            log de Gurobi
+  Solved/Gurobi/resumen_gurobi.csv       una fila por instancia (obj, cota, gap)
+
+Los parámetros DEBEN coincidir con los del C++ (types.h y main.cpp), de lo
+contrario los valores objetivo no son comparables con los de la heurística.
+"""
 import csv
+import glob
+import math
+import os
+import time
 import gurobipy as gp
 from gurobipy import GRB
 
 # ==========================================
-# 1. PARÁMETROS DEL MODELO (CONFIGURACIÓN)
+# 1. PARÁMETROS (deben coincidir con el C++)
 # ==========================================
-INPUT_DIR = 'Instances'
+INPUT_DIR         = 'Instances'
+PESOS_FILE        = 'Instances/important_tables.csv'   # e(t); '' para ignorarlo
+HEUR_SOLVED_DIR   = 'Solved/Algorithm'                 # soluciones de la heurística
 OUTPUT_SOLVED_DIR = 'Solved/Gurobi'
-OUTPUT_LOGS_DIR = 'Logs/Gurobi'
+OUTPUT_LOGS_DIR   = 'Logs/Gurobi'
+RESUMEN           = 'Solved/Gurobi/resumen_gurobi.csv'
 
-# Pesos utilizados en el algoritmo C++
-LAMBDA_S = 1         # WEIGHT_SHARED_TABLE
-LAMBDA_L = 3         # WEIGHT_LINEAGE_RELATION
-LAMBDA_C = -4        # WEIGHT_WRITE_CONFLICT
+LAMBDA_S = 1          # WEIGHT_SHARED_TABLE      (types.h)
+LAMBDA_L = 3          # WEIGHT_LINEAGE_RELATION  (types.h)
+LAMBDA_C = -4         # WEIGHT_WRITE_CONFLICT    (types.h)
+C_MAX    = 50         # MAX_CAPACITY             (main.cpp)
 
-C_MAX = 20           # Capacidad máxima de I/O por Dominio
-TIEMPO_LIMITE = 3600 # Límite de tiempo en segundos (1 hora por instancia)
+TIEMPO_LIMITE = 3600  # segundos por instancia
+MEM_LIMITE    = 0     # GB; 0 = sin límite
+THREADS       = 0     # 0 = todos los núcleos
+USAR_MIP_START = True # partir desde la solución de la heurística
+MAX_DAGS      = 0     # 0 = sin tope; p. ej. 250 para omitir las más grandes
 
-# ==========================================
-# 2. CONFIGURACIÓN DE DIRECTORIOS
-# ==========================================
 os.makedirs(OUTPUT_SOLVED_DIR, exist_ok=True)
 os.makedirs(OUTPUT_LOGS_DIR, exist_ok=True)
 
-def procesar_instancia(filepath):
-    basename = os.path.basename(filepath).replace('.csv', '')
-    log_path = os.path.join(OUTPUT_LOGS_DIR, f"{basename}.txt")
-    sol_path = os.path.join(OUTPUT_SOLVED_DIR, f"{basename}_solved.csv")
-    
-    print(f"\n[{basename}] Procesando instancia...")
+COLUMNAS = ["instancia", "n_dags", "dominios_K", "pares_afinidad", "C_max",
+            "heur_score", "heur_dominios", "verif_afinidad",
+            "estado", "obj", "cota", "gap_pct", "tiempo_s", "dominios_usados",
+            "brecha_heur_pct"]
 
-    # 3. LECTURA DE DATOS
+
+# ==========================================
+# 2. LECTURA DE DATOS (igual que utils.cpp)
+# ==========================================
+def cargar_pesos(ruta):
+    e = {}
+    if not ruta or not os.path.exists(ruta):
+        return e
+    with open(ruta, encoding='utf-8') as f:
+        next(f)
+        for linea in f:
+            linea = linea.strip()
+            if linea:
+                nombre, peso = linea.split(';')[:2]
+                e[nombre] = int(peso)
+    return e
+
+
+def cargar_dags(ruta):
     dags = []
-    S = {} 
-    W = {} 
-    
-    with open(filepath, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f, delimiter=';')
-        for row in reader:
-            dag = row['DAG']
-            dags.append(dag)
-            
-            tablas_w = row['TablasAlimenta'].strip()
-            tablas_s = row['TablasAlimentan'].strip()
-            
-            W[dag] = set(tablas_w.split(',')) if tablas_w else set()
-            S[dag] = set(tablas_s.split(',')) if tablas_s else set()
+    with open(ruta, encoding='utf-8') as f:
+        next(f)
+        for linea in f:
+            linea = linea.strip()
+            if not linea:
+                continue
+            nombre, nt, tg, ns, sr = linea.split(';')[:5]
+            T = {x for x in tg.split(',') if x}
+            S = {x for x in sr.split(',') if x}
+            if not T or not S:                      # check_dag_integrity
+                continue
+            dags.append({"name": nombre, "T": T, "S": S,
+                         "w": int(nt) + int(ns)})   # mismo peso que el C++
+    return dags
 
-    num_dags = len(dags)
-    num_dominios = num_dags 
-    w = {i: len(S[dags[i]]) + len(W[dags[i]]) for i in range(num_dags)}
 
-    # 4. CÁLCULO DE LA MATRIZ DE AFINIDAD
+def afinidad(a, b, e):
+    """Idéntica a calculate_affinity(): el conflicto tiene prioridad sobre el linaje."""
+    C = a["T"] & b["T"]
+    L = ((a["T"] & b["S"]) | (b["T"] & a["S"])) - C
+    S = (a["S"] & b["S"]) - L - C
+    return (sum(LAMBDA_C - e.get(t, 0) for t in C)
+            + sum(LAMBDA_L + e.get(t, 0) for t in L)
+            + sum(LAMBDA_S + e.get(t, 0) for t in S))
+
+
+def leer_solucion(ruta, dags):
+    """Lee cluster_id,dag_name y devuelve la lista de dominios (índices)."""
+    idx = {d["name"]: i for i, d in enumerate(dags)}
+    grupos = {}
+    with open(ruta, encoding='utf-8') as f:
+        for r in csv.DictReader(f):
+            grupos.setdefault(r["cluster_id"].strip(), []).append(idx[r["dag_name"].strip()])
+    return sorted(grupos.values(), key=min)
+
+
+def escribir_fila(fila):
+    nuevo = not os.path.exists(RESUMEN)
+    with open(RESUMEN, 'a', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNAS, lineterminator='\n')
+        if nuevo:
+            w.writeheader()
+        w.writerow({c: fila.get(c, "") for c in COLUMNAS})
+
+
+# ==========================================
+# 3. RESOLUCIÓN DE UNA INSTANCIA
+# ==========================================
+def procesar_instancia(filepath, e):
+    base = os.path.basename(filepath).replace('.csv', '')
+    log_path = os.path.join(OUTPUT_LOGS_DIR, f"{base}.txt")
+    sol_path = os.path.join(OUTPUT_SOLVED_DIR, f"{base}_solved.csv")
+    heur_path = os.path.join(HEUR_SOLVED_DIR, f"{base}_solved.csv")
+
+    dags = cargar_dags(filepath)
+    n = len(dags)
+    fila = {"instancia": base, "n_dags": n, "C_max": C_MAX}
+
+    if MAX_DAGS and n > MAX_DAGS:
+        print(f"[{base}] omitida (n={n} > MAX_DAGS={MAX_DAGS})")
+        return
+
+    if max(d["w"] for d in dags) > C_MAX:
+        print(f"[{base}] INFACTIBLE: un DAG pesa más que C_max={C_MAX}")
+        fila["estado"] = "INFACTIBLE_DATOS"; escribir_fila(fila); return
+
+    # K: la misma cantidad de dominios que abrió la heurística, para que ambos
+    # métodos dispongan exactamente de los mismos dominios. Si no está, se usa
+    # la cota de bin packing con holgura.
+    heur_grupos = None
+    if os.path.exists(heur_path):
+        heur_grupos = leer_solucion(heur_path, dags)
+        K = len(heur_grupos)
+        fila["heur_dominios"] = K
+    else:
+        K = math.ceil(sum(d["w"] for d in dags) / C_MAX) + max(2, n // 10)
+    K = max(K, math.ceil(sum(d["w"] for d in dags) / C_MAX))
+    fila["dominios_K"] = K
+
+    # Solo pares no ordenados con afinidad distinta de cero
     aff = {}
-    for i in range(num_dags):
-        for j in range(i + 1, num_dags): 
-            d_i = dags[i]
-            d_j = dags[j]
-            
-            C_ij = W[d_i].intersection(W[d_j])
-            
-            L_ij_bruto = (W[d_i].intersection(S[d_j])).union(W[d_j].intersection(S[d_i]))
-            L_ij = L_ij_bruto - C_ij
-            
-            S_ij_bruto = S[d_i].intersection(S[d_j])
-            S_ij = S_ij_bruto - L_ij - C_ij
-            
-            afinidad = (LAMBDA_L * len(L_ij)) + (LAMBDA_S * len(S_ij)) + (LAMBDA_C * len(C_ij))
-            aff[i, j] = afinidad
+    for i in range(n):
+        for j in range(i + 1, n):
+            a = afinidad(dags[i], dags[j], e)
+            if a != 0:
+                aff[i, j] = a
+    fila["pares_afinidad"] = len(aff)
 
-    # 5. CONSTRUCCIÓN DEL MODELO EN GUROBI
+    # Verificación: el score de la heurística recalculado en Python debe coincidir
+    heur_score = None
+    if heur_grupos:
+        heur_score = sum(aff.get((min(a, b), max(a, b)), 0)
+                         for g in heur_grupos for x, a in enumerate(g) for b in g[x + 1:])
+        fila["heur_score"] = heur_score
+        fila["verif_afinidad"] = "ok"
+
+    print(f"[{base}] n={n} K={K} pares={len(aff):,} heur={heur_score}", flush=True)
+
+    t0 = time.time()
     env = gp.Env(empty=True)
-    env.setParam('LogToConsole', 0) # Silenciar consola para no saturar la terminal
+    env.setParam('LogToConsole', 0)
     env.start()
-    
-    m = gp.Model(f"Modelo_{basename}", env=env)
+    m = gp.Model(f"Modelo_{base}", env=env)
     m.setParam('TimeLimit', TIEMPO_LIMITE)
-    m.setParam('LogFile', log_path) # Gurobi guardará el log detallado aquí directamente
+    m.setParam('LogFile', log_path)
+    if THREADS:
+        m.setParam('Threads', THREADS)
+    if MEM_LIMITE:
+        m.setParam('SoftMemLimit', MEM_LIMITE)
 
-    Y = m.addVars(num_dags, num_dominios, vtype=GRB.BINARY, name="Y")
-    U = m.addVars(num_dominios, vtype=GRB.BINARY, name="U")
-    X = m.addVars(num_dags, num_dags, num_dominios, vtype=GRB.BINARY, name="X")
+    # Ruptura de simetría: el DAG i solo puede ir a dominios k <= i.
+    # Toda partición puede reetiquetarse así, de modo que no se pierde ninguna solución.
+    Y = m.addVars([(i, k) for i in range(n) for k in range(min(i, K - 1) + 1)],
+                  vtype=GRB.BINARY, name="Y")
+    U = m.addVars(K, vtype=GRB.BINARY, name="U")
+    # X continua en [0,1]: con las restricciones de abajo toma valores 0/1 en el óptimo
+    X = m.addVars([(i, j, k) for (i, j) in aff for k in range(min(i, K - 1) + 1)],
+                  lb=0, ub=1, name="X")
 
-    obj = gp.quicksum(aff[i,j] * X[i,j,k] 
-                      for i in range(num_dags) 
-                      for j in range(i + 1, num_dags) 
-                      for k in range(num_dominios))
-    m.setObjective(obj, GRB.MAXIMIZE)
+    # (2) Objetivo: cada par no ordenado se cuenta UNA vez
+    m.setObjective(gp.quicksum(aff[i, j] * X[i, j, k] for (i, j, k) in X), GRB.MAXIMIZE)
+    # (3) Unicidad
+    m.addConstrs((Y.sum(i, '*') == 1 for i in range(n)), name="Unicidad")
+    # (4) Capacidad
+    m.addConstrs((gp.quicksum(dags[i]["w"] * Y[i, k] for i in range(k, n))
+                  <= C_MAX * U[k] for k in range(K)), name="CapMax")
+    # (5) Todo dominio usado tiene al menos un DAG
+    m.addConstrs((Y.sum('*', k) >= U[k] for k in range(K)), name="NoTrivial")
+    # (6)-(8) Linealización: solo el lado que el objetivo "empuja"
+    for (i, j, k) in X:
+        if aff[i, j] > 0:
+            m.addConstr(X[i, j, k] <= Y[i, k])
+            m.addConstr(X[i, j, k] <= Y[j, k])
+        else:
+            m.addConstr(X[i, j, k] >= Y[i, k] + Y[j, k] - 1)
 
-    for i in range(num_dags):
-        m.addConstr(gp.quicksum(Y[i,k] for k in range(num_dominios)) == 1)
+    if USAR_MIP_START and heur_grupos:
+        for k, miembros in enumerate(heur_grupos):
+            for i in miembros:
+                if (i, k) in Y:
+                    Y[i, k].Start = 1
 
-    for k in range(num_dominios):
-        m.addConstr(gp.quicksum(w[i] * Y[i,k] for i in range(num_dags)) <= C_MAX * U[k])
-        m.addConstr(gp.quicksum(Y[i,k] for i in range(num_dags)) >= U[k])
-
-    for i in range(num_dags):
-        for j in range(i + 1, num_dags):
-            for k in range(num_dominios):
-                m.addConstr(X[i,j,k] <= Y[i,k])
-                m.addConstr(X[i,j,k] <= Y[j,k])
-                m.addConstr(X[i,j,k] >= Y[i,k] + Y[j,k] - 1)
-
-    for k in range(num_dominios - 1):
-        m.addConstr(U[k] >= U[k+1])
-
-    # 6. OPTIMIZACIÓN Y ESCRITURA DE RESULTADOS
     m.optimize()
 
+    estados = {GRB.OPTIMAL: "OPTIMO", GRB.TIME_LIMIT: "LIMITE_TIEMPO",
+               GRB.INFEASIBLE: "INFACTIBLE", GRB.MEM_LIMIT: "LIMITE_MEMORIA",
+               GRB.INTERRUPTED: "INTERRUMPIDO"}
+    fila["estado"] = estados.get(m.Status, str(m.Status))
+    fila["tiempo_s"] = f"{time.time() - t0:.2f}"
+
     if m.SolCount > 0:
-        with open(sol_path, 'w', newline='', encoding='utf-8') as f_out:
-            writer = csv.writer(f_out, delimiter=';')
-            writer.writerow(['cluster_id', 'dag_name'])
-            
-            cluster_id_real = 0
-            for k in range(num_dominios):
-                if U[k].X > 0.5: 
-                    for i in range(num_dags):
-                        if Y[i,k].X > 0.5:
-                            writer.writerow([cluster_id_real, dags[i]])
-                    cluster_id_real += 1
-                    
-        estado = "ÓPTIMO" if m.status == GRB.OPTIMAL else "LÍMITE DE TIEMPO"
-        print(f"[{basename}] Completado: {estado} | Score: {m.objVal} | Tiempo: {m.Runtime:.2f}s")
+        asign = {}
+        for (i, k), v in Y.items():
+            if v.X > 0.5:
+                asign.setdefault(k, []).append(i)
+        with open(sol_path, 'w', newline='', encoding='utf-8') as f:
+            f.write("cluster_id,dag_name\n")
+            for nuevo, k in enumerate(sorted(asign)):
+                for i in asign[k]:
+                    f.write(f"{nuevo},{dags[i]['name']}\n")
+        fila["obj"] = f"{m.ObjVal:.0f}"
+        fila["cota"] = f"{m.ObjBound:.0f}"
+        fila["gap_pct"] = f"{100 * m.MIPGap:.2f}"
+        fila["dominios_usados"] = len(asign)
+        if heur_score is not None and 0 < m.ObjBound < GRB.INFINITY:
+            fila["brecha_heur_pct"] = f"{100 * (m.ObjBound - heur_score) / m.ObjBound:.2f}"
+        print(f"[{base}] {fila['estado']} | obj={m.ObjVal:.0f} cota={m.ObjBound:.0f} "
+              f"gap={100 * m.MIPGap:.2f}% | heur={heur_score} | {fila['tiempo_s']}s")
     else:
-        print(f"[{basename}] Falló: No se encontró solución factible (Infactible o Falta de Memoria).")
+        print(f"[{base}] {fila['estado']} sin solución factible en el tiempo dado")
+
+    escribir_fila(fila)
+    m.dispose(); env.dispose()
+
 
 # ==========================================
-# EJECUCIÓN POR LOTES
+# 4. EJECUCIÓN POR LOTES
 # ==========================================
-archivos_instancias = glob.glob(os.path.join(INPUT_DIR, 'dags_*.csv'))
-archivos_instancias.sort()
+if __name__ == "__main__":
+    e = cargar_pesos(PESOS_FILE)
+    print(f"Pesos e(t) cargados: {len(e)} tablas")
+    print(f"Parámetros: λL={LAMBDA_L} λS={LAMBDA_S} λC={LAMBDA_C} C_max={C_MAX}\n")
 
-print(f"Se encontraron {len(archivos_instancias)} instancias para procesar.")
+    hechas = set()
+    if os.path.exists(RESUMEN):
+        with open(RESUMEN, encoding='utf-8') as f:
+            hechas = {r["instancia"] for r in csv.DictReader(f)}
 
-for archivo in archivos_instancias:
-    procesar_instancia(archivo)
+    archivos = sorted(glob.glob(os.path.join(INPUT_DIR, 'dags_*.csv')),
+                      key=lambda p: os.path.getsize(p))   # de menor a mayor
+    print(f"{len(archivos)} instancias; {len(hechas)} ya resueltas se omiten.\n")
+
+    for a in archivos:
+        if os.path.basename(a).replace('.csv', '') in hechas:
+            continue
+        try:
+            procesar_instancia(a, e)
+        except (gp.GurobiError, MemoryError) as ex:
+            base = os.path.basename(a).replace('.csv', '')
+            msg = str(ex).replace(',', ';')[:100]
+            print(f"[{base}] ERROR: {msg}")
+            escribir_fila({"instancia": base, "estado": f"ERROR: {msg}"})

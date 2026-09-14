@@ -1,0 +1,16 @@
+cluster_id,dag_name
+0,dlk_sap_homologo_planta_mini_bb
+0,dash_formacion
+0,gob_maestro_talento_sap
+0,gob_maestro_talento
+0,gob_4talent_proceso_seleccion_hr_reports_sap
+1,dlk_health_score
+1,dlk_sap_homologo_arquetipos
+1,proc_smu_clbs_sap
+1,gob_egresos
+2,proc_linkedin_learning_path_report
+2,dlk_coursera
+2,dlk_sap_homologo_laborales
+2,dlk_sap_homologo_experiencia_previa
+3,proc_ejemplos_operadores_databricks
+3,dash_validador_universal
