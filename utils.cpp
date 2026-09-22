@@ -16,7 +16,7 @@ Parametros :
    const string& filename : Ubicacion del archivo .csv con los DAGs y sus tablas.
 
 Retorno :
-   vector<DAG> dags : Vector de tipo DAG con los DAGs y sus tablas cargadas desde el archivo CSV.
+   vector<DAG> : Vector de tipo DAG con los DAGs y sus tablas cargadas desde el archivo CSV.
 
 */
 vector<DAG> load_dags(const string& filename) {
@@ -82,7 +82,7 @@ Parametros :
    const string& filename : Ubicacion del archivo .csv con las tablas y sus pesos opcionales.
 
 Retorno :
-   vector<TableImportance> optional_weights : Vector de tipo TableImportance con las tablas y sus pesos opcionales cargados desde el archivo CSV.
+   vector<TableImportance> : Vector de tipo TableImportance con las tablas y sus pesos opcionales cargados desde el archivo CSV.
 
 */
 vector<TableImportance> load_optional_weights(const string& filename) {
@@ -120,7 +120,7 @@ Parametros :
    const string& filename : Ubicacion del archivo .csv con las tablas y sus pesos opcionales.
 
 Retorno :
-   vector<TableImportance> optional_weights : Vector de tipo TableImportance con las tablas y sus pesos opcionales cargados desde el archivo CSV.
+   vector<TableImportance> : Vector de tipo TableImportance con las tablas y sus pesos opcionales cargados desde el archivo CSV.
 
 */
 void save_solution_to_csv(const Solution& sol, const vector<DAG>& dags, const string& filename) {

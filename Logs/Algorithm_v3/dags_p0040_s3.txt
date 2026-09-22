@@ -1,0 +1,62 @@
+./dag_clusterer Instances/dags_p0040_s3.csv
+DAGs cargados: 40
+Peso extra cargado para: 26 tablas
+Greedy: 13 dominios generados
+  [Tabu] Perturbando en iteracion 277 (estancamiento)
+  [Tabu] Perturbando en iteracion 477 (estancamiento)
+  [Tabu] Perturbando en iteracion 677 (estancamiento)
+  [Tabu] Perturbando en iteracion 877 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 40
+  Total Dominios  : 13
+  Fitness Global  : 91
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   3  I/O:  42  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   1 [RED]  DAGs:   3  I/O:  37  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio   2 [RED]  DAGs:   3  I/O:  47  Afinidad:     6  Linaje:   1  Conflictos:  0  Score: 20.0
+  Dominio   3 [RED]  DAGs:   3  I/O:  45  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio   4 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio   5 [RED]  DAGs:   3  I/O:  46  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   6 [RED]  DAGs:   3  I/O:  47  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 33.3
+  Dominio   7 [RED]  DAGs:   3  I/O:  48  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   8 [RED]  DAGs:   3  I/O:  48  Afinidad:     2  Linaje:   0  Conflictos:  0  Score: 6.7
+  Dominio   9 [RED]  DAGs:   3  I/O:  49  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 16.7
+  Dominio  10 [RED]  DAGs:   3  I/O:  46  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  11 [RED]  DAGs:   4  I/O:  50  Afinidad:     7  Linaje:   0  Conflictos:  0  Score: 11.7
+  Dominio  12 [RED]  DAGs:   3  I/O:  37  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 30.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  ppn_ext_00118                           5       5         0         
+  dlk_ext_00102                           5       5         0         
+  dlk_ext_00052                           4       4         0         
+  proc_tbl_00495                          4       4         0         
+  dlk_ext_00198                           4       4         0         
+  dlk_ext_00046                           4       4         0         
+  proc_ext_00097                          4       4         0         
+  gob_tbl_00754                           4       3         1         
+  dlk_ext_00175                           4       4         0         
+  dlk_ext_00136                           4       4         0         
+  dlk_ext_00042                           3       3         0         
+  dlk_ext_00171                           3       3         0         
+  gob_ext_00113                           3       3         0         
+  m4sco_ext_00150                         3       3         0         
+  proc_ext_00005                          3       3         0         
+
+========================================================
+
+Tiempo de ejecucion: 1.5 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_p0040_s3_solved.csv -> asignacion DAG -> dominio
+  - dags_p0040_s3_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0040_s3_cluster_report.csv -> score y semaforo por dominio

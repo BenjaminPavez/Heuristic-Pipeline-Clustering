@@ -1,0 +1,2 @@
+./dag_clusterer Instances/dags_500_s1.csv
+make: *** [Makefile:21: run] Interrupt

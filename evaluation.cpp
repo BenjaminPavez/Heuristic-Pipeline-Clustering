@@ -6,26 +6,44 @@
 
 using namespace std;
 
-// ---------------------------------------------------------------------------
-// get_table_extra_weight
-// Retorna el peso extra de una tabla si está en optional_weights, o 0 si no.
-// ---------------------------------------------------------------------------
+
+// Funciones externas
+extern bool check_uniqueness_constraint(const Solution& sol, int dag_index);
+extern bool check_capacity_constraint(const Cluster& cluster, const DAG& new_dag, int max_tables_per_cluster);
+
+
+
+/*
+La funcion retorna el peso extra de una tabla si esta en optional_weight o 0 si no.
+
+Parametros :
+   const string& table_name : String con el nombre de la tabla.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance con el peso de las tablas.
+
+Retorno :
+   int : Peso extra de la tabla.
+
+*/
 static int get_table_extra_weight(const string& table_name, const vector<TableImportance>& optional_weights) {
     for (const auto& ti : optional_weights)
         if (ti.name == table_name) return ti.extraWeight;
     return 0;
 }
 
-// ---------------------------------------------------------------------------
-// calculate_affinity
-// Calcula la afinidad entre dos DAGs distinguiendo tres casos.
-// Si una tabla tiene peso extra en optional_weights, ese peso se suma
-// al aporte base de λ, aumentando la afinidad entre DAGs que la comparten.
-//
-//  (λ_L + w(t)) por cada relación productor→consumidor (linaje directo)
-//  (λ_S + w(t)) por cada tabla fuente compartida genérica
-//  (λ_C - w(t)) por cada tabla que AMBOS escriben (penalización mayor si es crítica)
-// ---------------------------------------------------------------------------
+
+
+/*
+La funcion calcula la afinidad entre dos DAGs de acuerdo a las reglas detalladas en la memoria.
+
+Parametros :
+   const DAG& dag1 : Estructura DAG que contiene la informacion particular de un DAG.
+   const DAG& dag2 : Estructura DAG que contiene la informacion particular de un DAG.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance con el peso de las tablas.
+
+Retorno :
+   int : Afinidad entre los DAGs dag1 y dag2.
+
+*/
 int calculate_affinity(const DAG& dag1, const DAG& dag2, const vector<TableImportance>& optional_weights) {
     int score = 0;
 
@@ -36,7 +54,7 @@ int calculate_affinity(const DAG& dag1, const DAG& dag2, const vector<TableImpor
 
     unordered_set<string> counted;
 
-    // 1. Conflictos de escritura: penalización mayor si la tabla es crítica
+    // 1. Conflictos de escritura: penalizacion mayor si la tabla es critica
     for (const auto& t : targets1) {
         if (targets2.count(t)) {
             int w = get_table_extra_weight(t, optional_weights);
@@ -45,7 +63,7 @@ int calculate_affinity(const DAG& dag1, const DAG& dag2, const vector<TableImpor
         }
     }
 
-    // 2. Linaje directo: dag1 escribe lo que dag2 lee (mayor afinidad si tabla es crítica)
+    // 2. Linaje directo: dag1 escribe lo que dag2 lee (mayor afinidad si tabla es critica)
     for (const auto& t : targets1) {
         if (!counted.count(t) && sources2.count(t)) {
             int w = get_table_extra_weight(t, optional_weights);
@@ -54,7 +72,7 @@ int calculate_affinity(const DAG& dag1, const DAG& dag2, const vector<TableImpor
         }
     }
 
-    // 3. Linaje inverso: dag2 escribe lo que dag1 lee (mayor afinidad si tabla es crítica)
+    // 3. Linaje inverso: dag2 escribe lo que dag1 lee (mayor afinidad si tabla es critica)
     for (const auto& t : targets2) {
         if (!counted.count(t) && sources1.count(t)) {
             int w = get_table_extra_weight(t, optional_weights);
@@ -63,7 +81,7 @@ int calculate_affinity(const DAG& dag1, const DAG& dag2, const vector<TableImpor
         }
     }
 
-    // 4. Tablas fuente compartidas (mayor afinidad si tabla es crítica)
+    // 4. Tablas fuente compartidas (mayor afinidad si tabla es critica)
     for (const auto& t : sources1) {
         if (!counted.count(t) && sources2.count(t)) {
             int w = get_table_extra_weight(t, optional_weights);
@@ -75,16 +93,38 @@ int calculate_affinity(const DAG& dag1, const DAG& dag2, const vector<TableImpor
     return score;
 }
 
-// Sobrecarga sin optional_weights para compatibilidad con reporting
+
+
+/*
+La funcion calcula la afinidad entre dos DAGs de acuerdo a las reglas detalladas en la memoria (uso para reporting cuando no hay tablas importantes).
+
+Parametros :
+   const DAG& dag1 : Estructura DAG que contiene la informacion particular de un DAG.
+   const DAG& dag2 : Estructura DAG que contiene la informacion particular de un DAG.
+
+Retorno :
+   int : Afinidad entre los DAGs dag1 y dag2.
+
+*/
 int calculate_affinity(const DAG& dag1, const DAG& dag2) {
     static const vector<TableImportance> empty;
     return calculate_affinity(dag1, dag2, empty);
 }
 
-// ---------------------------------------------------------------------------
-// evaluate_solution: Suma la afinidad cruzada de todos los pares dentro
-// de cada clúster. También actualiza write_conflicts por clúster.
-// ---------------------------------------------------------------------------
+
+
+/*
+La funcion calcula la afinidad total para obtener el valor de la solucion.
+
+Parametros :
+   Solution& sol : Estructura Solution que contiene una solucion.
+   const vector<DAG>& all_dags : Vector con los DAGs extraidos del archivo de entrada.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance con el peso de las tablas.
+
+Retorno :
+   int : Valor de la solucion.
+
+*/
 int evaluate_solution(Solution& sol, const vector<DAG>& all_dags, const vector<TableImportance>& optional_weights) {
     int total_fitness = 0;
 
@@ -108,7 +148,20 @@ int evaluate_solution(Solution& sol, const vector<DAG>& all_dags, const vector<T
     return total_fitness;
 }
 
-// Sobrecarga const para Tabu Search (sin actualizar write_conflicts)
+
+
+/*
+La funcion calcula la afinidad total para obtener el valor de la solucion (const para Tabu Search).
+
+Parametros :
+   const Solution& sol : Estructura Solution que contiene una solucion.
+   const vector<DAG>& all_dags : Vector con los DAGs extraidos del archivo de entrada.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance con el peso de las tablas.
+
+Retorno :
+   int : Valor de la solucion.
+
+*/
 int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags, const vector<TableImportance>& optional_weights) {
     int total_fitness = 0;
     for (const auto& cluster : sol.clusters)
@@ -121,31 +174,59 @@ int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags, const ve
     return total_fitness;
 }
 
-// Sobrecargas sin optional_weights para compatibilidad con reporting
+
+
+/*
+La funcion calcula la afinidad total para obtener el valor de la solucion (sin tablas importantes).
+
+Parametros :
+   Solution& sol : Estructura Solution que contiene una solucion.
+   const vector<DAG>& all_dags : Vector con los DAGs extraidos del archivo de entrada.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance con el peso de las tablas.
+
+Retorno :
+   int : Valor de la solucion.
+
+*/
 int evaluate_solution(Solution& sol, const vector<DAG>& all_dags) {
     static const vector<TableImportance> empty;
     return evaluate_solution(sol, all_dags, empty);
 }
 
+
+
+/*
+La funcion calcula la afinidad total para obtener el valor de la solucion (const para Tabu Search y sin tablas importantes).
+
+Parametros :
+   const Solution& sol : Estructura Solution que contiene una solucion.
+   const vector<DAG>& all_dags : Vector con los DAGs extraidos del archivo de entrada.
+
+Retorno :
+   int : Valor de la solucion.
+
+*/
 int evaluate_solution(const Solution& sol, const vector<DAG>& all_dags) {
     static const vector<TableImportance> empty;
     return evaluate_solution(sol, all_dags, empty);
 }
-// ---------------------------------------------------------------------------
-// Declaraciones de funciones externas de constraints.cpp
-// ---------------------------------------------------------------------------
-extern bool check_uniqueness_constraint(const Solution& sol, int dag_index);
-extern bool check_capacity_constraint(const Cluster& cluster, const DAG& new_dag, int max_tables_per_cluster);
 
-// ---------------------------------------------------------------------------
-// is_feasible_solution
-// Valida que una solución completa cumpla todas las restricciones duras,
-// llamando explícitamente a las funciones definidas en constraints.cpp.
-// Se llama en main.cpp tras el greedy y tras el tabu search como
-// verificación de correctitud (sanity check).
-// ---------------------------------------------------------------------------
+
+
+/*
+La funcion valida que una solución completa cumpla todas las restricciones duras.
+
+Parametros :
+   const Solution& sol : Estructura Solution que contiene una solucion.
+   const vector<DAG>& dags : Vector con los DAGs.
+   int max_capacity : Entero con la capacidad maxima de los cluster.
+
+Retorno :
+   bool : Indica si la solucion es factible o no.
+
+*/
 bool is_feasible_solution(const Solution& sol, const vector<DAG>& dags, int max_capacity) {
-    // R1: Unicidad — cada DAG debe aparecer exactamente una vez
+    // R1: Unicidad - cada DAG debe aparecer una vez
     for (size_t i = 0; i < dags.size(); ++i) {
         if (!check_uniqueness_constraint(sol, (int)i)) {
             cerr << "Restriccion violada: DAG \"" << dags[i].name << "\" no es unico\n";
@@ -153,21 +234,17 @@ bool is_feasible_solution(const Solution& sol, const vector<DAG>& dags, int max_
         }
     }
 
-    // R2: Capacidad — ningún clúster supera C_max
-    // Verificamos directamente current_capacity que se mantiene actualizado
+    // R2: Capacidad - ningún cluster supera C_max
     for (const auto& cluster : sol.clusters) {
-        // Creamos un clúster temporal vacío y simulamos agregar todos sus DAGs
-        // para reutilizar check_capacity_constraint de constraints.cpp
+        // Creamos un cluster temporal vacio y simulamos agregar todos sus DAGs
         Cluster temp;
         temp.current_capacity = 0;
         for (int dag_idx : cluster.dags_indices) {
             if (!check_capacity_constraint(temp, dags[dag_idx], max_capacity)) {
-                cerr << "Restriccion violada: cluster " << cluster.id
-                     << " supera capacidad maxima (" << max_capacity << ")\n";
+                cerr << "Restriccion violada: cluster " << cluster.id << " supera capacidad maxima (" << max_capacity << ")\n";
                 return false;
             }
-            temp.current_capacity += dags[dag_idx].num_source_tables
-                                   + dags[dag_idx].num_target_tables;
+            temp.current_capacity += dags[dag_idx].num_source_tables + dags[dag_idx].num_target_tables;
         }
     }
 

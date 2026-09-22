@@ -1,0 +1,59 @@
+./dag_clusterer Instances/dags_025_s1.csv
+DAGs cargados: 25
+Peso extra cargado para: 26 tablas
+Greedy: 10 dominios generados
+  [Tabu] Perturbando en iteracion 202 (estancamiento)
+  [Tabu] Perturbando en iteracion 402 (estancamiento)
+  [Tabu] Perturbando en iteracion 602 (estancamiento)
+  [Tabu] Perturbando en iteracion 802 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 25
+  Total Dominios  : 10
+  Fitness Global  : 466
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [GREEN]  DAGs:   3  I/O:  49  Afinidad:    21  Linaje:   0  Conflictos:  0  Score: 70.0
+  Dominio   1 [YELLOW]  DAGs:   3  I/O:  49  Afinidad:    18  Linaje:   0  Conflictos:  0  Score: 60.0
+  Dominio   2 [RED]  DAGs:   3  I/O:  43  Afinidad:     7  Linaje:   0  Conflictos:  0  Score: 23.3
+  Dominio   3 [GREEN]  DAGs:   3  I/O:  46  Afinidad:    35  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   4 [GREEN]  DAGs:   2  I/O:  46  Afinidad:     9  Linaje:   0  Conflictos:  0  Score: 90.0
+  Dominio   5 [GREEN]  DAGs:   2  I/O:  43  Afinidad:    11  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio   6 [GREEN]  DAGs:   2  I/O:  41  Afinidad:    18  Linaje:   1  Conflictos:  0  Score: 100.0
+  Dominio   7 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    56  Linaje:   3  Conflictos:  0  Score: 100.0
+  Dominio   8 [YELLOW]  DAGs:   1  I/O:  16  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 50.0
+  Dominio   9 [GREEN]  DAGs:   3  I/O:  39  Afinidad:    41  Linaje:   3  Conflictos:  0  Score: 100.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  std_lu_edu_dip_lev_sap                  8       8         0         
+  nomina_desempeno_2023_sap               8       8         0         
+  std_hr_per_d_incid_sap                  7       7         0         
+  planta_completa_sap                     7       7         0         
+  m4vw_laborales_externos_sap             6       6         0         
+  dlk_planta_egreso                       6       5         1         
+  dlk_planta_egreso_v2                    6       5         1         
+  dlk_talento_unidad_v2                   6       5         1         
+  dlk_planta_competencia_v1               6       5         1         
+  dlk_talento_jefatura_v2                 6       5         1         
+  desempeno_conductas_claves_2022_sap     6       6         0         
+  dlk_planta_alerta                       6       5         1         
+  dlk_planta_unidad_v1                    6       5         1         
+  cat_desempeno_2023_sap                  6       6         0         
+  ppn_duty_sap                            6       6         0         
+
+========================================================
+
+Tiempo de ejecucion: 1.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_025_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_025_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_025_s1_cluster_report.csv -> score y semaforo por dominio

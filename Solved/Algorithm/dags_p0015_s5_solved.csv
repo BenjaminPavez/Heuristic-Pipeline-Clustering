@@ -1,5 +1,7 @@
 cluster_id,dag_name
-0,proc_proceso_0000
+0,dlk_proceso_0007
+0,dlk_proceso_0003
+0,gob_proceso_0008
 1,dash_proceso_0009
 1,gob_proceso_0001
 1,proc_proceso_0005
@@ -11,6 +13,4 @@ cluster_id,dag_name
 3,dash_proceso_0012
 3,proc_proceso_0002
 4,dlk_proceso_0011
-4,dlk_proceso_0007
-4,dlk_proceso_0003
-4,gob_proceso_0008
+4,proc_proceso_0000

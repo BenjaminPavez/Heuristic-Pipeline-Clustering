@@ -1,0 +1,58 @@
+./dag_clusterer Instances/dags_030_s1.csv
+DAGs cargados: 30
+Peso extra cargado para: 26 tablas
+Greedy: 10 dominios generados
+  [Tabu] Perturbando en iteracion 316 (estancamiento)
+  [Tabu] Perturbando en iteracion 516 (estancamiento)
+  [Tabu] Perturbando en iteracion 834 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 30
+  Total Dominios  : 10
+  Fitness Global  : 491
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    23  Linaje:   0  Conflictos:  0  Score: 76.7
+  Dominio   1 [RED]  DAGs:   4  I/O:  48  Afinidad:    19  Linaje:   1  Conflictos:  0  Score: 31.7
+  Dominio   2 [GREEN]  DAGs:   3  I/O:  47  Afinidad:    23  Linaje:   1  Conflictos:  0  Score: 76.7
+  Dominio   3 [GREEN]  DAGs:   3  I/O:  45  Afinidad:    40  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   4 [GREEN]  DAGs:   3  I/O:  44  Afinidad:    39  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   5 [YELLOW]  DAGs:   3  I/O:  39  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   6 [GREEN]  DAGs:   2  I/O:  45  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 70.0
+  Dominio   7 [YELLOW]  DAGs:   3  I/O:  43  Afinidad:    14  Linaje:   1  Conflictos:  0  Score: 46.7
+  Dominio   8 [GREEN]  DAGs:   2  I/O:  40  Afinidad:    10  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio   9 [GREEN]  DAGs:   4  I/O:  46  Afinidad:    88  Linaje:   5  Conflictos:  0  Score: 100.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  m4vw_jerarquia_uo_sap                   11      11        0         
+  std_lu_edu_diploma_sap                  11      11        0         
+  std_lu_incid_type_sap                   10      10        0         
+  bci_niv_hay_puesto_sap                  8       8         0         
+  laborales_sap                           7       7         0         
+  m4vw_jef_directos_sap                   7       7         0         
+  posicion_sap                            7       7         0         
+  gob_planta_beca                         6       5         1         
+  categoria_desempeno_2021_sap            6       6         0         
+  gob_planta_traslado_v2                  6       5         1         
+  dlk_talento_jefatura                    6       5         1         
+  gob_planta_posicion_v1                  6       5         1         
+  gob_planta_region_v2                    6       5         1         
+  dlk_talento_meta                        6       5         1         
+  std_lu_hrp_end_re_sap                   6       6         0         
+
+========================================================
+
+Tiempo de ejecucion: 14.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_030_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_030_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_030_s1_cluster_report.csv -> score y semaforo por dominio

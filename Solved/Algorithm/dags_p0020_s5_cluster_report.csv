@@ -4,5 +4,5 @@ cluster_id,num_dags,capacity_used,internal_affinity,lineage_pairs,write_conflict
 2,4,47,8,2,0,13.33,RED,43
 3,3,46,3,0,0,10.00,RED,43
 4,2,34,1,0,0,10.00,RED,33
-5,2,19,3,1,0,30.00,RED,18
-6,4,49,9,2,0,15.00,RED,44
+5,4,49,9,2,0,15.00,RED,44
+6,2,19,3,1,0,30.00,RED,18

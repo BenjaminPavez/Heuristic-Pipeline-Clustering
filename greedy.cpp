@@ -7,15 +7,24 @@
 
 using namespace std;
 
+
+// Funciones externas
 extern bool is_feasible_move(const Cluster& target_cluster, const DAG& dag_to_move, const vector<DAG>& all_dags, int max_capacity);
 extern int calculate_affinity(const DAG& dag1, const DAG& dag2, const vector<TableImportance>& optional_weights);
 
-// ---------------------------------------------------------------------------
-// sum_extra_weights
-// Suma los pesos extra de todas las tablas (source y target) de un DAG
-// que aparezcan en optional_weights. Se usa como bonus en la semilla del greedy
-// para priorizar DAGs que contienen tablas conocidas como importantes.
-// ---------------------------------------------------------------------------
+
+
+/*
+La funcion suma los pesos extra de todas las tablas de un DAG dado.
+
+Parametros :
+   const DAG& dag : Estructura DAG que contiene la informacion de un DAG en particular.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance que contiene los pesos opcionales de las tablas.
+
+Retorno :
+   int : Entero con la suma de los pesos extra.
+
+*/
 int sum_extra_weights(const DAG& dag, const vector<TableImportance>& optional_weights) {
     int total = 0;
 
@@ -34,28 +43,43 @@ int sum_extra_weights(const DAG& dag, const vector<TableImportance>& optional_we
     return total;
 }
 
-// ---------------------------------------------------------------------------
-// calculate_cluster_affinity
-// Afinidad acumulada de un DAG candidato con todos los DAGs ya en el clúster.
-// ---------------------------------------------------------------------------
-int calculate_cluster_affinity(const Cluster& cluster, const DAG& candidate_dag,
-                                const vector<DAG>& all_dags,
-                                const vector<TableImportance>& optional_weights) {
+
+
+/*
+La funcion calcula la afinidad acumulada de un DAG candidato con todos los DAGs ya en el cluster.
+
+Parametros :
+   const Cluster& cluster : Estructura Cluster que contiene la informacion de un cluster.
+   const DAG& candidate_dag : Estructura DAG que contiene la informacion de un DAG en particular.
+   const vector<DAG>& all_dags : Vector de estructura DAG que contiene todos los DAG del archivo de entrada.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance que contiene los pesos opcionales de las tablas.
+
+Retorno :
+   int : Entero con la suma acumulada de la afinidad de un cluster.
+
+*/
+int calculate_cluster_affinity(const Cluster& cluster, const DAG& candidate_dag, const vector<DAG>& all_dags, const vector<TableImportance>& optional_weights) {
     int total_affinity = 0;
     for (int dag_idx : cluster.dags_indices)
         total_affinity += calculate_affinity(all_dags[dag_idx], candidate_dag, optional_weights);
     return total_affinity;
 }
 
-// ---------------------------------------------------------------------------
-// run_greedy
-// Construye la solución inicial. Cuando el clúster está vacío, la semilla
-// es el peso I/O del DAG más el bonus de tablas importantes (sum_extra_weights),
-// priorizando DAGs con tablas críticas como punto de partida del dominio.
-// ---------------------------------------------------------------------------
-Solution run_greedy(const vector<DAG>& dags,
-                    const vector<TableImportance>& optional_weights,
-                    int max_capacity) {
+
+
+/*
+La funcion ejecuta el metodo constructivo Greedy para generar la solucion inicial.
+
+Parametros :
+   const vector<DAG>& dags : Vector de estructura DAG que contiene todos los DAG del archivo de entrada.
+   const vector<TableImportance>& optional_weights : Vector de estructura TableImportance que contiene los pesos opcionales de las tablas.
+   int max_capacity : Entero con la capacidad maxima de los cluster.
+
+Retorno :
+   Solution : Solucion inicial utilizando el metodo constructivo Greedy.
+
+*/
+Solution run_greedy(const vector<DAG>& dags, const vector<TableImportance>& optional_weights, int max_capacity) {
     Solution sol;
     vector<bool> assigned(dags.size(), false);
     int unassigned_count = dags.size();
@@ -79,7 +103,7 @@ Solution run_greedy(const vector<DAG>& dags,
 
                 int current_affinity;
                 if (current_cluster.dags_indices.empty()) {
-                    // Semilla: peso I/O + bonus de tablas importantes
+                    // peso I/O + bonus de tablas importantes
                     int io_weight = dags[i].num_source_tables + dags[i].num_target_tables;
                     int bonus     = sum_extra_weights(dags[i], optional_weights);
                     current_affinity = io_weight + bonus;

@@ -1,0 +1,59 @@
+./dag_clusterer Instances/dags_050_s2.csv
+DAGs cargados: 50
+Peso extra cargado para: 26 tablas
+Greedy: 14 dominios generados
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 50
+  Total Dominios  : 14
+  Fitness Global  : 1020
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   4  I/O:  49  Afinidad:    26  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   1 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    19  Linaje:   0  Conflictos:  0  Score: 63.3
+  Dominio   2 [RED]  DAGs:   4  I/O:  50  Afinidad:    13  Linaje:   0  Conflictos:  1  Score: 11.7
+  Dominio   3 [RED]  DAGs:   4  I/O:  48  Afinidad:    15  Linaje:   0  Conflictos:  0  Score: 25.0
+  Dominio   4 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    18  Linaje:   2  Conflictos:  0  Score: 60.0
+  Dominio   5 [RED]  DAGs:   4  I/O:  48  Afinidad:    19  Linaje:   1  Conflictos:  0  Score: 31.7
+  Dominio   6 [GREEN]  DAGs:   3  I/O:  47  Afinidad:    23  Linaje:   1  Conflictos:  0  Score: 76.7
+  Dominio   7 [YELLOW]  DAGs:   5  I/O:  49  Afinidad:    53  Linaje:   4  Conflictos:  0  Score: 53.0
+  Dominio   8 [YELLOW]  DAGs:   4  I/O:  48  Afinidad:    37  Linaje:   2  Conflictos:  0  Score: 61.7
+  Dominio   9 [RED]  DAGs:   4  I/O:  50  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 20.0
+  Dominio  10 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 40.0
+  Dominio  11 [GREEN]  DAGs:   3  I/O:  49  Afinidad:    39  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio  12 [RED]  DAGs:   3  I/O:  47  Afinidad:     9  Linaje:   0  Conflictos:  0  Score: 30.0
+  Dominio  13 [RED]  DAGs:   3  I/O:  49  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 0.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  template_cargos_sap                     14      14        0         
+  cat_desempeno_2023_sap                  14      14        0         
+  std_hr_per_d_incid_sap                  12      12        0         
+  posicion_sap                            11      11        0         
+  nomina_desempeno_2024_sap               11      11        0         
+  planta_trabajo_sap                      11      11        0         
+  std_lu_hrp_end_re_sap                   10      10        0         
+  cat_desempeno_2024_sap                  10      10        0         
+  dlk_talento_contrato                    8       7         1         
+  planta_dia_sap                          8       8         0         
+  dlk_talento_egreso                      8       7         1         
+  planta_completa_sap                     8       8         0         
+  maestro_talento                         8       7         1         
+  dlk_talento_beca_v1                     8       7         1         
+  dlk_talento_sucursal_v2                 8       7         1         
+
+========================================================
+
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_050_s2_solved.csv -> asignacion DAG -> dominio
+  - dags_050_s2_critical_tables.csv -> ranking de tablas criticas
+  - dags_050_s2_cluster_report.csv -> score y semaforo por dominio

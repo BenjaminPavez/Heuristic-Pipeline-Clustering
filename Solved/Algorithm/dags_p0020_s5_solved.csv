@@ -13,9 +13,9 @@ cluster_id,dag_name
 3,gob_proceso_0009
 4,gob_proceso_0017
 4,dash_proceso_0011
-5,dash_proceso_0010
-5,dash_proceso_0003
-6,gob_proceso_0005
-6,gob_proceso_0019
-6,proc_proceso_0018
-6,proc_proceso_0015
+5,proc_proceso_0018
+5,gob_proceso_0019
+5,proc_proceso_0015
+5,gob_proceso_0005
+6,dash_proceso_0003
+6,dash_proceso_0010

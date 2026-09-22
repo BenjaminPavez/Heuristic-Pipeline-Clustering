@@ -8,16 +8,22 @@
 
 using namespace std;
 
+
+// Funciones externas
 extern int calculate_affinity(const DAG& dag1, const DAG& dag2);
 
-// ---------------------------------------------------------------------------
-// build_critical_table_ranking
-// Para cada tabla del ecosistema calcula:
-//   - frequency : en cuántos DAGs aparece (source o target)
-//   - as_source : cuántos DAGs la leen
-//   - as_target : cuántos DAGs escriben en ella
-//   - is_contested : true si más de un DAG escribe en ella (riesgo de conflicto)
-// ---------------------------------------------------------------------------
+
+
+/*
+La funcion construye el ranking de las tablas.
+
+Parametros :
+   const vector<DAG>& dags : Vector de estructura DAG que contiene todos los DAGs.
+
+Retorno :
+   vector<CriticalTable> : Vector con las tablas criticas ordenadas.
+
+*/
 vector<CriticalTable> build_critical_table_ranking(const vector<DAG>& dags) {
     // tabla -> {freq, as_source, as_target}
     unordered_map<string, CriticalTable> table_map;
@@ -40,12 +46,12 @@ vector<CriticalTable> build_critical_table_ranking(const vector<DAG>& dags) {
                 table_map[t].frequency++;
                 seen_in_dag.insert(t);
             }
-            // as_target puede contar múltiples DAGs escribiendo la misma tabla
+            // as_target puede contar multiples DAGs escribiendo la misma tabla
             table_map[t].as_target++;
         }
     }
 
-    // Marcar tablas en disputa (más de un DAG escribe en ellas)
+    // Marcar tablas en disputa (mas de un DAG escribe en ellas)
     for (auto& [name, ct] : table_map) {
         ct.is_contested = ct.as_target > 1;
     }
@@ -62,15 +68,19 @@ vector<CriticalTable> build_critical_table_ranking(const vector<DAG>& dags) {
     return result;
 }
 
-// ---------------------------------------------------------------------------
-// build_cluster_reports
-// Para cada clúster calcula:
-//   - Afinidad interna total
-//   - Pares con relación de linaje (productor→consumidor)
-//   - Conflictos de escritura
-//   - Score de cohesión normalizado 0-100
-//   - Semáforo: GREEN / YELLOW / RED
-// ---------------------------------------------------------------------------
+
+
+/*
+La funcion construye el reporte de los clusters.
+
+Parametros :
+   const Solution& sol : Vector de estructura Solution que contiene la solucion final.
+   const vector<DAG>& dags : Vector de estructura DAG que contiene todos los DAGs.
+
+Retorno :
+   vector<ClusterReport> : Vector con el reporte de los clusters.
+
+*/
 vector<ClusterReport> build_cluster_reports(const Solution& sol, const vector<DAG>& dags) {
     vector<ClusterReport> reports;
 
@@ -83,7 +93,7 @@ vector<ClusterReport> build_cluster_reports(const Solution& sol, const vector<DA
         r.write_conflicts    = 0;
         r.lineage_pairs      = 0;
 
-        // Recopilar tablas únicas del clúster
+        // Recopilar tablas unicas del cluster
         unordered_set<string> unique_t;
         for (int idx : cluster.dags_indices) {
             for (const auto& t : dags[idx].source_tables) unique_t.insert(t);
@@ -107,7 +117,7 @@ vector<ClusterReport> build_cluster_reports(const Solution& sol, const vector<DA
                 r.internal_affinity += aff;
                 total_pairs++;
 
-                // Detectar linaje: ¿alguna target del i es source del j o viceversa?
+                // Detectar linaje
                 const auto& ti = dags[cluster.dags_indices[i]];
                 const auto& tj = dags[cluster.dags_indices[j]];
                 unordered_set<string> targets_i(ti.target_tables.begin(), ti.target_tables.end());
@@ -119,23 +129,16 @@ vector<ClusterReport> build_cluster_reports(const Solution& sol, const vector<DA
             }
         }
 
-        // Score de cohesión (0-100)
-        // Fórmula: parte positiva basada en afinidad/pares, penalización por conflictos
         if (total_pairs == 0) {
-            r.cohesion_score = 50.0; // Clúster de un solo DAG: neutro
+            r.cohesion_score = 50.0;
         } else {
-            // Normalizar afinidad: afinidad promedio por par, escalada
-            // El máximo teórico por par con los pesos actuales sería ~10 tablas * WEIGHT_LINEAGE = 30
             const double MAX_AFF_PER_PAIR = 10.0;
             double aff_normalized = min(100.0, (r.internal_affinity / (double)total_pairs) / MAX_AFF_PER_PAIR * 100.0);
-
-            // Penalización por conflictos: cada conflicto resta 10 puntos
             double conflict_penalty = min(100.0, r.write_conflicts * 10.0);
-
             r.cohesion_score = max(0.0, aff_normalized - conflict_penalty);
         }
 
-        // Semáforo
+        // Semaforo
         if (r.cohesion_score >= 65.0)      r.semaphore = "GREEN";
         else if (r.cohesion_score >= 35.0) r.semaphore = "YELLOW";
         else                                r.semaphore = "RED";
@@ -146,14 +149,23 @@ vector<ClusterReport> build_cluster_reports(const Solution& sol, const vector<DA
     return reports;
 }
 
-// ---------------------------------------------------------------------------
-// print_summary: salida en consola
-// ---------------------------------------------------------------------------
-void print_summary(const Solution& sol,
-                   const vector<DAG>& dags,
-                   const vector<ClusterReport>& reports,
-                   const vector<CriticalTable>& critical_tables,
-                   int top_n_tables) {
+
+
+/*
+La funcion imprime el resumen general por pantalla.
+
+Parametros :
+   const Solution& sol : Vector de estructura Solution que contiene la solucion final.
+   const vector<DAG>& dags : Vector de estructura DAG que contiene todos los DAGs.
+   const vector<ClusterReport>& reports : Vector de estructura ClusterReport que contiene el reporte de los clusters.
+   const vector<CriticalTable>& critical_tables : Vector de estructura CriticalTable que contiene el reporte de las tablas criticas.
+   int top_n_tables : Entero con el numero de las tablas importantes a mostrar por pantalla.
+
+Retorno :
+   Al ser una funcion void no retorna nada.
+
+*/
+void print_summary(const Solution& sol, const vector<DAG>& dags, const vector<ClusterReport>& reports, const vector<CriticalTable>& critical_tables, int top_n_tables) {
 
     cout << "\n========================================================\n";
     cout << "  REPORTE DE DOMINIOS DE DATOS\n";
@@ -163,7 +175,7 @@ void print_summary(const Solution& sol,
     cout << "  Fitness Global  : " << sol.fitness_score << "\n";
     cout << "--------------------------------------------------------\n";
 
-    // Resumen por clúster
+    // Resumen por cluster
     cout << "\n  [ DOMINIOS DE DATOS ]\n\n";
     for (const auto& r : reports) {
         string icon = (r.semaphore == "GREEN") ? "[GREEN]" :
@@ -178,7 +190,7 @@ void print_summary(const Solution& sol,
                   << "  Score: " << fixed << setprecision(1) << r.cohesion_score << "\n";
     }
 
-    // Ranking de tablas críticas
+    // Ranking de tablas criticas
     cout << "\n--------------------------------------------------------\n";
     cout << "  [ TOP " << top_n_tables << " TABLAS CRÍTICAS ]\n\n";
     cout << "  " << left << setw(40) << "Tabla"
@@ -191,7 +203,7 @@ void print_summary(const Solution& sol,
     int shown = 0;
     for (const auto& ct : critical_tables) {
         if (shown >= top_n_tables) break;
-        string risk = ct.is_contested ? " ⚠ DISPUTADA" : "";
+        string risk = ct.is_contested ? " DISPUTADA" : "";
         cout << "  " << left  << setw(40) << ct.name
                   << setw(8)  << ct.frequency
                   << setw(10) << ct.as_source
@@ -202,9 +214,19 @@ void print_summary(const Solution& sol,
     cout << "\n========================================================\n\n";
 }
 
-// ---------------------------------------------------------------------------
-// Exportaciones CSV
-// ---------------------------------------------------------------------------
+
+
+/*
+La funcion guarda las tablas criticas en un .csv.
+
+Parametros :
+   const vector<CriticalTable>& critical_tables : Vector de estructura CriticalTable que contiene el reporte de las tablas criticas.
+   const string& filename : String con el nombre de archivo de salida.
+
+Retorno :
+   Al ser una funcion void no retorna nada.
+
+*/
 void save_critical_tables_csv(const vector<CriticalTable>& tables, const string& filename) {
     ofstream f(filename);
     f << "rank,table_name,frequency,as_source,as_target,is_contested\n";
@@ -217,6 +239,19 @@ void save_critical_tables_csv(const vector<CriticalTable>& tables, const string&
     f.close();
 }
 
+
+
+/*
+La funcion guarda el reporte de los clusters en un .csv.
+
+Parametros :
+   const vector<ClusterReport>& reports : Vector de estructura ClusterReport que contiene el reporte de los clusters.
+   const string& filename : String con el nombre de archivo de salida.
+
+Retorno :
+   Al ser una funcion void no retorna nada.
+
+*/
 void save_cluster_report_csv(const vector<ClusterReport>& reports, const string& filename) {
     ofstream f(filename);
     f << "cluster_id,num_dags,capacity_used,internal_affinity,lineage_pairs,write_conflicts,cohesion_score,semaphore,unique_tables_count\n";

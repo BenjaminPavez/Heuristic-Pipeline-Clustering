@@ -16,6 +16,17 @@ extern bool is_feasible_solution(const Solution& sol, const vector<DAG>& dags, i
 
 
 
+/*
+La funcion inicia el proceso del algoritmo.
+
+Parametros :
+   int argc : Entero para cargar nombre de archivos.
+   char* argv[] : Array de char para cargar nombre de archivos.
+
+Retorno :
+   int : Retorna 0 si la ejecucion fue exitosa.
+
+*/
 int main(int argc, char* argv[]){
     auto start = chrono::high_resolution_clock::now();
 
@@ -42,19 +53,19 @@ int main(int argc, char* argv[]){
     Solution initial_sol = run_greedy(dags, optional_weights, MAX_CAPACITY);
     cout << "Greedy: " << initial_sol.clusters.size() << " dominios generados\n";
 
-    // Validar que el Greedy produjo una solución factible
+    // Validar que el Greedy produjo una solucion factible
     if (!is_feasible_solution(initial_sol, dags, MAX_CAPACITY))
         cerr << "ERROR: solucion inicial del greedy es infactible\n";
 
 
-    // Mejorar solucion con Búsqueda Tabú
+    // Mejorar solucion con Busqueda Tabu
     Solution best_sol = run_tabu_search(initial_sol, dags, optional_weights, MAX_CAPACITY, MAX_ITER, TABU_TENURE);
 
-    // Validar que el Tabu Search no produjo una solución infactible
+    // Validar que el Tabu Search no produjo una solucion infactible
     if (!is_feasible_solution(best_sol, dags, MAX_CAPACITY))
         cerr << "ERROR: solucion final del tabu search es infactible\n";
 
-    // Recalcular con sobrecarga no-const para actualizar write_conflicts por clúster
+    // Recalcular con sobrecarga no-const para actualizar write_conflicts por cluster
     best_sol.fitness_score = evaluate_solution(best_sol, dags, optional_weights);
 
     auto end = chrono::high_resolution_clock::now();
