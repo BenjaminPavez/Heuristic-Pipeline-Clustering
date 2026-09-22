@@ -186,7 +186,7 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, c
             }
         }
 
-        // Intercambiar dos DAGs de dominios distintos
+        // Intercambiar dos DAGs de clusters distintos
         for (size_t A = 0; A < K; ++A) {
             const auto& CA = current_sol.clusters[A].dags_indices;
             int capA = current_sol.clusters[A].current_capacity;
