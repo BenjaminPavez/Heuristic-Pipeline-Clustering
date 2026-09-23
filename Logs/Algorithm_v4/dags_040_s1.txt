@@ -1,0 +1,61 @@
+./dag_clusterer Instances/dags_040_s1.csv
+DAGs cargados: 40
+Peso extra cargado para: 26 tablas
+Greedy: 13 dominios generados
+  [Tabu] Perturbando en iteracion 330 (estancamiento)
+  [Tabu] Perturbando en iteracion 530 (estancamiento)
+  [Tabu] Perturbando en iteracion 935 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 40
+  Total Dominios  : 13
+  Fitness Global  : 881
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [GREEN]  DAGs:   2  I/O:  41  Afinidad:     9  Linaje:   0  Conflictos:  0  Score: 90.0
+  Dominio   1 [GREEN]  DAGs:   3  I/O:  47  Afinidad:    22  Linaje:   0  Conflictos:  0  Score: 73.3
+  Dominio   2 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    17  Linaje:   0  Conflictos:  0  Score: 56.7
+  Dominio   3 [RED]  DAGs:   5  I/O:  46  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 12.0
+  Dominio   4 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    19  Linaje:   1  Conflictos:  0  Score: 63.3
+  Dominio   5 [GREEN]  DAGs:   4  I/O:  46  Afinidad:    79  Linaje:   3  Conflictos:  0  Score: 100.0
+  Dominio   6 [YELLOW]  DAGs:   3  I/O:  49  Afinidad:    17  Linaje:   0  Conflictos:  0  Score: 56.7
+  Dominio   7 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   0  Conflictos:  0  Score: 16.7
+  Dominio   8 [GREEN]  DAGs:   2  I/O:  48  Afinidad:    14  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio   9 [GREEN]  DAGs:   3  I/O:  46  Afinidad:    21  Linaje:   1  Conflictos:  0  Score: 70.0
+  Dominio  10 [RED]  DAGs:   2  I/O:  49  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 0.0
+  Dominio  11 [GREEN]  DAGs:   2  I/O:  46  Afinidad:    11  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio  12 [YELLOW]  DAGs:   4  I/O:  50  Afinidad:    25  Linaje:   1  Conflictos:  0  Score: 41.7
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  socios_sap                              15      15        0         
+  posicion_sap                            13      13        0         
+  desempeno_conductas_claves_2022_sap     11      11        0         
+  desempeno_2022_sap                      11      11        0         
+  nomina_desempeno_2024_sap               10      10        0         
+  template_cargos_detalle_sap             10      10        0         
+  maestro_talento                         9       8         1         
+  template_ent_legal_sap                  9       9         0         
+  dlk_talento_alerta                      8       7         1         
+  desarrollo_becas_sap                    7       7         0         
+  m4vw_jerarquia_uo_sap                   7       7         0         
+  panel_alertas_ssnn_sap                  7       7         0         
+  bci_niv_hay_puesto_sap                  7       7         0         
+  colaborador_antiguedad_sap              5       5         0         
+  dlk_talento_posicion                    5       4         1         
+
+========================================================
+
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_040_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_040_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_040_s1_cluster_report.csv -> score y semaforo por dominio

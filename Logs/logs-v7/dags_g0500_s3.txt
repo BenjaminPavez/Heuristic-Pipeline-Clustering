@@ -1,0 +1,202 @@
+./dag_clusterer Instances/dags_g0500_s3.csv
+DAGs cargados: 500
+Peso extra cargado para: 26 tablas
+Greedy: 153 dominios generados
+  [Tabu] Perturbando en iteracion 2070 (estancamiento)
+  [Tabu] Perturbando en iteracion 4070 (estancamiento)
+  [Tabu] Perturbando en iteracion 6070 (estancamiento)
+  [Tabu] Perturbando en iteracion 8070 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 500
+  Total Dominios  : 153
+  Fitness Global  : 1310
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   2  I/O:  49  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 50.0
+  Dominio   1 [YELLOW]  DAGs:   2  I/O:  45  Afinidad:     6  Linaje:   1  Conflictos:  0  Score: 60.0
+  Dominio   2 [YELLOW]  DAGs:   2  I/O:  50  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 50.0
+  Dominio   3 [YELLOW]  DAGs:   2  I/O:  45  Afinidad:     6  Linaje:   1  Conflictos:  0  Score: 60.0
+  Dominio   4 [YELLOW]  DAGs:   2  I/O:  44  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 40.0
+  Dominio   5 [YELLOW]  DAGs:   2  I/O:  47  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 40.0
+  Dominio   6 [RED]  DAGs:   3  I/O:  50  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   7 [RED]  DAGs:   3  I/O:  49  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   8 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio   9 [RED]  DAGs:   3  I/O:  48  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  10 [RED]  DAGs:   3  I/O:  49  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  11 [RED]  DAGs:   3  I/O:  50  Afinidad:     9  Linaje:   1  Conflictos:  0  Score: 30.0
+  Dominio  12 [RED]  DAGs:   3  I/O:  50  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 23.3
+  Dominio  13 [RED]  DAGs:   3  I/O:  50  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 23.3
+  Dominio  14 [YELLOW]  DAGs:   2  I/O:  43  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 50.0
+  Dominio  15 [RED]  DAGs:   3  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  16 [YELLOW]  DAGs:   2  I/O:  43  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 40.0
+  Dominio  17 [RED]  DAGs:   3  I/O:  48  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  18 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 36.7
+  Dominio  19 [RED]  DAGs:   3  I/O:  47  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  20 [RED]  DAGs:   3  I/O:  50  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  21 [RED]  DAGs:   3  I/O:  46  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  22 [RED]  DAGs:   3  I/O:  50  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  23 [RED]  DAGs:   3  I/O:  50  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  24 [RED]  DAGs:   3  I/O:  49  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  25 [RED]  DAGs:   3  I/O:  50  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 33.3
+  Dominio  26 [RED]  DAGs:   4  I/O:  50  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 13.3
+  Dominio  27 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  28 [RED]  DAGs:   3  I/O:  49  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 33.3
+  Dominio  29 [RED]  DAGs:   3  I/O:  50  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  30 [RED]  DAGs:   3  I/O:  49  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  31 [RED]  DAGs:   3  I/O:  48  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  32 [RED]  DAGs:   3  I/O:  50  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  33 [RED]  DAGs:   3  I/O:  47  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  34 [RED]  DAGs:   3  I/O:  49  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  35 [RED]  DAGs:   3  I/O:  49  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  36 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  37 [RED]  DAGs:   3  I/O:  45  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  38 [RED]  DAGs:   3  I/O:  48  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 23.3
+  Dominio  39 [RED]  DAGs:   3  I/O:  45  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  40 [YELLOW]  DAGs:   3  I/O:  46  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 36.7
+  Dominio  41 [RED]  DAGs:   3  I/O:  46  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  42 [RED]  DAGs:   4  I/O:  46  Afinidad:    13  Linaje:   4  Conflictos:  0  Score: 21.7
+  Dominio  43 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  44 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  45 [RED]  DAGs:   3  I/O:  46  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  46 [RED]  DAGs:   3  I/O:  48  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  47 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    12  Linaje:   3  Conflictos:  0  Score: 40.0
+  Dominio  48 [RED]  DAGs:   3  I/O:  45  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  49 [RED]  DAGs:   3  I/O:  48  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  50 [RED]  DAGs:   3  I/O:  46  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  51 [RED]  DAGs:   3  I/O:  49  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  52 [RED]  DAGs:   3  I/O:  44  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 30.0
+  Dominio  53 [RED]  DAGs:   3  I/O:  46  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  54 [RED]  DAGs:   3  I/O:  44  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  55 [RED]  DAGs:   3  I/O:  46  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  56 [RED]  DAGs:   3  I/O:  44  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  57 [RED]  DAGs:   3  I/O:  47  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  58 [RED]  DAGs:   3  I/O:  50  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  59 [RED]  DAGs:   4  I/O:  49  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio  60 [RED]  DAGs:   3  I/O:  46  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  61 [RED]  DAGs:   3  I/O:  45  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  62 [RED]  DAGs:   3  I/O:  46  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  63 [YELLOW]  DAGs:   3  I/O:  49  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 36.7
+  Dominio  64 [RED]  DAGs:   4  I/O:  50  Afinidad:    12  Linaje:   3  Conflictos:  0  Score: 20.0
+  Dominio  65 [RED]  DAGs:   3  I/O:  50  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 33.3
+  Dominio  66 [RED]  DAGs:   4  I/O:  49  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio  67 [RED]  DAGs:   4  I/O:  50  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio  68 [RED]  DAGs:   3  I/O:  50  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  69 [RED]  DAGs:   3  I/O:  44  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio  70 [RED]  DAGs:   3  I/O:  48  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 33.3
+  Dominio  71 [RED]  DAGs:   4  I/O:  50  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio  72 [YELLOW]  DAGs:   3  I/O:  46  Afinidad:    11  Linaje:   2  Conflictos:  0  Score: 36.7
+  Dominio  73 [RED]  DAGs:   3  I/O:  40  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  74 [YELLOW]  DAGs:   3  I/O:  49  Afinidad:    13  Linaje:   3  Conflictos:  0  Score: 43.3
+  Dominio  75 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio  76 [RED]  DAGs:   3  I/O:  47  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  77 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 30.0
+  Dominio  78 [RED]  DAGs:   3  I/O:  46  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 33.3
+  Dominio  79 [RED]  DAGs:   3  I/O:  43  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  80 [RED]  DAGs:   3  I/O:  45  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  81 [RED]  DAGs:   5  I/O:  50  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 11.0
+  Dominio  82 [RED]  DAGs:   4  I/O:  50  Afinidad:    13  Linaje:   4  Conflictos:  0  Score: 21.7
+  Dominio  83 [YELLOW]  DAGs:   3  I/O:  41  Afinidad:    11  Linaje:   2  Conflictos:  0  Score: 36.7
+  Dominio  84 [RED]  DAGs:   3  I/O:  46  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 30.0
+  Dominio  85 [RED]  DAGs:   3  I/O:  42  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  86 [RED]  DAGs:   4  I/O:  50  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 15.0
+  Dominio  87 [RED]  DAGs:   4  I/O:  50  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 15.0
+  Dominio  88 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio  89 [YELLOW]  DAGs:   3  I/O:  47  Afinidad:    13  Linaje:   2  Conflictos:  0  Score: 43.3
+  Dominio  90 [RED]  DAGs:   4  I/O:  48  Afinidad:    13  Linaje:   3  Conflictos:  0  Score: 21.7
+  Dominio  91 [RED]  DAGs:   4  I/O:  49  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio  92 [RED]  DAGs:   3  I/O:  49  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  93 [RED]  DAGs:   3  I/O:  46  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 26.7
+  Dominio  94 [RED]  DAGs:   3  I/O:  39  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio  95 [RED]  DAGs:   3  I/O:  43  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  96 [RED]  DAGs:   3  I/O:  46  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  97 [RED]  DAGs:   4  I/O:  48  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 15.0
+  Dominio  98 [RED]  DAGs:   3  I/O:  46  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio  99 [RED]  DAGs:   4  I/O:  50  Afinidad:    13  Linaje:   4  Conflictos:  0  Score: 21.7
+  Dominio 100 [RED]  DAGs:   3  I/O:  48  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio 101 [RED]  DAGs:   4  I/O:  48  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio 102 [RED]  DAGs:   3  I/O:  44  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 103 [RED]  DAGs:   3  I/O:  48  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio 104 [RED]  DAGs:   4  I/O:  48  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 105 [RED]  DAGs:   4  I/O:  48  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 15.0
+  Dominio 106 [RED]  DAGs:   4  I/O:  48  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio 107 [RED]  DAGs:   4  I/O:  50  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 11.7
+  Dominio 108 [RED]  DAGs:   3  I/O:  44  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 109 [RED]  DAGs:   3  I/O:  42  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio 110 [RED]  DAGs:   4  I/O:  50  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 15.0
+  Dominio 111 [RED]  DAGs:   4  I/O:  46  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 112 [RED]  DAGs:   3  I/O:  47  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio 113 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 114 [RED]  DAGs:   4  I/O:  50  Afinidad:    13  Linaje:   4  Conflictos:  0  Score: 21.7
+  Dominio 115 [RED]  DAGs:   3  I/O:  48  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio 116 [RED]  DAGs:   4  I/O:  48  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 117 [RED]  DAGs:   4  I/O:  50  Afinidad:    13  Linaje:   3  Conflictos:  0  Score: 21.7
+  Dominio 118 [RED]  DAGs:   3  I/O:  44  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 30.0
+  Dominio 119 [RED]  DAGs:   3  I/O:  46  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 120 [RED]  DAGs:   3  I/O:  42  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 121 [RED]  DAGs:   3  I/O:  44  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio 122 [RED]  DAGs:   3  I/O:  49  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 123 [RED]  DAGs:   3  I/O:  46  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 124 [RED]  DAGs:   4  I/O:  50  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 15.0
+  Dominio 125 [RED]  DAGs:   4  I/O:  50  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio 126 [RED]  DAGs:   4  I/O:  48  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 13.3
+  Dominio 127 [RED]  DAGs:   3  I/O:  45  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 128 [RED]  DAGs:   4  I/O:  44  Afinidad:    13  Linaje:   3  Conflictos:  0  Score: 21.7
+  Dominio 129 [RED]  DAGs:   3  I/O:  46  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 130 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 131 [RED]  DAGs:   3  I/O:  45  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio 132 [RED]  DAGs:   3  I/O:  42  Afinidad:     4  Linaje:   0  Conflictos:  0  Score: 13.3
+  Dominio 133 [RED]  DAGs:   4  I/O:  49  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 11.7
+  Dominio 134 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 135 [RED]  DAGs:   3  I/O:  43  Afinidad:     3  Linaje:   0  Conflictos:  0  Score: 10.0
+  Dominio 136 [RED]  DAGs:   4  I/O:  49  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 137 [RED]  DAGs:   3  I/O:  47  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio 138 [RED]  DAGs:   4  I/O:  50  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 10.0
+  Dominio 139 [RED]  DAGs:   3  I/O:  44  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio 140 [RED]  DAGs:   3  I/O:  43  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio 141 [RED]  DAGs:   3  I/O:  44  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio 142 [RED]  DAGs:   4  I/O:  49  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio 143 [RED]  DAGs:   4  I/O:  50  Afinidad:    12  Linaje:   3  Conflictos:  0  Score: 20.0
+  Dominio 144 [RED]  DAGs:   4  I/O:  49  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 13.3
+  Dominio 145 [RED]  DAGs:   4  I/O:  48  Afinidad:     8  Linaje:   2  Conflictos:  0  Score: 13.3
+  Dominio 146 [RED]  DAGs:   4  I/O:  48  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio 147 [RED]  DAGs:   4  I/O:  46  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 11.7
+  Dominio 148 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 16.7
+  Dominio 149 [RED]  DAGs:   4  I/O:  48  Afinidad:     3  Linaje:   0  Conflictos:  0  Score: 5.0
+  Dominio 150 [RED]  DAGs:   4  I/O:  49  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 15.0
+  Dominio 151 [RED]  DAGs:   4  I/O:  50  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 15.0
+  Dominio 152 [RED]  DAGs:   4  I/O:  50  Afinidad:     7  Linaje:   0  Conflictos:  0  Score: 11.7
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  dlk_ext_00216                           26      26        0         
+  gob_ext_00110                           22      22        0         
+  dlk_ext_00116                           20      20        0         
+  dlk_ext_00006                           20      20        0         
+  dlk_ext_00156                           19      19        0         
+  gob_ext_00270                           19      19        0         
+  gob_ext_00092                           18      18        0         
+  dlk_ext_00030                           18      18        0         
+  dlk_ext_00143                           18      18        0         
+  gob_ext_00042                           17      17        0         
+  dlk_ext_00263                           17      17        0         
+  dlk_ext_00295                           17      17        0         
+  gob_ext_00198                           17      17        0         
+  gob_ext_00189                           17      17        0         
+  dlk_ext_00140                           16      16        0         
+
+========================================================
+
+Tiempo de ejecucion: 4.1 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_g0500_s3_solved.csv -> asignacion DAG -> dominio
+  - dags_g0500_s3_critical_tables.csv -> ranking de tablas criticas
+  - dags_g0500_s3_cluster_report.csv -> score y semaforo por dominio

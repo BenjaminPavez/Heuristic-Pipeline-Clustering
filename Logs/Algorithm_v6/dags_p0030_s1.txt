@@ -1,0 +1,57 @@
+./dag_clusterer Instances/dags_p0030_s1.csv
+DAGs cargados: 30
+Peso extra cargado para: 26 tablas
+Greedy: 8 dominios generados
+  [Tabu] Perturbando en iteracion 2011 (estancamiento)
+  [Tabu] Perturbando en iteracion 4011 (estancamiento)
+  [Tabu] Perturbando en iteracion 6011 (estancamiento)
+  [Tabu] Perturbando en iteracion 8011 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 30
+  Total Dominios  : 8
+  Fitness Global  : 54
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   3  I/O:  48  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 30.0
+  Dominio   1 [RED]  DAGs:   4  I/O:  47  Afinidad:     6  Linaje:   1  Conflictos:  0  Score: 10.0
+  Dominio   2 [RED]  DAGs:   3  I/O:  48  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 23.3
+  Dominio   3 [RED]  DAGs:   4  I/O:  50  Afinidad:     9  Linaje:   1  Conflictos:  0  Score: 15.0
+  Dominio   4 [RED]  DAGs:   4  I/O:  49  Afinidad:     1  Linaje:   0  Conflictos:  0  Score: 1.7
+  Dominio   5 [RED]  DAGs:   4  I/O:  48  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 8.3
+  Dominio   6 [RED]  DAGs:   4  I/O:  45  Afinidad:    13  Linaje:   4  Conflictos:  0  Score: 21.7
+  Dominio   7 [RED]  DAGs:   4  I/O:  44  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 6.7
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  gob_ext_00022                           4       4         0         
+  std_ext_00112                           4       4         0         
+  dlk_ext_00012                           4       4         0         
+  gob_tbl_00414                           4       4         0         
+  proc_ext_00004                          3       3         0         
+  std_ext_00145                           3       3         0         
+  std_tbl_00579                           3       2         1         
+  dlk_ext_00126                           3       3         0         
+  proc_tbl_00608                          3       2         1         
+  dlk_ext_00168                           3       3         0         
+  dlk_ext_00150                           3       3         0         
+  gob_ext_00105                           3       3         0         
+  gob_ext_00033                           3       3         0         
+  gob_ext_00111                           2       2         0         
+  dash_ext_00075                          2       2         0         
+
+========================================================
+
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_p0030_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_p0030_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0030_s1_cluster_report.csv -> score y semaforo por dominio

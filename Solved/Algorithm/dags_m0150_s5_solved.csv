@@ -30,10 +30,9 @@ cluster_id,dag_name
 11,dash_proceso_0041
 11,gob_proceso_0117
 11,dlk_proceso_0146
-12,proc_proceso_0026
+12,dash_proceso_0045
 12,dash_proceso_0038
 12,dash_proceso_0046
-12,dlk_proceso_0002
 13,gob_proceso_0056
 13,gob_proceso_0039
 13,dlk_proceso_0074
@@ -67,7 +66,7 @@ cluster_id,dag_name
 23,gob_proceso_0143
 23,gob_proceso_0118
 23,proc_proceso_0053
-23,dlk_proceso_0006
+23,dlk_proceso_0002
 24,dlk_proceso_0067
 24,gob_proceso_0036
 24,dlk_proceso_0059
@@ -130,9 +129,10 @@ cluster_id,dag_name
 41,dash_proceso_0017
 41,dlk_proceso_0047
 41,gob_proceso_0145
-42,dash_proceso_0045
+42,proc_proceso_0026
 42,dlk_proceso_0032
 42,dlk_proceso_0093
+42,dlk_proceso_0006
 43,gob_proceso_0077
 43,dlk_proceso_0115
 43,gob_proceso_0123

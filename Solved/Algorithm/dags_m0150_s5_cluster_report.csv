@@ -11,7 +11,7 @@ cluster_id,num_dags,capacity_used,internal_affinity,lineage_pairs,write_conflict
 9,3,50,9,2,0,30.00,RED,45
 10,3,45,6,2,0,20.00,RED,43
 11,3,49,7,1,0,23.33,RED,44
-12,4,49,11,3,0,18.33,RED,44
+12,3,48,10,2,0,33.33,RED,42
 13,3,46,9,2,0,30.00,RED,41
 14,3,50,11,2,0,36.67,YELLOW,43
 15,3,49,9,3,0,30.00,RED,46
@@ -41,7 +41,7 @@ cluster_id,num_dags,capacity_used,internal_affinity,lineage_pairs,write_conflict
 39,3,50,8,2,0,26.67,RED,46
 40,4,50,11,3,0,18.33,RED,45
 41,4,49,12,3,0,20.00,RED,44
-42,3,48,11,2,0,36.67,YELLOW,43
+42,4,49,11,1,0,18.33,RED,42
 43,3,47,7,2,0,23.33,RED,44
 44,4,49,9,2,0,15.00,RED,45
 45,5,49,14,1,0,14.00,RED,43

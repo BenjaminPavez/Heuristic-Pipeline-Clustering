@@ -1,0 +1,61 @@
+./dag_clusterer Instances/dags_p0040_s2.csv
+DAGs cargados: 40
+Peso extra cargado para: 26 tablas
+Greedy: 12 dominios generados
+  [Tabu] Perturbando en iteracion 2043 (estancamiento)
+  [Tabu] Perturbando en iteracion 4043 (estancamiento)
+  [Tabu] Perturbando en iteracion 6043 (estancamiento)
+  [Tabu] Perturbando en iteracion 8043 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 40
+  Total Dominios  : 12
+  Fitness Global  : 82
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   3  I/O:  43  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   1 [RED]  DAGs:   4  I/O:  49  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 11.7
+  Dominio   2 [RED]  DAGs:   3  I/O:  45  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio   3 [RED]  DAGs:   4  I/O:  44  Afinidad:    15  Linaje:   4  Conflictos:  0  Score: 25.0
+  Dominio   4 [RED]  DAGs:   3  I/O:  47  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 13.3
+  Dominio   5 [RED]  DAGs:   3  I/O:  40  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio   6 [RED]  DAGs:   3  I/O:  45  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   7 [RED]  DAGs:   3  I/O:  45  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   8 [RED]  DAGs:   3  I/O:  48  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 13.3
+  Dominio   9 [RED]  DAGs:   4  I/O:  48  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio  10 [RED]  DAGs:   4  I/O:  43  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 6.7
+  Dominio  11 [RED]  DAGs:   3  I/O:  48  Afinidad:     5  Linaje:   0  Conflictos:  0  Score: 16.7
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  dash_ext_00135                          4       4         0         
+  dlk_ext_00142                           4       4         0         
+  gob_tbl_00344                           4       3         1         
+  gob_ext_00163                           4       4         0         
+  dlk_ext_00110                           3       3         0         
+  proc_ext_00051                          3       3         0         
+  gob_ext_00121                           3       3         0         
+  gob_ext_00126                           3       3         0         
+  dash_ext_00058                          3       3         0         
+  gob_ext_00032                           3       3         0         
+  dlk_tbl_00625                           3       3         0         
+  dlk_ext_00022                           3       3         0         
+  dlk_tbl_00441                           3       2         1         
+  ppn_ext_00046                           3       3         0         
+  gob_ext_00090                           3       3         0         
+
+========================================================
+
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_p0040_s2_solved.csv -> asignacion DAG -> dominio
+  - dags_p0040_s2_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0040_s2_cluster_report.csv -> score y semaforo por dominio

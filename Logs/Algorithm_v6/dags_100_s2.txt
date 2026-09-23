@@ -1,0 +1,81 @@
+./dag_clusterer Instances/dags_100_s2.csv
+DAGs cargados: 100
+Peso extra cargado para: 26 tablas
+Greedy: 32 dominios generados
+  [Tabu] Perturbando en iteracion 2074 (estancamiento)
+  [Tabu] Perturbando en iteracion 4074 (estancamiento)
+  [Tabu] Perturbando en iteracion 6074 (estancamiento)
+  [Tabu] Perturbando en iteracion 8074 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 100
+  Total Dominios  : 32
+  Fitness Global  : 1466
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   4  I/O:  50  Afinidad:    21  Linaje:   0  Conflictos:  0  Score: 35.0
+  Dominio   1 [RED]  DAGs:   4  I/O:  50  Afinidad:    14  Linaje:   0  Conflictos:  0  Score: 23.3
+  Dominio   2 [GREEN]  DAGs:   3  I/O:  48  Afinidad:    41  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   3 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    11  Linaje:   0  Conflictos:  0  Score: 36.7
+  Dominio   4 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 40.0
+  Dominio   5 [YELLOW]  DAGs:   3  I/O:  49  Afinidad:    14  Linaje:   1  Conflictos:  0  Score: 46.7
+  Dominio   6 [GREEN]  DAGs:   2  I/O:  44  Afinidad:    11  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio   7 [RED]  DAGs:   2  I/O:  32  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 0.0
+  Dominio   8 [RED]  DAGs:   4  I/O:  48  Afinidad:    19  Linaje:   1  Conflictos:  0  Score: 31.7
+  Dominio   9 [YELLOW]  DAGs:   4  I/O:  47  Afinidad:    24  Linaje:   2  Conflictos:  0  Score: 40.0
+  Dominio  10 [RED]  DAGs:   3  I/O:  45  Afinidad:     3  Linaje:   0  Conflictos:  0  Score: 10.0
+  Dominio  11 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    31  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio  12 [RED]  DAGs:   3  I/O:  50  Afinidad:     4  Linaje:   0  Conflictos:  0  Score: 13.3
+  Dominio  13 [GREEN]  DAGs:   2  I/O:  46  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio  14 [YELLOW]  DAGs:   3  I/O:  49  Afinidad:    13  Linaje:   1  Conflictos:  0  Score: 43.3
+  Dominio  15 [GREEN]  DAGs:   2  I/O:  50  Afinidad:    19  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio  16 [RED]  DAGs:   4  I/O:  50  Afinidad:    11  Linaje:   0  Conflictos:  0  Score: 18.3
+  Dominio  17 [GREEN]  DAGs:   3  I/O:  46  Afinidad:    20  Linaje:   2  Conflictos:  0  Score: 66.7
+  Dominio  18 [YELLOW]  DAGs:   4  I/O:  48  Afinidad:    34  Linaje:   2  Conflictos:  0  Score: 56.7
+  Dominio  19 [GREEN]  DAGs:   3  I/O:  46  Afinidad:    23  Linaje:   1  Conflictos:  0  Score: 76.7
+  Dominio  20 [GREEN]  DAGs:   2  I/O:  43  Afinidad:     8  Linaje:   0  Conflictos:  0  Score: 80.0
+  Dominio  21 [RED]  DAGs:   4  I/O:  48  Afinidad:    15  Linaje:   2  Conflictos:  0  Score: 25.0
+  Dominio  22 [RED]  DAGs:   4  I/O:  49  Afinidad:    19  Linaje:   1  Conflictos:  0  Score: 31.7
+  Dominio  23 [GREEN]  DAGs:   3  I/O:  49  Afinidad:    29  Linaje:   2  Conflictos:  0  Score: 96.7
+  Dominio  24 [GREEN]  DAGs:   4  I/O:  47  Afinidad:    58  Linaje:   2  Conflictos:  0  Score: 96.7
+  Dominio  25 [GREEN]  DAGs:   3  I/O:  49  Afinidad:    21  Linaje:   1  Conflictos:  0  Score: 70.0
+  Dominio  26 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    42  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio  27 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    17  Linaje:   0  Conflictos:  0  Score: 56.7
+  Dominio  28 [GREEN]  DAGs:   2  I/O:  34  Afinidad:    12  Linaje:   1  Conflictos:  0  Score: 100.0
+  Dominio  29 [GREEN]  DAGs:   4  I/O:  44  Afinidad:    49  Linaje:   2  Conflictos:  0  Score: 81.7
+  Dominio  30 [GREEN]  DAGs:   4  I/O:  48  Afinidad:    46  Linaje:   4  Conflictos:  0  Score: 76.7
+  Dominio  31 [GREEN]  DAGs:   2  I/O:  47  Afinidad:    17  Linaje:   0  Conflictos:  0  Score: 100.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  personales_sap                          21      21        0         
+  bci_cargo_sap                           16      16        0         
+  desempeno_conductas_claves_2022_sap     16      16        0         
+  ppn_colaborador_sap                     16      16        0         
+  m4vw_evaluacion_sap                     15      15        0         
+  std_hr_unidad_sap                       15      15        0         
+  dlk_desempeno_hora_extra_v1             14      13        1         
+  m4cci_x_tipo_baja_sap                   14      14        0         
+  dlk_desempeno_beca_v2                   13      12        1         
+  cci_incidencia_sap                      13      13        0         
+  dlk_desempeno_convenio_v2               13      12        1         
+  dlk_planta_sucursal                     12      11        1         
+  dlk_desempeno_bono_v2                   12      11        1         
+  dlk_planta_posicion_v1                  12      11        1         
+  template_cargo_sap                      11      11        0         
+
+========================================================
+
+Tiempo de ejecucion: 0.1 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_100_s2_solved.csv -> asignacion DAG -> dominio
+  - dags_100_s2_critical_tables.csv -> ranking de tablas criticas
+  - dags_100_s2_cluster_report.csv -> score y semaforo por dominio
