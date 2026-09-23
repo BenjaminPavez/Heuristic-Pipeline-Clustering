@@ -1,0 +1,59 @@
+./dag_clusterer Instances/dags_030_s2.csv
+DAGs cargados: 30
+Peso extra cargado para: 26 tablas
+Greedy: 10 dominios generados
+  [Tabu] Perturbando en iteracion 20036 (estancamiento)
+  [Tabu] Perturbando en iteracion 40036 (estancamiento)
+  [Tabu] Perturbando en iteracion 60036 (estancamiento)
+  [Tabu] Perturbando en iteracion 80036 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 30
+  Total Dominios  : 10
+  Fitness Global  : 757
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   3  I/O:  47  Afinidad:    15  Linaje:   0  Conflictos:  0  Score: 50.0
+  Dominio   1 [RED]  DAGs:   3  I/O:  48  Afinidad:     6  Linaje:   0  Conflictos:  0  Score: 20.0
+  Dominio   2 [YELLOW]  DAGs:   3  I/O:  50  Afinidad:    16  Linaje:   1  Conflictos:  0  Score: 53.3
+  Dominio   3 [RED]  DAGs:   4  I/O:  50  Afinidad:    15  Linaje:   0  Conflictos:  0  Score: 25.0
+  Dominio   4 [YELLOW]  DAGs:   3  I/O:  49  Afinidad:    19  Linaje:   1  Conflictos:  0  Score: 63.3
+  Dominio   5 [GREEN]  DAGs:   3  I/O:  47  Afinidad:    40  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   6 [GREEN]  DAGs:   3  I/O:  48  Afinidad:    47  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   7 [GREEN]  DAGs:   2  I/O:  49  Afinidad:    16  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio   8 [GREEN]  DAGs:   3  I/O:  49  Afinidad:    33  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   9 [GREEN]  DAGs:   3  I/O:  44  Afinidad:    25  Linaje:   1  Conflictos:  0  Score: 83.3
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  ausentismo_sf_sap                       10      10        0         
+  cat_desempeno_2024_sap                  8       8         0         
+  personales_sap                          8       8         0         
+  std_work_location_sap                   8       8         0         
+  template_cargos_detalle_sap             7       7         0         
+  planta_internacional_sap                7       7         0         
+  dlk_talento_egreso_v1                   6       5         1         
+  dlk_talento_antiguedad_v2               6       5         1         
+  std_lu_languages_sap                    6       6         0         
+  dlk_talento_traslado_v1                 6       5         1         
+  dlk_talento_curso_v1                    6       5         1         
+  dlk_talento_centro_costo                6       5         1         
+  std_lu_incid_type_sap                   6       6         0         
+  std_job_sap                             5       5         0         
+  std_lu_wt_type_sap                      5       5         0         
+
+========================================================
+
+Tiempo de ejecucion: 0.1 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_030_s2_solved.csv -> asignacion DAG -> dominio
+  - dags_030_s2_critical_tables.csv -> ranking de tablas criticas
+  - dags_030_s2_cluster_report.csv -> score y semaforo por dominio

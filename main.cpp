@@ -46,8 +46,8 @@ int main(int argc, char* argv[]){
 
     // Parametros Tabu Search y tamanio maximo de dominio (capacidad)
     const int MAX_CAPACITY = 50;
-    const int MAX_ITER     = 10000;
-    const int TABU_TENURE  = 10;
+    const int MAX_ITER     = 100000;
+    const int TABU_TENURE  = 20;
 
     // Solucion Inicial (Greedy)
     Solution initial_sol = run_greedy(dags, optional_weights, MAX_CAPACITY);

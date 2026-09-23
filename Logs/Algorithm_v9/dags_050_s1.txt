@@ -1,0 +1,65 @@
+./dag_clusterer Instances/dags_050_s1.csv
+DAGs cargados: 50
+Peso extra cargado para: 26 tablas
+Greedy: 16 dominios generados
+  [Tabu] Perturbando en iteracion 20050 (estancamiento)
+  [Tabu] Perturbando en iteracion 40050 (estancamiento)
+  [Tabu] Perturbando en iteracion 60050 (estancamiento)
+  [Tabu] Perturbando en iteracion 80050 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 50
+  Total Dominios  : 16
+  Fitness Global  : 1066
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   4  I/O:  49  Afinidad:    21  Linaje:   0  Conflictos:  0  Score: 35.0
+  Dominio   1 [YELLOW]  DAGs:   3  I/O:  47  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   2 [GREEN]  DAGs:   3  I/O:  44  Afinidad:    28  Linaje:   2  Conflictos:  0  Score: 93.3
+  Dominio   3 [RED]  DAGs:   5  I/O:  50  Afinidad:    21  Linaje:   0  Conflictos:  0  Score: 21.0
+  Dominio   4 [YELLOW]  DAGs:   3  I/O:  47  Afinidad:    17  Linaje:   1  Conflictos:  0  Score: 56.7
+  Dominio   5 [GREEN]  DAGs:   3  I/O:  47  Afinidad:    35  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   6 [RED]  DAGs:   3  I/O:  49  Afinidad:     5  Linaje:   0  Conflictos:  0  Score: 16.7
+  Dominio   7 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    30  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   8 [RED]  DAGs:   3  I/O:  49  Afinidad:     9  Linaje:   1  Conflictos:  0  Score: 30.0
+  Dominio   9 [GREEN]  DAGs:   3  I/O:  44  Afinidad:    48  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio  10 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    61  Linaje:   3  Conflictos:  0  Score: 100.0
+  Dominio  11 [GREEN]  DAGs:   4  I/O:  46  Afinidad:    66  Linaje:   3  Conflictos:  0  Score: 100.0
+  Dominio  12 [GREEN]  DAGs:   3  I/O:  42  Afinidad:    34  Linaje:   1  Conflictos:  0  Score: 100.0
+  Dominio  13 [GREEN]  DAGs:   2  I/O:  39  Afinidad:    11  Linaje:   0  Conflictos:  0  Score: 100.0
+  Dominio  14 [GREEN]  DAGs:   4  I/O:  50  Afinidad:    52  Linaje:   4  Conflictos:  0  Score: 86.7
+  Dominio  15 [YELLOW]  DAGs:   1  I/O:   9  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 50.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  std_lu_edu_special_sap                  17      17        0         
+  ppn_familia_cargo_cargo_sap             16      16        0         
+  std_job_sap                             15      15        0         
+  panel_alertas_ssnn_sap                  11      11        0         
+  nomina_desempeno_2024_sap               10      10        0         
+  gob_planta_region                       9       8         1         
+  gob_planta_convenio                     9       8         1         
+  gob_planta_postulante                   9       8         1         
+  desempeno_2022_sap                      9       9         0         
+  gob_planta_contrato_v2                  8       7         1         
+  bci_niv_hay_puesto_sap                  8       8         0         
+  ppn_familia_cargo_sap                   8       8         0         
+  gob_planta_vacante_v2                   8       7         1         
+  template_ent_legal_sap                  8       8         0         
+  std_lu_lang_level_sap                   8       8         0         
+
+========================================================
+
+Tiempo de ejecucion: 0.3 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_050_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_050_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_050_s1_cluster_report.csv -> score y semaforo por dominio

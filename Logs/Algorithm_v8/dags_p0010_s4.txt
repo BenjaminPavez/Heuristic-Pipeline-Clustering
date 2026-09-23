@@ -1,0 +1,53 @@
+./dag_clusterer Instances/dags_p0010_s4.csv
+DAGs cargados: 10
+Peso extra cargado para: 26 tablas
+Greedy: 4 dominios generados
+  [Tabu] Perturbando en iteracion 20001 (estancamiento)
+  [Tabu] Perturbando en iteracion 40001 (estancamiento)
+  [Tabu] Perturbando en iteracion 60001 (estancamiento)
+  [Tabu] Perturbando en iteracion 80001 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 10
+  Total Dominios  : 4
+  Fitness Global  : 13
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   3  I/O:  50  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio   1 [RED]  DAGs:   3  I/O:  48  Afinidad:     2  Linaje:   0  Conflictos:  0  Score: 6.7
+  Dominio   2 [RED]  DAGs:   3  I/O:  45  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 16.7
+  Dominio   3 [YELLOW]  DAGs:   1  I/O:  11  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 50.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  dlk_ext_00025                           2       2         0         
+  dlk_ext_00005                           2       2         0         
+  dlk_ext_00035                           2       2         0         
+  m4vw_tbl_00812                          2       2         0         
+  dash_tbl_00878                          2       1         1         
+  dlk_tbl_00181                           2       2         0         
+  gob_ext_00115                           2       2         0         
+  dlk_tbl_00114                           2       1         1         
+  gob_ext_00114                           2       2         0         
+  dlk_tbl_00855                           2       1         1         
+  proc_ext_00116                          2       2         0         
+  gob_tbl_00336                           2       1         1         
+  gob_tbl_00230                           2       1         1         
+  proc_tbl_00894                          2       2         0         
+  dlk_tbl_00550                           1       1         0         
+
+========================================================
+
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_p0010_s4_solved.csv -> asignacion DAG -> dominio
+  - dags_p0010_s4_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0010_s4_cluster_report.csv -> score y semaforo por dominio

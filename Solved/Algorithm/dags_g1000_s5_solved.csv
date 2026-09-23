@@ -64,6 +64,7 @@ cluster_id,dag_name
 27,dlk_proceso_0718
 28,dlk_proceso_0482
 28,proc_proceso_0768
+28,dlk_proceso_0271
 29,dlk_proceso_0565
 29,gob_proceso_0572
 29,proc_proceso_0728
@@ -131,7 +132,6 @@ cluster_id,dag_name
 51,dlk_proceso_0715
 51,dash_proceso_0466
 51,dlk_proceso_0096
-51,dlk_proceso_0271
 52,dlk_proceso_0749
 52,dlk_proceso_0989
 52,gob_proceso_0110

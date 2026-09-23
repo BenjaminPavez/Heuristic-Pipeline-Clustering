@@ -14,7 +14,6 @@ cluster_id,dag_name
 5,dlk_proceso_0340
 6,dash_proceso_0390
 6,gob_proceso_0560
-6,dlk_proceso_0176
 7,dlk_proceso_0019
 7,gob_proceso_0071
 7,dlk_proceso_0203
@@ -41,7 +40,6 @@ cluster_id,dag_name
 14,gob_proceso_0366
 15,dash_proceso_0159
 15,dlk_proceso_0197
-15,gob_proceso_0670
 16,dlk_proceso_0379
 16,gob_proceso_0596
 17,dlk_proceso_0495
@@ -119,19 +117,16 @@ cluster_id,dag_name
 41,gob_proceso_0008
 42,dlk_proceso_0566
 42,gob_proceso_0064
-42,proc_proceso_0304
 43,dlk_proceso_0649
 43,dlk_proceso_0335
 43,dlk_proceso_0520
 44,gob_proceso_0658
 44,dash_proceso_0450
-44,dlk_proceso_0087
 45,dlk_proceso_0660
 45,dlk_proceso_0275
 45,dash_proceso_0385
 46,dlk_proceso_0667
 46,gob_proceso_0418
-46,dash_proceso_0233
 47,proc_proceso_0684
 47,dlk_proceso_0648
 47,dlk_proceso_0469
@@ -184,7 +179,7 @@ cluster_id,dag_name
 62,proc_proceso_0382
 63,dlk_proceso_0540
 63,proc_proceso_0740
-63,dlk_proceso_0112
+63,dlk_proceso_0087
 64,proc_proceso_0583
 64,gob_proceso_0004
 64,proc_proceso_0018
@@ -370,7 +365,6 @@ cluster_id,dag_name
 120,dlk_proceso_0731
 120,gob_proceso_0061
 120,dash_proceso_0204
-120,dlk_proceso_0437
 121,dlk_proceso_0109
 121,proc_proceso_0049
 121,gob_proceso_0441
@@ -496,7 +490,7 @@ cluster_id,dag_name
 156,gob_proceso_0147
 156,dlk_proceso_0240
 156,dlk_proceso_0453
-156,dlk_proceso_0741
+156,dlk_proceso_0659
 157,dlk_proceso_0154
 157,gob_proceso_0387
 157,dlk_proceso_0155
@@ -540,6 +534,7 @@ cluster_id,dag_name
 168,dlk_proceso_0484
 168,proc_proceso_0543
 168,dash_proceso_0717
+168,dash_proceso_0233
 169,gob_proceso_0523
 169,dlk_proceso_0229
 169,dlk_proceso_0401
@@ -547,6 +542,7 @@ cluster_id,dag_name
 170,proc_proceso_0532
 170,dash_proceso_0567
 170,dash_proceso_0256
+170,dlk_proceso_0741
 171,gob_proceso_0533
 171,proc_proceso_0590
 171,dlk_proceso_0612
@@ -580,9 +576,11 @@ cluster_id,dag_name
 179,proc_proceso_0636
 179,proc_proceso_0294
 179,gob_proceso_0652
+179,dlk_proceso_0176
 180,proc_proceso_0650
 180,dlk_proceso_0348
 180,gob_proceso_0443
+180,proc_proceso_0304
 181,gob_proceso_0674
 181,dlk_proceso_0592
 181,dlk_proceso_0056
@@ -598,6 +596,7 @@ cluster_id,dag_name
 184,gob_proceso_0712
 184,dlk_proceso_0046
 184,proc_proceso_0470
+184,gob_proceso_0670
 185,dlk_proceso_0725
 185,dlk_proceso_0326
 185,dlk_proceso_0350
@@ -647,6 +646,7 @@ cluster_id,dag_name
 197,dlk_proceso_0609
 197,dlk_proceso_0585
 197,dlk_proceso_0593
+197,dlk_proceso_0437
 198,dlk_proceso_0631
 198,gob_proceso_0699
 198,gob_proceso_0145
@@ -743,7 +743,7 @@ cluster_id,dag_name
 220,gob_proceso_0244
 221,dlk_proceso_0702
 221,gob_proceso_0626
-221,dlk_proceso_0659
+221,dlk_proceso_0112
 221,dlk_proceso_0704
 221,gob_proceso_0013
 222,dlk_proceso_0744
