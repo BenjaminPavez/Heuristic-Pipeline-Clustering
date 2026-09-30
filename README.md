@@ -10,7 +10,7 @@ This repository contains the implementation developed for my undergraduate thesi
 
 | Component | Version |
 |-----------|---------|
-| Operating System | Ubuntu 24.04.4 LTS / Ubuntu 22.04.5 LTS |
+| Operating System | Ubuntu 24.04.1 LTS |
 | Compiler | G++ 13.3.0 |
 | Language | C++ |
 
@@ -51,11 +51,10 @@ The solution consists of two main stages:
 │   │   ├── dags_g0250_s1_cluster_report.csv
 │   │   ├── dags_g0250_s1_critical_tables.csv
 │   │   └── dags_g0250_s1_solved.csv
-│   ├── Gurobi
-│   │   ├── dags_010_s1_solved.csv
-│   │   ├── dags_m0050_s1_solved.csv
-│   │   └── dags_g0250_s1_solved.csv
-│   └── dags_100_solved.csv
+│   └── Gurobi
+│       ├── dags_010_s1_solved.csv
+│       ├── dags_m0050_s1_solved.csv
+│       └── dags_g0250_s1_solved.csv 
 ├── constraints.cpp
 ├── evaluation.cpp
 ├── greedy.cpp
@@ -82,10 +81,10 @@ Compile the project using the provided Makefile:
 make
 ```
 
-To run the executable:
+To run all instances:
 
 ```bash
-make run
+./run_all_heuristic.sh
 ```
 
 ---
@@ -225,7 +224,8 @@ The following table compares the results obtained with Gurobi and the proposed m
 | `dags_g1000_s4` | Synthetic | --- | --- | --- | 2718 | 2718 | 280.60 |
 | `dags_g1000_s5` | Synthetic | --- | --- | --- | 2722 | 2722 | 276.80 |
 
-**Note:** `---` indicates that Gurobi did not report a solution for the instance.
+> [!NOTE]  
+> `---` indicates that Gurobi did not report a solution for the instance.
 
 ---
 
