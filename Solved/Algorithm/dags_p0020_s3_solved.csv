@@ -4,13 +4,13 @@ cluster_id,dag_name
 0,dlk_proceso_0003
 1,proc_proceso_0010
 1,dash_proceso_0017
+1,dlk_proceso_0004
 2,dlk_proceso_0008
 2,dlk_proceso_0019
 2,dlk_proceso_0009
 2,dash_proceso_0014
 3,proc_proceso_0015
 3,proc_proceso_0007
-3,dlk_proceso_0004
 3,dlk_proceso_0013
 4,dlk_proceso_0005
 4,dash_proceso_0006

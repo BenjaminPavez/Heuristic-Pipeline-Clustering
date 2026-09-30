@@ -28,14 +28,15 @@ Retorno :
 
 */
 int main(int argc, char* argv[]){
-    auto start = chrono::high_resolution_clock::now();
+    auto start = chrono::steady_clock::now();
 
     if (argc < 2) {
-        cerr << "Uso: " << argv[0] << " <archivo.csv>" << endl;
+        cerr << "Uso: " << argv[0] << " <archivo.csv> [semilla]" << endl;
         return 1;
     }
 
     string filename = argv[1];
+    unsigned seed = (argc >= 3) ? (unsigned)stoul(argv[2]) : 1u;
 
     // Cargar datos
     vector<DAG> dags = load_dags(filename);
@@ -47,7 +48,7 @@ int main(int argc, char* argv[]){
     // Parametros Tabu Search y tamanio maximo de dominio (capacidad)
     const int MAX_CAPACITY = 50;
     const int MAX_ITER     = 100000;
-    const int TABU_TENURE  = 20;
+    const int TABU_TENURE  = 9;
 
     // Solucion Inicial (Greedy)
     Solution initial_sol = run_greedy(dags, optional_weights, MAX_CAPACITY);
@@ -59,7 +60,7 @@ int main(int argc, char* argv[]){
 
 
     // Mejorar solucion con Busqueda Tabu
-    Solution best_sol = run_tabu_search(initial_sol, dags, optional_weights, MAX_CAPACITY, MAX_ITER, TABU_TENURE);
+    Solution best_sol = run_tabu_search(initial_sol, dags, optional_weights, MAX_CAPACITY, MAX_ITER, TABU_TENURE, seed);
 
     // Validar que el Tabu Search no produjo una solucion infactible
     if (!is_feasible_solution(best_sol, dags, MAX_CAPACITY))
@@ -68,7 +69,7 @@ int main(int argc, char* argv[]){
     // Recalcular con sobrecarga no-const para actualizar write_conflicts por cluster
     best_sol.fitness_score = evaluate_solution(best_sol, dags, optional_weights);
 
-    auto end = chrono::high_resolution_clock::now();
+    auto end = chrono::steady_clock::now();
     chrono::duration<double> duration = end - start;
 
     // Reporting
@@ -77,6 +78,7 @@ int main(int argc, char* argv[]){
 
     print_summary(best_sol, dags, cluster_reports, critical_tables, 15);
 
+    cout << "Semilla: " << seed << "\n";
     cout << "Tiempo de ejecucion: " << duration.count() << " segundos\n\n";
 
     string instance_name = filesystem::path(filename).stem().string();

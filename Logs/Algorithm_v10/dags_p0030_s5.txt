@@ -1,0 +1,74 @@
+./dag_clusterer Instances/dags_p0030_s5.csv
+DAGs cargados: 30
+Peso extra cargado para: 26 tablas
+Greedy: 9 dominios generados
+  [Tabu] Perturbando en iteracion 5083 (estancamiento)
+  [Tabu] Perturbando en iteracion 10083 (estancamiento)
+  [Tabu] Perturbando en iteracion 15083 (estancamiento)
+  [Tabu] Perturbando en iteracion 20083 (estancamiento)
+  [Tabu] Perturbando en iteracion 25083 (estancamiento)
+  [Tabu] Perturbando en iteracion 30083 (estancamiento)
+  [Tabu] Perturbando en iteracion 35083 (estancamiento)
+  [Tabu] Perturbando en iteracion 40083 (estancamiento)
+  [Tabu] Perturbando en iteracion 45083 (estancamiento)
+  [Tabu] Perturbando en iteracion 50083 (estancamiento)
+  [Tabu] Perturbando en iteracion 55083 (estancamiento)
+  [Tabu] Perturbando en iteracion 60083 (estancamiento)
+  [Tabu] Perturbando en iteracion 65083 (estancamiento)
+  [Tabu] Perturbando en iteracion 70083 (estancamiento)
+  [Tabu] Perturbando en iteracion 75083 (estancamiento)
+  [Tabu] Perturbando en iteracion 80083 (estancamiento)
+  [Tabu] Perturbando en iteracion 85083 (estancamiento)
+  [Tabu] Perturbando en iteracion 90083 (estancamiento)
+  [Tabu] Perturbando en iteracion 95083 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 30
+  Total Dominios  : 9
+  Fitness Global  : 58
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   4  I/O:  48  Afinidad:     3  Linaje:   0  Conflictos:  0  Score: 5.0
+  Dominio   1 [RED]  DAGs:   3  I/O:  49  Afinidad:     4  Linaje:   0  Conflictos:  0  Score: 13.3
+  Dominio   2 [RED]  DAGs:   3  I/O:  47  Afinidad:    10  Linaje:   2  Conflictos:  0  Score: 33.3
+  Dominio   3 [RED]  DAGs:   3  I/O:  50  Afinidad:     2  Linaje:   0  Conflictos:  0  Score: 6.7
+  Dominio   4 [RED]  DAGs:   3  I/O:  44  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 16.7
+  Dominio   5 [RED]  DAGs:   3  I/O:  39  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   6 [RED]  DAGs:   4  I/O:  47  Afinidad:    11  Linaje:   3  Conflictos:  0  Score: 18.3
+  Dominio   7 [RED]  DAGs:   3  I/O:  50  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   8 [RED]  DAGs:   4  I/O:  49  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 15.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  dlk_ext_00118                           6       6         0         
+  dlk_ext_00012                           6       6         0         
+  proc_ext_00010                          5       5         0         
+  gob_ext_00029                           4       4         0         
+  dlk_tbl_00782                           3       2         1         
+  gob_ext_00047                           3       3         0         
+  dlk_ext_00024                           3       3         0         
+  gob_ext_00053                           3       3         0         
+  dlk_tbl_00145                           3       3         0         
+  dash_ext_00001                          3       3         0         
+  m4sco_tbl_00201                         3       2         1         
+  proc_ext_00062                          3       3         0         
+  dlk_tbl_00192                           3       2         1         
+  gob_tbl_00007                           3       2         1         
+  gob_tbl_00238                           3       2         1         
+
+========================================================
+
+Semilla: 1
+Tiempo de ejecucion: 0.2 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_p0030_s5_solved.csv -> asignacion DAG -> dominio
+  - dags_p0030_s5_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0030_s5_cluster_report.csv -> score y semaforo por dominio

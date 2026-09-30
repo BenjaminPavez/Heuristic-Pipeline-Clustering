@@ -1,0 +1,69 @@
+./dag_clusterer Instances/dags_p0010_s3.csv
+DAGs cargados: 10
+Peso extra cargado para: 26 tablas
+Greedy: 4 dominios generados
+  [Tabu] Perturbando en iteracion 5002 (estancamiento)
+  [Tabu] Perturbando en iteracion 10002 (estancamiento)
+  [Tabu] Perturbando en iteracion 15002 (estancamiento)
+  [Tabu] Perturbando en iteracion 20002 (estancamiento)
+  [Tabu] Perturbando en iteracion 25002 (estancamiento)
+  [Tabu] Perturbando en iteracion 30002 (estancamiento)
+  [Tabu] Perturbando en iteracion 35002 (estancamiento)
+  [Tabu] Perturbando en iteracion 40002 (estancamiento)
+  [Tabu] Perturbando en iteracion 45002 (estancamiento)
+  [Tabu] Perturbando en iteracion 50002 (estancamiento)
+  [Tabu] Perturbando en iteracion 55002 (estancamiento)
+  [Tabu] Perturbando en iteracion 60002 (estancamiento)
+  [Tabu] Perturbando en iteracion 65002 (estancamiento)
+  [Tabu] Perturbando en iteracion 70002 (estancamiento)
+  [Tabu] Perturbando en iteracion 75002 (estancamiento)
+  [Tabu] Perturbando en iteracion 80002 (estancamiento)
+  [Tabu] Perturbando en iteracion 85002 (estancamiento)
+  [Tabu] Perturbando en iteracion 90002 (estancamiento)
+  [Tabu] Perturbando en iteracion 95002 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 10
+  Total Dominios  : 4
+  Fitness Global  : 13
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   2  I/O:  46  Afinidad:     3  Linaje:   1  Conflictos:  0  Score: 30.0
+  Dominio   1 [RED]  DAGs:   3  I/O:  37  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 0.0
+  Dominio   2 [RED]  DAGs:   2  I/O:  33  Afinidad:     3  Linaje:   1  Conflictos:  0  Score: 30.0
+  Dominio   3 [RED]  DAGs:   3  I/O:  47  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 23.3
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  std_ext_00007                           3       3         0         
+  dash_tbl_00719                          2       1         1         
+  proc_tbl_00747                          2       2         0         
+  gob_ext_00101                           2       2         0         
+  gob_ext_00097                           2       2         0         
+  proc_ext_00071                          2       2         0         
+  gob_ext_00054                           2       2         0         
+  proc_tbl_00198                          2       2         0         
+  dlk_tbl_00042                           2       1         1         
+  proc_ext_00109                          2       2         0         
+  dlk_ext_00094                           2       2         0         
+  gob_tbl_00444                           2       2         0         
+  std_tbl_00764                           2       1         1         
+  proc_tbl_00401                          2       1         1         
+  proc_tbl_00534                          1       1         0         
+
+========================================================
+
+Semilla: 1
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/Algorithm/
+  - dags_p0010_s3_solved.csv -> asignacion DAG -> dominio
+  - dags_p0010_s3_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0010_s3_cluster_report.csv -> score y semaforo por dominio

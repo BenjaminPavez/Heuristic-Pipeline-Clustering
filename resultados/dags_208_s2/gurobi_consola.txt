@@ -1,6 +1,0 @@
-[dags_208_s2] DAGs: 208 | Dominios K: 62 | pares con afinidad != 0: 5,089 de 21,528
-Restricted license - for non-production use only - expires 2027-11-29
-Set parameter TimeLimit to value 3600
-Set parameter LogFile to value "resultados/dags_208_s2/gurobi.log"
-Set parameter LogToConsole to value 0
-[dags_208_s2] ERROR: Model too large for size-limited license; visit https://gurobi.com/unrestricted for more information
