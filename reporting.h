@@ -7,23 +7,25 @@
 
 using namespace std;
 
-// Genera el ranking de tablas críticas del ecosistema completo
+
+// Genera el ranking de tablas criticas
 vector<CriticalTable> build_critical_table_ranking(const vector<DAG>& dags);
 
-// Genera el reporte de cohesión y semáforo por clúster
+
+// Genera el reporte de cohesion y semaforo por cluster
 vector<ClusterReport> build_cluster_reports(const Solution& sol, const vector<DAG>& dags);
 
-// Imprime en consola un resumen ejecutivo
-void print_summary(const Solution& sol,
-                   const vector<DAG>& dags,
-                   const vector<ClusterReport>& reports,
-                   const vector<CriticalTable>& critical_tables,
-                   int top_n_tables = 15);
 
-// Exporta el ranking de tablas críticas a CSV
+// Imprime en consola un resumen
+void print_summary(const Solution& sol, const vector<DAG>& dags, const vector<ClusterReport>& reports, const vector<CriticalTable>& critical_tables, int top_n_tables = 15);
+
+
+// Exporta el ranking de tablas criticas a CSV
 void save_critical_tables_csv(const vector<CriticalTable>& tables, const string& filename);
 
-// Exporta el reporte de clústeres a CSV
+
+// Exporta el reporte de clusteres a CSV
 void save_cluster_report_csv(const vector<ClusterReport>& reports, const string& filename);
+
 
 #endif

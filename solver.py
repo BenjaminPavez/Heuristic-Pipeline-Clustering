@@ -1,14 +1,3 @@
-"""
-Modelo exacto (MIP) del agrupamiento de DAGs, resuelto con Gurobi.
-
-Procesa por lotes todas las instancias de Instances/ y escribe:
-  Solved/Gurobi/<instancia>_solved.csv   asignación DAG -> dominio
-  Logs/Gurobi/<instancia>.txt            log de Gurobi
-  Solved/Gurobi/resumen_gurobi.csv       una fila por instancia (obj, cota, gap)
-
-Los parámetros DEBEN coincidir con los del C++ (types.h y main.cpp), de lo
-contrario los valores objetivo no son comparables con los de la heurística.
-"""
 import csv
 import glob
 import math
@@ -17,26 +6,24 @@ import time
 import gurobipy as gp
 from gurobipy import GRB
 
-# ==========================================
-# 1. PARÁMETROS (deben coincidir con el C++)
-# ==========================================
+# Parametros
 INPUT_DIR         = 'Instances'
-PESOS_FILE        = 'Instances/important_tables.csv'   # e(t); '' para ignorarlo
-HEUR_SOLVED_DIR   = 'Solved/Algorithm'                 # soluciones de la heurística
+PESOS_FILE        = 'Instances/important_tables.csv'
+HEUR_SOLVED_DIR   = 'Solved/Algorithm'
 OUTPUT_SOLVED_DIR = 'Solved/Gurobi'
 OUTPUT_LOGS_DIR   = 'Logs/Gurobi'
 RESUMEN           = 'Solved/Gurobi/resumen_gurobi.csv'
 
-LAMBDA_S = 1          # WEIGHT_SHARED_TABLE      (types.h)
-LAMBDA_L = 3          # WEIGHT_LINEAGE_RELATION  (types.h)
-LAMBDA_C = -4         # WEIGHT_WRITE_CONFLICT    (types.h)
-C_MAX    = 50         # MAX_CAPACITY             (main.cpp)
+LAMBDA_S = 1
+LAMBDA_L = 3
+LAMBDA_C = -4
+C_MAX    = 50
 
-TIEMPO_LIMITE = 3600  # segundos por instancia
-MEM_LIMITE    = 0     # GB; 0 = sin límite
-THREADS       = 0     # 0 = todos los núcleos
-USAR_MIP_START = True # partir desde la solución de la heurística
-MAX_DAGS      = 0     # 0 = sin tope; p. ej. 250 para omitir las más grandes
+TIEMPO_LIMITE = 3600
+MEM_LIMITE = 0
+THREADS = 0
+USAR_MIP_START = True
+MAX_DAGS = 0
 
 os.makedirs(OUTPUT_SOLVED_DIR, exist_ok=True)
 os.makedirs(OUTPUT_LOGS_DIR, exist_ok=True)
@@ -47,9 +34,6 @@ COLUMNAS = ["instancia", "n_dags", "dominios_K", "pares_afinidad", "C_max",
             "brecha_heur_pct"]
 
 
-# ==========================================
-# 2. LECTURA DE DATOS (igual que utils.cpp)
-# ==========================================
 def cargar_pesos(ruta):
     e = {}
     if not ruta or not os.path.exists(ruta):
@@ -75,15 +59,14 @@ def cargar_dags(ruta):
             nombre, nt, tg, ns, sr = linea.split(';')[:5]
             T = {x for x in tg.split(',') if x}
             S = {x for x in sr.split(',') if x}
-            if not T or not S:                      # check_dag_integrity
+            if not T or not S:
                 continue
             dags.append({"name": nombre, "T": T, "S": S,
-                         "w": int(nt) + int(ns)})   # mismo peso que el C++
+                         "w": int(nt) + int(ns)})
     return dags
 
 
 def afinidad(a, b, e):
-    """Idéntica a calculate_affinity(): el conflicto tiene prioridad sobre el linaje."""
     C = a["T"] & b["T"]
     L = ((a["T"] & b["S"]) | (b["T"] & a["S"])) - C
     S = (a["S"] & b["S"]) - L - C
@@ -93,7 +76,6 @@ def afinidad(a, b, e):
 
 
 def leer_solucion(ruta, dags):
-    """Lee cluster_id,dag_name y devuelve la lista de dominios (índices)."""
     idx = {d["name"]: i for i, d in enumerate(dags)}
     grupos = {}
     with open(ruta, encoding='utf-8') as f:
@@ -111,9 +93,6 @@ def escribir_fila(fila):
         w.writerow({c: fila.get(c, "") for c in COLUMNAS})
 
 
-# ==========================================
-# 3. RESOLUCIÓN DE UNA INSTANCIA
-# ==========================================
 def procesar_instancia(filepath, e):
     base = os.path.basename(filepath).replace('.csv', '')
     log_path = os.path.join(OUTPUT_LOGS_DIR, f"{base}.txt")
@@ -132,9 +111,6 @@ def procesar_instancia(filepath, e):
         print(f"[{base}] INFACTIBLE: un DAG pesa más que C_max={C_MAX}")
         fila["estado"] = "INFACTIBLE_DATOS"; escribir_fila(fila); return
 
-    # K: la misma cantidad de dominios que abrió la heurística, para que ambos
-    # métodos dispongan exactamente de los mismos dominios. Si no está, se usa
-    # la cota de bin packing con holgura.
     heur_grupos = None
     if os.path.exists(heur_path):
         heur_grupos = leer_solucion(heur_path, dags)
@@ -145,7 +121,6 @@ def procesar_instancia(filepath, e):
     K = max(K, math.ceil(sum(d["w"] for d in dags) / C_MAX))
     fila["dominios_K"] = K
 
-    # Solo pares no ordenados con afinidad distinta de cero
     aff = {}
     for i in range(n):
         for j in range(i + 1, n):
@@ -154,7 +129,6 @@ def procesar_instancia(filepath, e):
                 aff[i, j] = a
     fila["pares_afinidad"] = len(aff)
 
-    # Verificación: el score de la heurística recalculado en Python debe coincidir
     heur_score = None
     if heur_grupos:
         heur_score = sum(aff.get((min(a, b), max(a, b)), 0)
@@ -176,8 +150,6 @@ def procesar_instancia(filepath, e):
     if MEM_LIMITE:
         m.setParam('SoftMemLimit', MEM_LIMITE)
 
-    # Ruptura de simetría: el DAG i solo puede ir a dominios k <= i.
-    # Toda partición puede reetiquetarse así, de modo que no se pierde ninguna solución.
     Y = m.addVars([(i, k) for i in range(n) for k in range(min(i, K - 1) + 1)],
                   vtype=GRB.BINARY, name="Y")
     U = m.addVars(K, vtype=GRB.BINARY, name="U")
@@ -185,16 +157,12 @@ def procesar_instancia(filepath, e):
     X = m.addVars([(i, j, k) for (i, j) in aff for k in range(min(i, K - 1) + 1)],
                   lb=0, ub=1, name="X")
 
-    # (2) Objetivo: cada par no ordenado se cuenta UNA vez
     m.setObjective(gp.quicksum(aff[i, j] * X[i, j, k] for (i, j, k) in X), GRB.MAXIMIZE)
-    # (3) Unicidad
     m.addConstrs((Y.sum(i, '*') == 1 for i in range(n)), name="Unicidad")
-    # (4) Capacidad
     m.addConstrs((gp.quicksum(dags[i]["w"] * Y[i, k] for i in range(k, n))
                   <= C_MAX * U[k] for k in range(K)), name="CapMax")
-    # (5) Todo dominio usado tiene al menos un DAG
     m.addConstrs((Y.sum('*', k) >= U[k] for k in range(K)), name="NoTrivial")
-    # (6)-(8) Linealización: solo el lado que el objetivo "empuja"
+  
     for (i, j, k) in X:
         if aff[i, j] > 0:
             m.addConstr(X[i, j, k] <= Y[i, k])
@@ -241,9 +209,6 @@ def procesar_instancia(filepath, e):
     m.dispose(); env.dispose()
 
 
-# ==========================================
-# 4. EJECUCIÓN POR LOTES
-# ==========================================
 if __name__ == "__main__":
     e = cargar_pesos(PESOS_FILE)
     print(f"Pesos e(t) cargados: {len(e)} tablas")

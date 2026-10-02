@@ -50,7 +50,7 @@ Retorno :
 static Solution perturb_solution(const Solution& sol, const vector<DAG>& dags, const vector<vector<int>>& M, int max_capacity, mt19937& rng) {
     Solution perturbed = sol;
 
-    // Candidatos: clusters con al menos 2 DAGs, ordenados por afinidad promedio por par (peor primero)
+    // Candidatos: clusters con al menos 2 DAGs, ordenados por afinidad promedio por par
     vector<pair<double,int>> candidates;
     for (size_t c = 0; c < perturbed.clusters.size(); ++c) {
         const auto& idx = perturbed.clusters[c].dags_indices;
@@ -84,7 +84,7 @@ static Solution perturb_solution(const Solution& sol, const vector<DAG>& dags, c
             for (int idx : perturbed.clusters[c].dags_indices) aff += M[dag_id][idx];
             if (aff > best_aff) { best_aff = aff; best_target = (int)c; }
         }
-        if (best_target == -1) best_target = worst_cluster_idx;   // sin destino factible: vuelve a su cluster
+        if (best_target == -1) best_target = worst_cluster_idx;
 
         perturbed.clusters[best_target].dags_indices.push_back(dag_id);
         perturbed.clusters[best_target].current_capacity += get_dag_weight(dags[dag_id]);
@@ -120,12 +120,6 @@ static void build_cluster_affinity(const Solution& sol, const vector<vector<int>
 
 /*
 La funcion ejecuta la metaheuristica Tabu Search para mejorar la solucion inicial.
-
-Oscilacion estrategica: durante la busqueda se permite que un dominio supere temporalmente la capacidad maxima,
-penalizando el exceso con un factor P que se ajusta solo (sube si la busqueda pasa mucho tiempo infactible y baja
-si pasa mucho tiempo factible). Esto permite cruzar entre soluciones factibles que con reubicaciones e intercambios
-simples no estan conectadas cuando los dominios estan casi llenos. La mejor solucion global SOLO se actualiza con
-soluciones factibles, por lo que el resultado final siempre cumple la capacidad maxima (mismo problema que Gurobi).
 
 Parametros :
    const Solution& initial_sol : Estructura Solution con la solucion inicial entregada por Greedy.
@@ -167,29 +161,29 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, c
     // Perturbar si no mejora en 5% de las iteraciones
     const int STAGNATION_LIMIT = max(100, max_iterations / 20);
 
-    // Tenencia adaptada al tamanio: en instancias pequenias una tenencia de 20 bloquea casi todos los movimientos
+    // Tenencia adaptada
     const int base_tenure = max(3, min(tabu_tenure, (int)n / 3));
     uniform_int_distribution<int> tenure_dist(base_tenure, base_tenure + max(1, base_tenure / 2));
     int stagnation_counter = 0;
 
-    // ---- Oscilacion estrategica ----
-    // Exceso de capacidad de un dominio (0 si cumple C_max)
+    // Oscilacion
     auto excess = [&](int cap) { return cap > max_capacity ? cap - max_capacity : 0; };
-    // Limite duro del exceso por dominio, para no alejarse demasiado de la region factible
     int max_w = 0;
     for (size_t i = 0; i < n; ++i) max_w = max(max_w, w[i]);
     const int MAX_OVER = max_capacity + max_w;
-    long long penalty = 2;                  // P: costo por cada unidad de exceso de capacidad
+    long long penalty = 2;
     const long long PENALTY_MIN = 1, PENALTY_MAX = 1LL << 20;
-    const int PENALTY_WINDOW = 10;          // cada 10 iteraciones se ajusta P
+    const int PENALTY_WINDOW = 10;
     int feasible_in_window = 0;
-    int total_excess = 0;                   // suma del exceso de todos los dominios de la solucion actual
+    int total_excess = 0;
 
     for (int iter = 1; iter <= max_iterations; ++iter) {
 
-        long long best_val = LLONG_MIN;     // fitness penalizado del mejor movimiento
+        long long best_val = LLONG_MIN;
         int best_fit = 0, best_excess = 0;
-        int mv_type = -1;               // 0 = reubicacion, 1 = intercambio
+
+        // 0 = reubicacion, 1 = intercambio
+        int mv_type = -1;               
 
         // DAG que estaba inicialmente
         int mv_a = -1, mv_A = -1, mv_ia = -1;
@@ -197,11 +191,11 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, c
         // DAG a reubicar
         int mv_b = -1, mv_B = -1, mv_ib = -1;
 
-        // Empates entre movimientos con el mismo valor se resuelven al azar (muestreo de reservorio)
+        // Empates entre movimientos con el mismo valor se resuelven al azar
         int ties = 0;
 
         auto consider = [&](int fit, int new_excess, bool is_tabu) -> bool {
-            // Aspiracion: el movimiento lleva a una solucion factible mejor que la mejor global
+            // Aspiracion
             bool aspiration = new_excess == 0 && fit > best_global_sol.fitness_score;
             if (is_tabu && !aspiration) return false;
             long long val = (long long)fit - penalty * new_excess;
@@ -291,7 +285,6 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, c
         current_sol.fitness_score = best_fit;
         total_excess = best_excess;
 
-        // Solo una solucion factible puede ser la mejor global
         if (total_excess == 0 && current_sol.fitness_score > best_global_sol.fitness_score) {
             best_global_sol = current_sol;
             stagnation_counter = 0;
@@ -310,6 +303,7 @@ Solution run_tabu_search(const Solution& initial_sol, const vector<DAG>& dags, c
         // Diversificacion: si llevamos STAGNATION_LIMIT iteraciones sin mejorar, perturbar
         if (stagnation_counter >= STAGNATION_LIMIT) {
             cout << "  [Tabu] Perturbando en iteracion " << iter << " (estancamiento)\n";
+
             // Si la solucion actual no es factible, se perturba la mejor solucion encontrada
             const Solution& base = (total_excess == 0) ? current_sol : best_global_sol;
             current_sol = perturb_solution(base, dags, M, max_capacity, rng);
