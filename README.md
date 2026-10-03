@@ -1,5 +1,8 @@
 # Heuristic-Pipeline-Clustering
 
+> [!NOTE]  
+> The latest version is available in the `feat-test-gurobi-v2` branch.
+
 > **A Heuristic Approach for the Logical Clustering of Data Pipelines**
 
 This repository contains the implementation developed for my undergraduate thesis, which proposes a heuristic approach for the **Logical Clustering of Data Pipelines**. The problem is formulated as an adaptation of the **Topic-Based Conference Scheduling Problem (TBCSP)** and is solved using metaheuristic optimization techniques.
@@ -24,11 +27,14 @@ The solution consists of two main stages:
    - Generates an initial feasible solution.
 
 2. **Tabu Search**
-   - Improves the initial solution using a best-improvement neighborhood exploration strategy.
+   - Improves the initial solution using a neighborhood exploration strategy.
 
 ---
 
 ## Project Structure
+
+> [!NOTE]
+> The structure shown is a sample, as the complete structure is too large to display. The latest test results can be found in the `Logs/Algorithm_v10/` and `Logs/Algorithm_v11/` directories.
 
 ```text
 .
@@ -37,11 +43,60 @@ The solution consists of two main stages:
 │   ├── dags_m0050_s1.csv
 │   └── dags_g0250_s1.csv
 ├── Logs/
-│   ├── dags_10_s1.csv
-│   ├── dags_m0050_s1.csv
-│   └── dags_g0250_s1.csv
+│   ├── Algorithm/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_t2/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_t3/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v3/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v4/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v5/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v6/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v7/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v8/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v9/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v10/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v11/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
+│   └── Gurobi/
+│       ├── dags_010_s1.txt
+│       ├── dags_m0050_s1.tx
+│       └── dags_g0250_s1.txt
 ├── Solved/
-│   ├── Algorithm
+│   ├── Algorithm/
 │   │   ├── dags_010_s1_cluster_report.csv
 │   │   ├── dags_010_s1_critical_tables.csv
 │   │   ├── dags_010_s1_solved.csv
@@ -51,7 +106,7 @@ The solution consists of two main stages:
 │   │   ├── dags_g0250_s1_cluster_report.csv
 │   │   ├── dags_g0250_s1_critical_tables.csv
 │   │   └── dags_g0250_s1_solved.csv
-│   └── Gurobi
+│   └── Gurobi/
 │       ├── dags_010_s1_solved.csv
 │       ├── dags_m0050_s1_solved.csv
 │       └── dags_g0250_s1_solved.csv 
@@ -62,6 +117,8 @@ The solution consists of two main stages:
 ├── main.cpp
 ├── reporting.cpp
 ├── reporting.h
+├── run_all_heuristic.sh
+├── solver.py
 ├── tabu_search.cpp
 ├── tabu_search.h
 ├── types.h
@@ -74,12 +131,6 @@ The solution consists of two main stages:
 ---
 
 ## Building the Project
-
-Compile the project using the provided Makefile:
-
-```bash
-make
-```
 
 To run all instances:
 
@@ -97,13 +148,13 @@ The input instances are located in the `Instances/` directory. Each CSV file rep
 
 ## Output
 
-The generated solutions are stored in the `Solved/` directory, including:
+The generated solutions are stored in the `Solved/Algorithm` directory, including:
 
-* `cluster_report.csv`: Summary of the generated clusters.
+* `dags_010_s1_cluster_report.csv`: Summary of the generated clusters.
 
-* `critical_tables.csv`: Critical tables identified during optimization.
+* `dags_010_s1_critical_tables.csv`: Critical tables identified during optimization.
 
-* `dags_100_solved.csv`: Example of a solved instance.
+* `dags_010_s1_solved.csv`: Example of a solved instance.
 
 ---
 
