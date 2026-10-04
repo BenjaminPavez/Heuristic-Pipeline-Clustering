@@ -48,7 +48,7 @@ bool check_uniqueness_constraint(const Solution& sol, int dag_index){
     for (const auto& cluster : sol.clusters)
         for (int id : cluster.dags_indices)
             if (id == dag_index) occurrences++;
-    return occurrences <= 1;
+    return occurrences == 1;
 }
 
 
