@@ -91,6 +91,10 @@ The solution consists of two main stages:
 │   │   ├── dags_010_s1.txt
 │   │   ├── dags_m0050_s1.txt
 │   │   └── dags_g0250_s1.txt
+│   ├── Algorithm_v12/
+│   │   ├── dags_010_s1.txt
+│   │   ├── dags_m0050_s1.txt
+│   │   └── dags_g0250_s1.txt
 │   └── Gurobi/
 │       ├── dags_010_s1.txt
 │       ├── dags_m0050_s1.tx
