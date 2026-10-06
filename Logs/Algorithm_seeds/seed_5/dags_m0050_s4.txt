@@ -1,0 +1,80 @@
+DAGs cargados: 50
+Peso extra cargado para: 26 tablas
+Greedy: 16 dominios generados
+  [Tabu] Perturbando en iteracion 5510 (estancamiento)
+  [Tabu] Perturbando en iteracion 10510 (estancamiento)
+  [Tabu] Perturbando en iteracion 15510 (estancamiento)
+  [Tabu] Perturbando en iteracion 20510 (estancamiento)
+  [Tabu] Perturbando en iteracion 25510 (estancamiento)
+  [Tabu] Perturbando en iteracion 30510 (estancamiento)
+  [Tabu] Perturbando en iteracion 35510 (estancamiento)
+  [Tabu] Perturbando en iteracion 40510 (estancamiento)
+  [Tabu] Perturbando en iteracion 45510 (estancamiento)
+  [Tabu] Perturbando en iteracion 50510 (estancamiento)
+  [Tabu] Perturbando en iteracion 55510 (estancamiento)
+  [Tabu] Perturbando en iteracion 60510 (estancamiento)
+  [Tabu] Perturbando en iteracion 65510 (estancamiento)
+  [Tabu] Perturbando en iteracion 70510 (estancamiento)
+  [Tabu] Perturbando en iteracion 75510 (estancamiento)
+  [Tabu] Perturbando en iteracion 80510 (estancamiento)
+  [Tabu] Perturbando en iteracion 85510 (estancamiento)
+  [Tabu] Perturbando en iteracion 90510 (estancamiento)
+  [Tabu] Perturbando en iteracion 95510 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 50
+  Total Dominios  : 16
+  Fitness Global  : 118
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   2  I/O:  48  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 50.0
+  Dominio   1 [RED]  DAGs:   3  I/O:  46  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio   2 [RED]  DAGs:   3  I/O:  48  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 23.3
+  Dominio   3 [RED]  DAGs:   4  I/O:  49  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 8.3
+  Dominio   4 [RED]  DAGs:   3  I/O:  48  Afinidad:     6  Linaje:   0  Conflictos:  0  Score: 20.0
+  Dominio   5 [RED]  DAGs:   3  I/O:  47  Afinidad:     7  Linaje:   2  Conflictos:  0  Score: 23.3
+  Dominio   6 [RED]  DAGs:   3  I/O:  48  Afinidad:     3  Linaje:   1  Conflictos:  0  Score: 10.0
+  Dominio   7 [RED]  DAGs:   3  I/O:  48  Afinidad:     4  Linaje:   1  Conflictos:  0  Score: 13.3
+  Dominio   8 [RED]  DAGs:   4  I/O:  50  Afinidad:    12  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio   9 [RED]  DAGs:   3  I/O:  48  Afinidad:     9  Linaje:   2  Conflictos:  0  Score: 30.0
+  Dominio  10 [RED]  DAGs:   3  I/O:  47  Afinidad:     9  Linaje:   3  Conflictos:  0  Score: 30.0
+  Dominio  11 [RED]  DAGs:   3  I/O:  50  Afinidad:     7  Linaje:   1  Conflictos:  0  Score: 23.3
+  Dominio  12 [RED]  DAGs:   3  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 33.3
+  Dominio  13 [RED]  DAGs:   4  I/O:  50  Afinidad:    10  Linaje:   3  Conflictos:  0  Score: 16.7
+  Dominio  14 [RED]  DAGs:   3  I/O:  47  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio  15 [YELLOW]  DAGs:   3  I/O:  41  Afinidad:    12  Linaje:   3  Conflictos:  0  Score: 40.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  gob_ext_00040                           8       8         0         
+  gob_ext_00098                           7       7         0         
+  proc_ext_00067                          7       7         0         
+  gob_ext_00012                           6       6         0         
+  proc_ext_00086                          6       6         0         
+  gob_ext_00044                           5       5         0         
+  gob_ext_00066                           5       5         0         
+  gob_ext_00056                           5       5         0         
+  dlk_ext_00073                           5       5         0         
+  gob_ext_00093                           5       5         0         
+  std_ext_00107                           4       4         0         
+  proc_ext_00030                          4       4         0         
+  gob_ext_00064                           4       4         0         
+  dlk_ext_00036                           4       4         0         
+  proc_ext_00074                          4       4         0         
+
+========================================================
+
+Semilla: 5
+Tiempo de ejecucion: 0.6 segundos
+
+Archivos exportados en Solved/Algorithm/seed_5/
+  - dags_m0050_s4_solved.csv -> asignacion DAG -> dominio
+  - dags_m0050_s4_critical_tables.csv -> ranking de tablas criticas
+  - dags_m0050_s4_cluster_report.csv -> score y semaforo por dominio

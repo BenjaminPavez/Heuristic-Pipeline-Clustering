@@ -1,26 +1,53 @@
 #!/bin/bash
 
-mkdir -p Logs
+if [ $# -gt 0 ]; then
+    SEEDS=("$@")
+else
+    SEEDS=(1 2 3 4 5)
+fi
 
-for file in Instances/dags_*.csv
+BIN=./dag_clusterer
+
+
+echo "Compilando"
+make > /dev/null
+if [ $? -ne 0 ] || [ ! -x "$BIN" ]; then
+    echo "ERROR: no se pudo compilar $BIN"
+    exit 1
+fi
+
+for seed in "${SEEDS[@]}"
 do
-    instance=$(basename "$file" .csv)
+    LOG_DIR="Logs/seed_${seed}"
+    OUT_DIR="Solved/Algorithm/seed_${seed}"
+    mkdir -p "$LOG_DIR" "$OUT_DIR"
 
-    echo "========================================"
-    echo "Ejecutando: $file"
-    echo "Log: Logs/${instance}.txt"
-    echo "========================================"
+    echo "----------------------------------------"
+    echo "Semilla: $seed"
+    echo "----------------------------------------"
 
-    make run FILE="$file" > "Logs/${instance}.txt" 2>&1
+    seed_start=$(date +%s.%N)
 
-    if [ $? -ne 0 ]; then
-        echo "ERROR al ejecutar: $file"
-        echo "Revisa: Logs/${instance}.txt"
-        continue
-    fi
+    for file in Instances/dags_*.csv
+    do
+        instance=$(basename "$file" .csv)
+        echo "  [seed $seed] $instance"
+
+        "$BIN" "$file" "$seed" "$OUT_DIR" > "${LOG_DIR}/${instance}.txt" 2>&1
+
+        if [ $? -ne 0 ]; then
+            echo "  ERROR al ejecutar: $file (semilla $seed)"
+            echo "  Revisa: ${LOG_DIR}/${instance}.txt"
+        fi
+    done
+
+    seed_end=$(date +%s.%N)
+    total=$(echo "$seed_end - $seed_start" | bc)
+    printf "Semilla %s: tiempo total %.1f segundos (%.1f minutos)\n" \
+        "$seed" "$total" "$(echo "$total / 60" | bc -l)" | tee "${LOG_DIR}/_tiempo_total.txt"
 done
 
 echo "========================================"
-echo "Todas las instancias fueron ejecutadas."
-echo "Los logs están en Logs/"
+echo "Ejecucion terminada para las semillas: ${SEEDS[*]}"
+echo "Logs en Logs/seed_<s>/ y soluciones en Solved/Algorithm/seed_<s>/"
 echo "========================================"

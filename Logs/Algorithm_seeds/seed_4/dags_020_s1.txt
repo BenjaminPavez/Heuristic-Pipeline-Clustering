@@ -1,0 +1,70 @@
+DAGs cargados: 20
+Peso extra cargado para: 26 tablas
+Greedy: 6 dominios generados
+  [Tabu] Perturbando en iteracion 5113 (estancamiento)
+  [Tabu] Perturbando en iteracion 10113 (estancamiento)
+  [Tabu] Perturbando en iteracion 15113 (estancamiento)
+  [Tabu] Perturbando en iteracion 20113 (estancamiento)
+  [Tabu] Perturbando en iteracion 25113 (estancamiento)
+  [Tabu] Perturbando en iteracion 30113 (estancamiento)
+  [Tabu] Perturbando en iteracion 35113 (estancamiento)
+  [Tabu] Perturbando en iteracion 40113 (estancamiento)
+  [Tabu] Perturbando en iteracion 45113 (estancamiento)
+  [Tabu] Perturbando en iteracion 50113 (estancamiento)
+  [Tabu] Perturbando en iteracion 55113 (estancamiento)
+  [Tabu] Perturbando en iteracion 60113 (estancamiento)
+  [Tabu] Perturbando en iteracion 65113 (estancamiento)
+  [Tabu] Perturbando en iteracion 70113 (estancamiento)
+  [Tabu] Perturbando en iteracion 75113 (estancamiento)
+  [Tabu] Perturbando en iteracion 80113 (estancamiento)
+  [Tabu] Perturbando en iteracion 85113 (estancamiento)
+  [Tabu] Perturbando en iteracion 90113 (estancamiento)
+  [Tabu] Perturbando en iteracion 95113 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 20
+  Total Dominios  : 6
+  Fitness Global  : 419
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   3  I/O:  48  Afinidad:    17  Linaje:   0  Conflictos:  0  Score: 56.7
+  Dominio   1 [RED]  DAGs:   4  I/O:  50  Afinidad:    17  Linaje:   1  Conflictos:  0  Score: 28.3
+  Dominio   2 [YELLOW]  DAGs:   4  I/O:  50  Afinidad:    35  Linaje:   4  Conflictos:  0  Score: 58.3
+  Dominio   3 [RED]  DAGs:   2  I/O:  44  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 0.0
+  Dominio   4 [GREEN]  DAGs:   4  I/O:  48  Afinidad:    84  Linaje:   3  Conflictos:  0  Score: 100.0
+  Dominio   5 [GREEN]  DAGs:   3  I/O:  48  Afinidad:    26  Linaje:   1  Conflictos:  0  Score: 86.7
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  personales_sap                          6       6         0         
+  dlk_talento_brecha                      6       5         1         
+  std_lu_edu_diploma_sap                  6       6         0         
+  gob_planta_centro_costo_v1              5       4         1         
+  laborales_sap                           5       5         0         
+  gob_planta_bono_v2                      5       4         1         
+  template_ubicacion_sap                  5       5         0         
+  gob_planta_cargo_v2                     5       4         1         
+  bci_niv_hay_puesto_sap                  5       5         0         
+  dlk_talento_encuesta_v2                 5       4         1         
+  dlk_talento_turno_v1                    5       4         1         
+  socios_sap                              5       5         0         
+  dlk_talento_incidencia_v2               5       4         1         
+  gob_planta_turno_v2                     5       4         1         
+  dlk_talento_encuesta_v1                 5       4         1         
+
+========================================================
+
+Semilla: 4
+Tiempo de ejecucion: 0.1 segundos
+
+Archivos exportados en Solved/Algorithm/seed_4/
+  - dags_020_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_020_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_020_s1_cluster_report.csv -> score y semaforo por dominio

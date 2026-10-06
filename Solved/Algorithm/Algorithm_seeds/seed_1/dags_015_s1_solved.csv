@@ -1,0 +1,16 @@
+cluster_id,dag_name
+0,dlk_sap_homologo_egresos
+0,gob_niveles_R_sap
+0,dlk_sap_homologo_arquetipos
+0,dlk_sap_homologo_planta
+1,gob_personales_miami_parche
+2,dlk_sap_homologo_reconocimiento_interno
+2,dlk_sap_homologo_capacidades_diferentes
+2,dlk_health_score
+3,proc_linkedin_learning_report
+3,proc_smu_clbs_sap
+3,proc_info_flex_dash_beneficios
+3,gob_ausentismos_diarios
+4,gob_cartera_sn
+4,dash_validador_universal
+4,dash_formacion

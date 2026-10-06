@@ -31,12 +31,15 @@ int main(int argc, char* argv[]){
     auto start = chrono::steady_clock::now();
 
     if (argc < 2) {
-        cerr << "Uso: " << argv[0] << " <archivo.csv> [semilla]" << endl;
+        cerr << "Uso: " << argv[0] << " <archivo.csv> [semilla] [carpeta_salida]" << endl;
         return 1;
     }
 
     string filename = argv[1];
     unsigned seed = (argc >= 3) ? (unsigned)stoul(argv[2]) : 1u;
+
+    string out_dir = (argc >= 4) ? string(argv[3]) : string("Solved/Algorithm");
+    filesystem::create_directories(out_dir);
 
     // Cargar datos
     vector<DAG> dags = load_dags(filename);
@@ -82,19 +85,19 @@ int main(int argc, char* argv[]){
     cout << "Tiempo de ejecucion: " << duration.count() << " segundos\n\n";
 
     string instance_name = filesystem::path(filename).stem().string();
-    string solved_file = "Solved/Algorithm/" + instance_name + "_solved.csv";
+    string solved_file = out_dir + "/" + instance_name + "_solved.csv";
 
     save_solution_to_csv(best_sol, dags, solved_file);
     save_critical_tables_csv(
         critical_tables,
-        "Solved/Algorithm/" + instance_name + "_critical_tables.csv"
+        out_dir + "/" + instance_name + "_critical_tables.csv"
     );
     save_cluster_report_csv(
         cluster_reports,
-        "Solved/Algorithm/" + instance_name + "_cluster_report.csv"
+        out_dir + "/" + instance_name + "_cluster_report.csv"
     );
 
-    cout << "Archivos exportados en Solved/Algorithm/\n";
+    cout << "Archivos exportados en " << out_dir << "/\n";
     cout << "  - " << instance_name << "_solved.csv -> asignacion DAG -> dominio\n";
     cout << "  - " << instance_name << "_critical_tables.csv -> ranking de tablas criticas\n";
     cout << "  - " << instance_name << "_cluster_report.csv -> score y semaforo por dominio\n";

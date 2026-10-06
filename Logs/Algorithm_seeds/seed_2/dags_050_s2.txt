@@ -1,0 +1,78 @@
+DAGs cargados: 50
+Peso extra cargado para: 26 tablas
+Greedy: 14 dominios generados
+  [Tabu] Perturbando en iteracion 9439 (estancamiento)
+  [Tabu] Perturbando en iteracion 14439 (estancamiento)
+  [Tabu] Perturbando en iteracion 19439 (estancamiento)
+  [Tabu] Perturbando en iteracion 24439 (estancamiento)
+  [Tabu] Perturbando en iteracion 29439 (estancamiento)
+  [Tabu] Perturbando en iteracion 34439 (estancamiento)
+  [Tabu] Perturbando en iteracion 39439 (estancamiento)
+  [Tabu] Perturbando en iteracion 44439 (estancamiento)
+  [Tabu] Perturbando en iteracion 49439 (estancamiento)
+  [Tabu] Perturbando en iteracion 54439 (estancamiento)
+  [Tabu] Perturbando en iteracion 59439 (estancamiento)
+  [Tabu] Perturbando en iteracion 64439 (estancamiento)
+  [Tabu] Perturbando en iteracion 69439 (estancamiento)
+  [Tabu] Perturbando en iteracion 74439 (estancamiento)
+  [Tabu] Perturbando en iteracion 79439 (estancamiento)
+  [Tabu] Perturbando en iteracion 84439 (estancamiento)
+  [Tabu] Perturbando en iteracion 89439 (estancamiento)
+  [Tabu] Perturbando en iteracion 94439 (estancamiento)
+  [Tabu] Perturbando en iteracion 99439 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 50
+  Total Dominios  : 14
+  Fitness Global  : 1302
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   4  I/O:  50  Afinidad:    26  Linaje:   0  Conflictos:  0  Score: 43.3
+  Dominio   1 [RED]  DAGs:   4  I/O:  50  Afinidad:    13  Linaje:   0  Conflictos:  0  Score: 21.7
+  Dominio   2 [RED]  DAGs:   4  I/O:  49  Afinidad:    18  Linaje:   0  Conflictos:  0  Score: 30.0
+  Dominio   3 [YELLOW]  DAGs:   4  I/O:  50  Afinidad:    24  Linaje:   0  Conflictos:  0  Score: 40.0
+  Dominio   4 [GREEN]  DAGs:   3  I/O:  46  Afinidad:    45  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   5 [GREEN]  DAGs:   3  I/O:  49  Afinidad:    35  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   6 [RED]  DAGs:   3  I/O:  50  Afinidad:    10  Linaje:   0  Conflictos:  0  Score: 33.3
+  Dominio   7 [YELLOW]  DAGs:   3  I/O:  47  Afinidad:    14  Linaje:   0  Conflictos:  0  Score: 46.7
+  Dominio   8 [RED]  DAGs:   4  I/O:  50  Afinidad:    12  Linaje:   0  Conflictos:  0  Score: 20.0
+  Dominio   9 [GREEN]  DAGs:   5  I/O:  49  Afinidad:    99  Linaje:   7  Conflictos:  0  Score: 99.0
+  Dominio  10 [YELLOW]  DAGs:   4  I/O:  47  Afinidad:    30  Linaje:   2  Conflictos:  0  Score: 50.0
+  Dominio  11 [GREEN]  DAGs:   2  I/O:  50  Afinidad:    21  Linaje:   1  Conflictos:  0  Score: 100.0
+  Dominio  12 [GREEN]  DAGs:   4  I/O:  47  Afinidad:    57  Linaje:   4  Conflictos:  0  Score: 95.0
+  Dominio  13 [GREEN]  DAGs:   3  I/O:  50  Afinidad:    48  Linaje:   2  Conflictos:  0  Score: 100.0
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  template_cargos_sap                     14      14        0         
+  cat_desempeno_2023_sap                  14      14        0         
+  std_hr_per_d_incid_sap                  12      12        0         
+  posicion_sap                            11      11        0         
+  nomina_desempeno_2024_sap               11      11        0         
+  planta_trabajo_sap                      11      11        0         
+  std_lu_hrp_end_re_sap                   10      10        0         
+  cat_desempeno_2024_sap                  10      10        0         
+  dlk_talento_contrato                    8       7         1         
+  planta_dia_sap                          8       8         0         
+  dlk_talento_egreso                      8       7         1         
+  planta_completa_sap                     8       8         0         
+  maestro_talento                         8       7         1         
+  dlk_talento_beca_v1                     8       7         1         
+  dlk_talento_sucursal_v2                 8       7         1         
+
+========================================================
+
+Semilla: 2
+Tiempo de ejecucion: 0.5 segundos
+
+Archivos exportados en Solved/Algorithm/seed_2/
+  - dags_050_s2_solved.csv -> asignacion DAG -> dominio
+  - dags_050_s2_critical_tables.csv -> ranking de tablas criticas
+  - dags_050_s2_cluster_report.csv -> score y semaforo por dominio

@@ -1,0 +1,68 @@
+DAGs cargados: 10
+Peso extra cargado para: 26 tablas
+Greedy: 4 dominios generados
+  [Tabu] Perturbando en iteracion 5010 (estancamiento)
+  [Tabu] Perturbando en iteracion 10010 (estancamiento)
+  [Tabu] Perturbando en iteracion 15010 (estancamiento)
+  [Tabu] Perturbando en iteracion 20010 (estancamiento)
+  [Tabu] Perturbando en iteracion 25010 (estancamiento)
+  [Tabu] Perturbando en iteracion 30010 (estancamiento)
+  [Tabu] Perturbando en iteracion 35010 (estancamiento)
+  [Tabu] Perturbando en iteracion 40010 (estancamiento)
+  [Tabu] Perturbando en iteracion 45010 (estancamiento)
+  [Tabu] Perturbando en iteracion 50010 (estancamiento)
+  [Tabu] Perturbando en iteracion 55010 (estancamiento)
+  [Tabu] Perturbando en iteracion 60010 (estancamiento)
+  [Tabu] Perturbando en iteracion 65010 (estancamiento)
+  [Tabu] Perturbando en iteracion 70010 (estancamiento)
+  [Tabu] Perturbando en iteracion 75010 (estancamiento)
+  [Tabu] Perturbando en iteracion 80010 (estancamiento)
+  [Tabu] Perturbando en iteracion 85010 (estancamiento)
+  [Tabu] Perturbando en iteracion 90010 (estancamiento)
+  [Tabu] Perturbando en iteracion 95010 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 10
+  Total Dominios  : 4
+  Fitness Global  : 13
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [RED]  DAGs:   3  I/O:  45  Afinidad:     5  Linaje:   1  Conflictos:  0  Score: 16.7
+  Dominio   1 [YELLOW]  DAGs:   1  I/O:  11  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 50.0
+  Dominio   2 [RED]  DAGs:   3  I/O:  50  Afinidad:     6  Linaje:   2  Conflictos:  0  Score: 20.0
+  Dominio   3 [RED]  DAGs:   3  I/O:  48  Afinidad:     2  Linaje:   0  Conflictos:  0  Score: 6.7
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  dlk_ext_00025                           2       2         0         
+  dlk_ext_00005                           2       2         0         
+  dlk_ext_00035                           2       2         0         
+  m4vw_tbl_00812                          2       2         0         
+  dash_tbl_00878                          2       1         1         
+  dlk_tbl_00181                           2       2         0         
+  gob_ext_00115                           2       2         0         
+  dlk_tbl_00114                           2       1         1         
+  gob_ext_00114                           2       2         0         
+  dlk_tbl_00855                           2       1         1         
+  proc_ext_00116                          2       2         0         
+  gob_tbl_00336                           2       1         1         
+  gob_tbl_00230                           2       1         1         
+  proc_tbl_00894                          2       2         0         
+  dlk_tbl_00550                           1       1         0         
+
+========================================================
+
+Semilla: 4
+Tiempo de ejecucion: 0.0 segundos
+
+Archivos exportados en Solved/Algorithm/seed_4/
+  - dags_p0010_s4_solved.csv -> asignacion DAG -> dominio
+  - dags_p0010_s4_critical_tables.csv -> ranking de tablas criticas
+  - dags_p0010_s4_cluster_report.csv -> score y semaforo por dominio

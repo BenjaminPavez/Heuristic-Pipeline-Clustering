@@ -1,0 +1,69 @@
+DAGs cargados: 15
+Peso extra cargado para: 26 tablas
+Greedy: 5 dominios generados
+  [Tabu] Perturbando en iteracion 5035 (estancamiento)
+  [Tabu] Perturbando en iteracion 10035 (estancamiento)
+  [Tabu] Perturbando en iteracion 15035 (estancamiento)
+  [Tabu] Perturbando en iteracion 20035 (estancamiento)
+  [Tabu] Perturbando en iteracion 25035 (estancamiento)
+  [Tabu] Perturbando en iteracion 30035 (estancamiento)
+  [Tabu] Perturbando en iteracion 35035 (estancamiento)
+  [Tabu] Perturbando en iteracion 40035 (estancamiento)
+  [Tabu] Perturbando en iteracion 45035 (estancamiento)
+  [Tabu] Perturbando en iteracion 50035 (estancamiento)
+  [Tabu] Perturbando en iteracion 55035 (estancamiento)
+  [Tabu] Perturbando en iteracion 60035 (estancamiento)
+  [Tabu] Perturbando en iteracion 65035 (estancamiento)
+  [Tabu] Perturbando en iteracion 70035 (estancamiento)
+  [Tabu] Perturbando en iteracion 75035 (estancamiento)
+  [Tabu] Perturbando en iteracion 80035 (estancamiento)
+  [Tabu] Perturbando en iteracion 85035 (estancamiento)
+  [Tabu] Perturbando en iteracion 90035 (estancamiento)
+  [Tabu] Perturbando en iteracion 95035 (estancamiento)
+
+========================================================
+  REPORTE DE DOMINIOS DE DATOS
+========================================================
+  Total DAGs      : 15
+  Total Dominios  : 5
+  Fitness Global  : 378
+--------------------------------------------------------
+
+  [ DOMINIOS DE DATOS ]
+
+  Dominio   0 [YELLOW]  DAGs:   4  I/O:  45  Afinidad:    24  Linaje:   1  Conflictos:  0  Score: 40.0
+  Dominio   1 [YELLOW]  DAGs:   1  I/O:  21  Afinidad:     0  Linaje:   0  Conflictos:  0  Score: 50.0
+  Dominio   2 [GREEN]  DAGs:   3  I/O:  47  Afinidad:    50  Linaje:   2  Conflictos:  0  Score: 100.0
+  Dominio   3 [GREEN]  DAGs:   4  I/O:  47  Afinidad:    64  Linaje:   3  Conflictos:  0  Score: 100.0
+  Dominio   4 [GREEN]  DAGs:   3  I/O:  49  Afinidad:    20  Linaje:   0  Conflictos:  0  Score: 66.7
+
+--------------------------------------------------------
+  [ TOP 15 TABLAS CRÍTICAS ]
+
+  Tabla                                   Freq    Lecturas  EscriturasRiesgo
+  ---------------------------------------------------------------------------
+  m4vw_laborales_sap                      6       6         0         
+  desarrollo_becas_sap                    6       6         0         
+  std_lu_languages_sap                    5       5         0         
+  socios_sap                              5       5         0         
+  gob_talento_antiguedad                  4       3         1         
+  gob_talento_sucursal_v1                 4       3         1         
+  template_cargos_sap                     4       4         0         
+  dlk_planta_centro_costo                 4       3         1         
+  std_hr_per_d_incid_sap                  4       4         0         
+  gob_talento_unidad_v2                   4       3         1         
+  dlk_planta_region                       4       3         1         
+  dlk_planta_indicador_v2                 4       3         1         
+  dlk_planta_cargo_v2                     4       3         1         
+  gob_talento_brecha_v1                   4       3         1         
+  gob_talento_licencia_v2                 4       3         1         
+
+========================================================
+
+Semilla: 4
+Tiempo de ejecucion: 0.1 segundos
+
+Archivos exportados en Solved/Algorithm/seed_4/
+  - dags_015_s1_solved.csv -> asignacion DAG -> dominio
+  - dags_015_s1_critical_tables.csv -> ranking de tablas criticas
+  - dags_015_s1_cluster_report.csv -> score y semaforo por dominio

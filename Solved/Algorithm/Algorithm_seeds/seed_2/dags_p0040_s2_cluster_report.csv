@@ -1,0 +1,13 @@
+cluster_id,num_dags,capacity_used,internal_affinity,lineage_pairs,write_conflicts,cohesion_score,semaphore,unique_tables_count
+0,4,49,7,2,0,11.67,RED,46
+1,4,48,10,3,0,16.67,RED,44
+2,3,45,6,2,0,20.00,RED,43
+3,4,44,15,4,0,25.00,RED,38
+4,3,45,7,2,0,23.33,RED,42
+5,3,45,7,2,0,23.33,RED,43
+6,3,48,4,1,0,13.33,RED,46
+7,3,47,4,1,0,13.33,RED,45
+8,3,43,7,2,0,23.33,RED,41
+9,4,43,4,1,0,6.67,RED,41
+10,3,48,5,0,0,16.67,RED,44
+11,3,40,6,2,0,20.00,RED,38

@@ -1,0 +1,11 @@
+cluster_id,dag_name
+0,dlk_oreilly
+0,dlk_datacamp
+0,dlk_health_score
+1,gob_ausentismos_diarios
+1,gob_feriados_chile
+1,dlk_coursera
+2,proc_ejemplos_operadores_databricks
+2,dash_validador_universal
+2,proc_linkedin_learning_report
+2,gob_maestro_talento
